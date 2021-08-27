@@ -16,6 +16,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import { Icon } from "react-native-elements";
+import AuthScreen from "./src/screens/AuthScreen";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -27,6 +28,7 @@ sagaMiddleware.run(rootSaga);
 // 여기서 스크린 props 정의
 export type RootBottomTabParamList = {
    Home: undefined;
+   Auth: undefined;
 };
 const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
@@ -48,6 +50,14 @@ export default function App() {
                            options={{
                               headerShown: false,
                               tabBarIcon: () => <Icon name="home" />,
+                           }}
+                        />
+                        <Tab.Screen
+                           name="Auth"
+                           component={AuthScreen}
+                           options={{
+                              headerShown: false,
+                              tabBarIcon: () => <Icon name="lock" />,
                            }}
                         />
                      </Tab.Navigator>
