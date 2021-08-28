@@ -2,14 +2,33 @@ import React from "react";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { RootBottomTabParamList } from "../../App";
 import AuthContainer from "../components/auth/container/AuthContainer";
+import { createStackNavigator } from "@react-navigation/stack";
+import SigninContainer from "../components/auth/container/SigninContainer";
 
-// 이거처럼 해서 뽑아서 Params 타입으로 하면 됨.
 type Props = BottomTabScreenProps<RootBottomTabParamList, "Auth">;
 
-// 이건 navigation 타입.
 export type BottomTabNavigation = Props["navigation"];
 
+export type AuthStackScreenParamList = {
+   Login: undefined;
+   Signin: undefined;
+};
+const Stack = createStackNavigator<AuthStackScreenParamList>();
+
 function AuthScreen({ navigation }: Props) {
-   return <AuthContainer navigation={navigation} />;
+   return (
+      <Stack.Navigator initialRouteName="Login">
+         <Stack.Screen
+            name="Login"
+            component={AuthContainer}
+            options={{ headerShown: false }}
+         />
+         <Stack.Screen
+            name="Signin"
+            component={SigninContainer}
+            options={{ title: "회원가입" }}
+         />
+      </Stack.Navigator>
+   );
 }
 export default AuthScreen;

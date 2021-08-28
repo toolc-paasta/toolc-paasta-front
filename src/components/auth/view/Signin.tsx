@@ -1,30 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, Icon, Input } from "react-native-elements";
+import { Button, Input } from "react-native-elements";
+import { Icon } from "react-native-elements/dist/icons/Icon";
 import { ScrollView } from "react-native-gesture-handler";
-import { userInfoType } from "../container/AuthContainer";
+import { signInInfoType } from "../container/SigninContainer";
 
 type AuthProps = {
-   userInfo: userInfoType;
-   errMsg: userInfoType;
+   userInfo: signInInfoType;
+   errMsg: signInInfoType;
    onChange: (name: string, value: string) => void;
-   onPressLogin: () => void;
-   goToSignin: () => void;
 };
 
-function Auth({
-   userInfo,
-   errMsg,
-   onChange,
-   onPressLogin,
-   goToSignin,
-}: AuthProps) {
+function Signin({ userInfo, errMsg, onChange }: AuthProps) {
    return (
       <ScrollView style={styles.container} enabled>
          <View style={styles.insideContainer}>
-            <View style={styles.headerContainer}>
-               <Text style={styles.header}>로그인</Text>
-            </View>
             <View style={styles.inputContainer}>
                <Input
                   placeholder={"아이디"}
@@ -45,28 +35,22 @@ function Auth({
                   errorMessage={errMsg.password}
                   errorStyle={styles.err}
                />
-
-               <View style={styles.buttonContainer}>
-                  <Button
-                     title={"회원가입"}
-                     type="clear"
-                     containerStyle={styles.button}
-                     titleStyle={{ color: "black" }}
-                     onPress={goToSignin}
-                  />
-                  <Button
-                     title={"로그인"}
-                     onPress={onPressLogin}
-                     containerStyle={styles.button}
-                  />
-               </View>
+               <Input
+                  placeholder={"비밀번호 확인"}
+                  leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
+                  secureTextEntry={true}
+                  style={styles.input}
+                  value={userInfo.passwordCheck}
+                  errorMessage={errMsg.passwordCheck}
+                  onChangeText={(value) => onChange("passwordCheck", value)}
+                  errorStyle={styles.err}
+               />
             </View>
          </View>
       </ScrollView>
    );
 }
-
-export default Auth;
+export default Signin;
 
 const styles = StyleSheet.create({
    container: {
@@ -79,14 +63,6 @@ const styles = StyleSheet.create({
    },
    err: {
       color: "red",
-   },
-   headerContainer: {
-      height: 100,
-      alignItems: "center",
-   },
-   header: {
-      fontSize: 32,
-      fontWeight: "600",
    },
    inputContainer: {
       width: "100%",
@@ -101,12 +77,6 @@ const styles = StyleSheet.create({
       width: 110,
       position: "absolute",
       left: 0,
-   },
-   buttonContainer: {
-      flexDirection: "row",
-      justifyContent: "flex-end",
-      width: "100%",
-      marginTop: 30,
    },
    info: {
       paddingTop: 30,

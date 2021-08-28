@@ -1,10 +1,9 @@
 import { userInfoType } from "../../components/auth/container/AuthContainer";
+import { signInInfoType } from "../../components/auth/container/SigninContainer";
 
-type setErrMsg = (
-   value: userInfoType | ((prevState: userInfoType) => userInfoType)
-) => void;
+type setErrMsg<T> = (value: T | ((prevState: T) => T)) => void;
 
-export default function handleError(code: string, setErrMsg: setErrMsg) {
+export default function handleError<T>(code: string, setErrMsg: setErrMsg<T>) {
    switch (code) {
       case "blank_id":
          setErrMsg((prev) => ({
@@ -66,47 +65,49 @@ export default function handleError(code: string, setErrMsg: setErrMsg) {
    }
 }
 
-export const checkLoginInfo = (
-   info: userInfoType,
-   setErrMsg: setErrMsg,
+export const checkLoginInfo = <
+   T extends { id: string; password: string; passwordCheck?: string }
+>(
+   info: T,
+   setErrMsg: setErrMsg<T>,
    isLogin: boolean
 ) => {
    if (!info.id) {
-      handleError("blank_id", setErrMsg);
+      handleError<T>("blank_id", setErrMsg);
       return false;
    } else if (!info.password) {
-      handleError("blank_password", setErrMsg);
+      handleError<T>("blank_password", setErrMsg);
       return false;
    } else if (!testPassword(info.password)) {
-      handleError("password_not_formmatted", setErrMsg);
+      handleError<T>("password_not_formmatted", setErrMsg);
       return false;
    }
    if (!isLogin) {
       if (info.password !== info.passwordCheck) {
-         handleError("not_match_password_and_check", setErrMsg);
+         handleError<T>("not_match_password_and_check", setErrMsg);
          return false;
       }
    }
    return true;
 };
-export const checkPassword = (password: string, setErrMsg: setErrMsg) => {
+export const checkPassword = <T>(password: string, setErrMsg: setErrMsg<T>) => {
    if (!password) {
-      handleError("blank_password", setErrMsg);
+      handleError<T>("blank_password", setErrMsg);
       return false;
    } else if (!testPassword(password)) {
-      handleError("password_not_formmatted", setErrMsg);
+      handleError<T>("password_not_formmatted", setErrMsg);
       return false;
    }
    return true;
 };
 
-export const catchError = (
+export const catchError = <T>(
    code: string,
-   setErrMsg: setErrMsg,
+   setErrMsg: setErrMsg<T>,
    lastSection: string
 ) => {
    if (!handleError(code, setErrMsg)) {
-      setErrMsg((prev: userInfoType) => ({
+      setErrMsg((prev) => ({
          ...prev,
          [lastSection]: "알 수 없는 에러가 발생했습니다. 다시 시도해주세요.",
       }));
