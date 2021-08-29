@@ -6,14 +6,10 @@ import { SERVER_ERROR } from "../../../lib/utils/strings";
 import { loading, unloading } from "../../../modules/loading";
 import { setSnackbar } from "../../../modules/snackbar";
 import { AuthStackScreenParamList } from "../../../screens/AuthScreen";
+import { userInfoType } from "../types";
 import Auth from "../view/Auth";
 
 type Props = StackScreenProps<AuthStackScreenParamList, "Login">;
-
-export type userInfoType = {
-   id: string;
-   password: string;
-};
 
 function AuthContainer({ navigation }: Props) {
    const [userInfo, setUserInfo] = useState<userInfoType>({

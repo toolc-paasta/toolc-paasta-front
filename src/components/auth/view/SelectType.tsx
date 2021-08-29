@@ -27,6 +27,7 @@ function SelectType({ onSelectType, userType }: Props) {
          <View style={styles.typesContainer}>
             {cardDatas.map((item, idx) => (
                <Pressable
+                  key={idx}
                   style={[
                      styles.cardContainer,
                      {

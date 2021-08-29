@@ -5027,7 +5027,7 @@ promise@^8.0.3:
   dependencies:
     asap "~2.0.6"
 
-prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -5133,6 +5133,13 @@ react-native-loading-spinner-overlay@^2.0.0:
   integrity sha512-V38M+N1Wk9GlpbfrD6znsJA1K2+09b3naxq3UjDjqNTA3MOBfj4W87alKSI3P+4ZawczQASTv2fTzhEQ7Z+SVA==
   dependencies:
     prop-types "^15.6.2"
+
+react-native-modal-selector@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-modal-selector/-/react-native-modal-selector-2.0.8.tgz#6f1ebd93cbc4875621e441683433d613dfa587a8"
+  integrity sha512-8+ZpoR6VgzjggUwGgbitRHtsyhqOVOGWhyFPoMiqO4bo0whcFkxH5oM3chl7EvhLiGboP39XkE5Y2acESNblYQ==
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-pager-view@5.0.12:
   version "5.0.12"

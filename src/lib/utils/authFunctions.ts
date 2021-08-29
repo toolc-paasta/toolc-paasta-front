@@ -1,6 +1,3 @@
-import { userInfoType } from "../../components/auth/container/AuthContainer";
-import { signInInfoType } from "../../components/auth/container/SigninContainer";
-
 type setErrMsg<T> = (value: T | ((prevState: T) => T)) => void;
 
 export default function handleError<T>(code: string, setErrMsg: setErrMsg<T>) {

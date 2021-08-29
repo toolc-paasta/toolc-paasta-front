@@ -9,19 +9,32 @@ type Props = {
    goPrev: () => void;
 };
 
-export default function NaviButtons({ goNext, goPrev, position, last }: Props) {
+function NaviButtons({ goNext, goPrev, position, last }: Props) {
    return (
       <View
          style={{
             width: "100%",
             flexDirection: "row",
-            justifyContent: "space-between",
             padding: 20,
          }}>
          {position !== 0 && (
-            <Button title="이전" onPress={goPrev} type="clear" />
+            <Button
+               title="이전"
+               onPress={goPrev}
+               type="clear"
+               containerStyle={{ position: "absolute", left: 20 }}
+            />
          )}
-         {!last && <Button title="다음" onPress={goNext} type="clear" />}
+         {!last && (
+            <Button
+               title="다음"
+               onPress={goNext}
+               type="clear"
+               containerStyle={{ position: "absolute", right: 20 }}
+            />
+         )}
       </View>
    );
 }
+
+export default React.memo(NaviButtons);

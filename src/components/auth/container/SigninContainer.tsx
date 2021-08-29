@@ -13,20 +13,18 @@ import StepIndicator from "react-native-step-indicator";
 import { useRef } from "react";
 import SelectType from "../view/SelectType";
 import NaviButtons from "../elements/naviButtons";
+import { areaInfoType, childInfoType, signInInfoType } from "../types";
+import InputChild from "../view/InputChild";
+import { useCallback } from "react";
+import FindKindergarden from "../view/FindKindergarden";
 
 type Props = StackScreenProps<AuthStackScreenParamList, "Signin">;
 
-export type signInInfoType = {
-   id: string;
-   password: string;
-   passwordCheck: string;
-};
-
 const labels: string[][] = [
-   ["기본정보", "선택", "아이등록", "완료"],
-   ["기본정보", "선택", "완료"],
-   ["기본정보", "선택", "인증", "완료"],
-   ["기본정보", "선택"],
+   ["선택", "아이등록", "기본정보"],
+   ["선택", "기본정보"],
+   ["선택", "유치원 선택", "기본정보"],
+   ["선택"],
 ];
 const customStyles = {
    stepStrokeFinishedColor: "#2196f3",
@@ -59,13 +57,59 @@ function SigninContainer({ navigation }: Props) {
       passwordCheck: "",
    });
    const [userType, setUserType] = useState<number>(3);
+   const [childInfo, setChildInfo] = useState<childInfoType>({
+      name: "",
+      sex: "",
+      birth: [""],
+   });
    const [position, setPosition] = useState<number>(0);
+   const [areaInfo, setAreaInfo] = useState<areaInfoType>({
+      state: 0,
+      area: 0,
+   });
+   const [kinder, setKinder] = useState();
+
    const dispatch = useDispatch();
    const pagerRef: any = useRef<typeof PagerView>(null);
 
    const onChange = (name: string, value: string): void => {
       setErrMsg((prev) => ({ ...prev, [name]: "" }));
       setUserInfo((prev) => ({ ...prev, [name]: value }));
+   };
+   const onChangeChild = (name: string, value: string): void => {
+      if (name === "birth") {
+         if (value.length > 10) {
+            return;
+         }
+         const input = value.split("-");
+         let check = false;
+         input.forEach((item) => {
+            if (/[^0-9]/g.test(item)) {
+               check = true;
+            }
+         });
+         if (check) {
+            return;
+         }
+
+         if (input.length === 1 && input[0].length === 5) {
+            input[1] = input[0][4];
+            input[0] = input[0].slice(0, 4);
+         }
+         if (input.length === 2 && input[1]?.length === 3) {
+            input[2] = input[1][2];
+            input[1] = input[1].slice(0, 2);
+         }
+
+         if (input[1] && parseInt(input[1]) > 12) {
+            return;
+         } else if (input[2] && parseInt(input[2]) > 31) {
+            return;
+         }
+         setChildInfo((prev) => ({ ...prev, [name]: input }));
+      } else {
+         setChildInfo((prev) => ({ ...prev, [name]: value }));
+      }
    };
 
    const onPressLogin = async () => {
@@ -86,21 +130,21 @@ function SigninContainer({ navigation }: Props) {
       }
       dispatch(unloading());
    };
-   const goNext = (): void => {
+   const goNext = useCallback((): void => {
       pagerRef.current?.setPage(position + 1);
       setPosition((prev) => prev + 1);
-   };
-   const goPrev = (): void => {
+   }, [pagerRef, position]);
+   const goPrev = useCallback((): void => {
       pagerRef.current?.setPage(position - 1);
       setPosition((prev) => prev - 1);
-   };
-   const onSelectType = (num: number): void => {
+   }, [pagerRef, position]);
+   const onSelectType = useCallback((num: number): void => {
       setUserType(num);
-   };
+   }, []);
 
    return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
-         <View style={{ flex: 1, paddingTop: 30, paddingBottom: 10 }}>
+         <View style={{ height: 100, paddingTop: 30, paddingBottom: 10 }}>
             <StepIndicator
                customStyles={customStyles}
                currentPosition={position}
@@ -110,41 +154,44 @@ function SigninContainer({ navigation }: Props) {
          </View>
          <PagerView
             ref={pagerRef}
-            style={{ flex: 5, justifyContent: "center" }}
+            style={{ flex: 1, justifyContent: "center" }}
             initialPage={0}
             scrollEnabled={false}>
             <View key="1" style={{ flex: 1 }}>
-               <Signin
-                  userInfo={userInfo}
-                  errMsg={errMsg}
-                  onChange={onChange}
-               />
-            </View>
-            <View key="2" style={{ flex: 1 }}>
                <SelectType onSelectType={onSelectType} userType={userType} />
             </View>
             {userType !== 1 ? (
                userType !== 0 ? (
-                  <View key="3">
-                     <Text>원장</Text>
+                  <View key="2" style={{ flex: 1 }}>
+                     <FindKindergarden
+                        areaInfo={areaInfo}
+                        setAreaInfo={setAreaInfo}
+                     />
                   </View>
                ) : (
-                  <View key="3">
-                     <Text>학부모</Text>
+                  <View key="2" style={{ flex: 1 }}>
+                     <InputChild
+                        childInfo={childInfo}
+                        onChangeChild={onChangeChild}
+                     />
                   </View>
                )
             ) : (
                <></>
             )}
             {userType !== 3 ? (
-               <View key={`${labels[userType].length}`}>
-                  <Text>완료</Text>
+               <View key={`${labels[userType].length}`} style={{ flex: 1 }}>
+                  <Signin
+                     userInfo={userInfo}
+                     errMsg={errMsg}
+                     onChange={onChange}
+                  />
                </View>
             ) : (
                <></>
             )}
          </PagerView>
-         <View style={{ flex: 1 }}>
+         <View style={{ height: 50 }}>
             <NaviButtons
                position={position}
                goNext={goNext}

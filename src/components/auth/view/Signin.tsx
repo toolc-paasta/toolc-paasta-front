@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 import { ScrollView } from "react-native-gesture-handler";
-import { signInInfoType } from "../container/SigninContainer";
+import { signInInfoType } from "../types";
 
 type AuthProps = {
    userInfo: signInInfoType;
