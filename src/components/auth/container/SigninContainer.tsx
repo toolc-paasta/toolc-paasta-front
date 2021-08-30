@@ -13,10 +13,19 @@ import StepIndicator from "react-native-step-indicator";
 import { useRef } from "react";
 import SelectType from "../view/SelectType";
 import NaviButtons from "../elements/naviButtons";
-import { areaInfoType, childInfoType, signInInfoType } from "../types";
+import {
+   areaInfoType,
+   childInfoType,
+   errType,
+   kinderListType,
+   kinderType,
+   signInInfoType,
+} from "../types";
 import InputChild from "../view/InputChild";
 import { useCallback } from "react";
 import FindKindergarden from "../view/FindKindergarden";
+import axios from "axios";
+import { apiXmlToObject } from "../../../lib/utils/xmlParser";
 
 type Props = StackScreenProps<AuthStackScreenParamList, "Signin">;
 
@@ -60,14 +69,18 @@ function SigninContainer({ navigation }: Props) {
    const [childInfo, setChildInfo] = useState<childInfoType>({
       name: "",
       sex: "",
-      birth: [""],
+      birth: "",
    });
    const [position, setPosition] = useState<number>(0);
    const [areaInfo, setAreaInfo] = useState<areaInfoType>({
       state: 0,
       area: 0,
    });
-   const [kinder, setKinder] = useState();
+   const [kinderList, setKinderList] = useState<kinderListType | null>(null);
+   const [selectedKinder, setSelectedKinder] = useState<kinderType | null>(
+      null
+   );
+   const [birthErr, setBirthErr] = useState<string | undefined>();
 
    const dispatch = useDispatch();
    const pagerRef: any = useRef<typeof PagerView>(null);
@@ -78,35 +91,25 @@ function SigninContainer({ navigation }: Props) {
    };
    const onChangeChild = (name: string, value: string): void => {
       if (name === "birth") {
-         if (value.length > 10) {
+         if (value.length > 8) {
             return;
          }
-         const input = value.split("-");
-         let check = false;
-         input.forEach((item) => {
-            if (/[^0-9]/g.test(item)) {
-               check = true;
+         if (birthErr) {
+            setBirthErr("");
+         }
+         if (value.length === 8) {
+            if (parseInt(value.slice(6, 8)) > 31) {
+               setBirthErr("20180406 형식으로 입력해주세요.");
+               return;
             }
-         });
-         if (check) {
-            return;
+         } else if (value.length === 6) {
+            if (parseInt(value.slice(4, 6)) > 13) {
+               setBirthErr("20180406 형식으로 입력해주세요.");
+               return;
+            }
          }
 
-         if (input.length === 1 && input[0].length === 5) {
-            input[1] = input[0][4];
-            input[0] = input[0].slice(0, 4);
-         }
-         if (input.length === 2 && input[1]?.length === 3) {
-            input[2] = input[1][2];
-            input[1] = input[1].slice(0, 2);
-         }
-
-         if (input[1] && parseInt(input[1]) > 12) {
-            return;
-         } else if (input[2] && parseInt(input[2]) > 31) {
-            return;
-         }
-         setChildInfo((prev) => ({ ...prev, [name]: input }));
+         setChildInfo((prev) => ({ ...prev, [name]: value }));
       } else {
          setChildInfo((prev) => ({ ...prev, [name]: value }));
       }
@@ -142,6 +145,19 @@ function SigninContainer({ navigation }: Props) {
       setUserType(num);
    }, []);
 
+   const onSearchKinder = useCallback(async () => {
+      const key = "	f4c1bb8d56fb4d07923725f4458c8d09";
+      const res = await axios.get(
+         `http://api.childcare.go.kr/mediate/rest/cpmsapi021/cpmsapi021/request?key=${key}&arcode=${areaInfo.area}`
+      );
+      const ans = apiXmlToObject(res.data);
+      setKinderList(ans);
+   }, [areaInfo]);
+
+   const onPressKinder = useCallback((kinder) => {
+      setSelectedKinder(kinder);
+   }, []);
+
    return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
          <View style={{ height: 100, paddingTop: 30, paddingBottom: 10 }}>
@@ -166,6 +182,10 @@ function SigninContainer({ navigation }: Props) {
                      <FindKindergarden
                         areaInfo={areaInfo}
                         setAreaInfo={setAreaInfo}
+                        onSearchKinder={onSearchKinder}
+                        kinderList={kinderList}
+                        onPressKinder={onPressKinder}
+                        selectedKinder={selectedKinder}
                      />
                   </View>
                ) : (
@@ -173,6 +193,7 @@ function SigninContainer({ navigation }: Props) {
                      <InputChild
                         childInfo={childInfo}
                         onChangeChild={onChangeChild}
+                        birthErr={birthErr}
                      />
                   </View>
                )

@@ -7,9 +7,10 @@ import { childInfoType } from "../types";
 type Props = {
    childInfo: childInfoType;
    onChangeChild: (name: string, value: string) => void;
+   birthErr: string | undefined;
 };
 
-function InputChild({ childInfo, onChangeChild }: Props) {
+function InputChild({ childInfo, onChangeChild, birthErr }: Props) {
    return (
       <ScrollView style={styles.container}>
          <ListItem pad={10}>
@@ -60,11 +61,11 @@ function InputChild({ childInfo, onChangeChild }: Props) {
                   alignItems: "center",
                }}>
                <Input
-                  placeholder="2018-04-29"
-                  value={childInfo.birth.join("-")}
+                  placeholder="20180429"
+                  value={childInfo.birth}
                   onChangeText={(v) => onChangeChild("birth", v)}
                   containerStyle={{ width: 200 }}
-                  renderErrorMessage={false}
+                  errorMessage={birthErr}
                />
             </ListItem.Content>
          </ListItem>

@@ -23,7 +23,15 @@ const cardDatas: cardType[] = [
 
 function SelectType({ onSelectType, userType }: Props) {
    return (
-      <View style={{ flex: 1, paddingTop: 100 }}>
+      <View style={{ flex: 1, paddingTop: 80 }}>
+         <View
+            style={{
+               justifyContent: "center",
+               alignItems: "center",
+               paddingBottom: 30,
+            }}>
+            <Text style={{ fontSize: 20 }}>어느 분이신가요?</Text>
+         </View>
          <View style={styles.typesContainer}>
             {cardDatas.map((item, idx) => (
                <Pressable
