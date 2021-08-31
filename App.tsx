@@ -15,8 +15,10 @@ import AppInit from "./AppInit";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
+import LiveScreen from "./src/screens/LiveScreen";
 import { Icon } from "react-native-elements";
-
+import Icon2 from 'react-native-vector-icons/Ionicons';
+import { useFonts } from 'expo-font';
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
    rootReducer,
@@ -31,6 +33,11 @@ export type RootBottomTabParamList = {
 const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
 export default function App() {
+
+   const [loaded] = useFonts({
+      Font: require('./assets/Font.ttf'),
+    });
+
    return (
       <SafeAreaProvider>
          <StatusBar style="auto" />
@@ -50,7 +57,16 @@ export default function App() {
                               tabBarIcon: () => <Icon name="home" />,
                            }}
                         />
+                         <Tab.Screen
+                           name="Live"
+                           component={LiveScreen}
+                           options={{
+                              headerShown: false,
+                              tabBarIcon: () => <Icon name='home'/>,
+                           }}
+                        />
                      </Tab.Navigator>
+                     
                   </NavigationContainer>
                </AppInit>
             </Provider>
