@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet,TouchableOpacity,Dimensions } from 'react-native';
-import { btns } from './data';
+import { btns_for_pr } from './data';
+import { btns_for_ad } from './data';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function MenuWithBtns() {
+
+export default function MenuWithBtns({user_type}) {
+
+  const [type,setType] = useState()
+
+  useEffect(() => {
+    user_type==='pr' ? setType(btns_for_pr) : setType(btns_for_ad)
+  }, []);
 
   return (
     <>
       <Text style={styles.articleMainText}>바로가기 메뉴</Text>
       <View style={styles.row}>
-        {btns.map((item, i) => (
+        {type?.map((item, i) => (
           <View style={styles.btnContainer} key={i}>
             <TouchableOpacity style={styles.btn}>
                 <Icon

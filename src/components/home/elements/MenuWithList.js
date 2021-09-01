@@ -4,6 +4,26 @@ import { current_list } from './data';
 
 export default function MenuWithList() {
 
+  const [date,SetDate] = useState(new Date());
+
+  const makeTime = (t) => {
+    const sec = Math.floor((date.getTime()-t.getTime())/1000)
+    let temp = sec
+    let count = 0
+    const unit=['초','분','시간','일']
+    while(temp>24){
+      if(count<2 && temp>60)
+        temp = parseInt(temp/60)
+      else if(count>=2)
+        temp = parseInt(temp/24)
+      else
+        return (temp+unit[count])
+      count++
+      
+    }
+    return (temp+unit[count])
+    
+  }
 
   return (
     <>
@@ -13,7 +33,7 @@ export default function MenuWithList() {
           <View style={styles.list} key={i}>
             <Text style={styles.mainText}>{item.title}</Text>
             <Text style={styles.subText} numberOfLines={1}>{item.content}</Text>
-            <Text style={styles.newText}>N</Text>
+            <Text style={styles.timeText}>{makeTime(item.time)} 전</Text>
           </View>  
         ))}
       </View>
@@ -41,16 +61,13 @@ const styles = StyleSheet.create({
   subText:{
       width:150,
   },
-  newText:{
-    borderRadius:10,
-    backgroundColor:'red',
-    color:'#fff',
+  timeText:{
     position:'absolute',
     right:5,
     fontSize:12,
-    textAlign:'center',
+    textAlign:'right',
     paddingTop:1,
-    width:20,
+    width:50,
     height:20
   },
   articleMainText:{

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import MenuWithBtns from '../elements/MenuWithBtns.js';
 import MenuWithList from '../elements/MenuWithList.js';
 import { temp_data } from '../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const AUTH = temp_data.auth
+const TYPE = temp_data.type
 
 export default function Home() {
   
-  const [isAuth,setIsAuth] = useState(true);
+  const [isAuth,setIsAuth] = useState(temp_data.auth);
 
   return (
     <View style={styles.container}>
@@ -28,10 +28,10 @@ export default function Home() {
           </View>
         </View>
         <View style={styles.articleTop}>
-          <Text style={styles.articleTopText}>{temp_data.user_name} {AUTH=='pr' ? '학부모님' : (AUTH=='tc' ? '교사님' : '원장님' ) }, 안녕하세요</Text>          
+          <Text style={styles.articleTopText}>{temp_data.user_name} {TYPE=='pr' ? '학부모님' : (TYPE=='tc' ? '교사님' : '원장님' ) }, 안녕하세요</Text>          
         </View>
         <View style={styles.articleMain}>
-          <MenuWithBtns/>
+          <MenuWithBtns user_type={TYPE}/>
         </View>
         <View style={styles.articleMain}>
           <MenuWithList/>
@@ -43,6 +43,9 @@ export default function Home() {
         <Text style={styles.blankText}>등록된 유치원이 없습니다. </Text>
         <Text style={styles.blankText}>먼저 등록을 해야 서비스를 </Text>
         <Text style={styles.blankText}>이용할 수 있습니다. </Text>
+        <TouchableOpacity style={styles.blackBtn} onPress={()=>console.log('click!')}>
+          <Text style={[styles.blankText,styles.blankBtnText]}>유치원 인증하기</Text>
+        </TouchableOpacity>
       </View>
     )}
     </View>
@@ -64,6 +67,21 @@ const styles = StyleSheet.create({
   blankText:{
     fontSize:25,
     paddingBottom:10
+  },
+  blackBtn:{
+    marginTop:10,
+    borderRadius:10,
+    backgroundColor:'#FFA500',
+    width:150,
+    height:60,
+    justifyContent: 'center',
+    
+  },
+  blankBtnText:{
+    fontSize:18,
+    textAlign:'center',
+    color:'#fff',
+    fontWeight:'bold'
   },
   header:{
     height:50,
@@ -88,7 +106,7 @@ const styles = StyleSheet.create({
   },
   articleTopText:{
     fontSize:20,
-    width:230,
+    width:250,
     fontFamily:'Font',
   },
   articleMain:{
