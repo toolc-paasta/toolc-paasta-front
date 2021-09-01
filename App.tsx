@@ -16,9 +16,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import LiveScreen from "./src/screens/LiveScreen";
-import SearchScreen from './src/screens/SearchScreen'
+import SearchScreen from "./src/screens/SearchScreen";
 import { Icon } from "react-native-elements";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -36,10 +36,9 @@ export type RootBottomTabParamList = {
 const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
 export default function App() {
-
    const [loaded] = useFonts({
-      Font: require('./assets/Font.ttf'),
-    });
+      Font: require("./assets/Font.ttf"),
+   });
 
    return (
       <SafeAreaProvider>
@@ -60,7 +59,7 @@ export default function App() {
                               tabBarIcon: () => <Icon name="home" />,
                            }}
                         />
-                        
+
                         <Tab.Screen
                            name="Auth"
                            component={AuthScreen}
@@ -78,7 +77,6 @@ export default function App() {
                            }}
                         />
                      </Tab.Navigator>
-                     
                   </NavigationContainer>
                </AppInit>
             </Provider>
