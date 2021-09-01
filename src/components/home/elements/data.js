@@ -24,9 +24,9 @@ export const btns_for_ad = [
 ];
 
 export const current_list = [
-{time: new Date(2021, 8, 1, 11, 30, 5), title: '학부모 게시판', content:'wow'},
-{time: new Date(2021, 8, 1, 11, 4, 5), title: '가정통신문 확인', content:'네 알려드렸습니다~~'},
-{time: new Date(2021, 8, 1, 3, 4, 5), title: '학부모 게시판', content:'응애'},
-{time: new Date(2021, 7, 28, 3, 4, 5), title: '가정통신문 확인', content:'0829 알려드립니다'},
-{time: new Date(2021, 7, 27, 3, 4, 5), title: '비트코인 갤러리', content:'이더리움 클래식 수익율 500% 인증 ㅋㅋ'},
+  {time: new Date(2021, 8, 1, 11, 30, 5), title: '학부모 게시판', content:'wow'},
+  {time: new Date(2021, 8, 1, 11, 4, 5), title: '가정통신문 확인', content:'네 알려드렸습니다~~'},
+  {time: new Date(2021, 8, 1, 3, 4, 5), title: '학부모 게시판', content:'응애'},
+  {time: new Date(2021, 7, 28, 3, 4, 5), title: '가정통신문 확인', content:'0829 알려드립니다'},
+  {time: new Date(2021, 7, 27, 3, 4, 5), title: '비트코인 갤러리', content:'이더리움 클래식 수익율 500% 인증 ㅋㅋ'},
 ];
