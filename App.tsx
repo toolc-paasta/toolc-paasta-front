@@ -16,6 +16,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import LiveScreen from "./src/screens/LiveScreen";
+import SearchScreen from './src/screens/SearchScreen'
 import { Icon } from "react-native-elements";
 import { useFonts } from 'expo-font';
 import AuthScreen from "./src/screens/AuthScreen";
@@ -30,6 +31,7 @@ sagaMiddleware.run(rootSaga);
 export type RootBottomTabParamList = {
    Home: undefined;
    Auth: undefined;
+   Search: undefined;
 };
 const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
@@ -65,6 +67,14 @@ export default function App() {
                            options={{
                               headerShown: false,
                               tabBarIcon: () => <Icon name="lock" />,
+                           }}
+                        />
+                        <Tab.Screen
+                           name="Search"
+                           component={SearchScreen}
+                           options={{
+                              headerShown: false,
+                              tabBarIcon: () => <Icon name="home" />,
                            }}
                         />
                      </Tab.Navigator>
