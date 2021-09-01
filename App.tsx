@@ -57,7 +57,14 @@ export default function App() {
                               tabBarIcon: () => <Icon name="home" />,
                            }}
                         />
-                        
+                         <Tab.Screen
+                           name="Live"
+                           component={LiveScreen}
+                           options={{
+                              headerShown: false,
+                              tabBarIcon: () => <Icon name='home'/>,
+                           }}
+                        />
                      </Tab.Navigator>
                      
                   </NavigationContainer>
