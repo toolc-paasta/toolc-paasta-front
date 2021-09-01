@@ -21,6 +21,7 @@ import { useFonts } from 'expo-font';
 import AuthScreen from "./src/screens/AuthScreen";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
+   rootReducer,
    composeWithDevTools(applyMiddleware(sagaMiddleware, logger))
 );
 sagaMiddleware.run(rootSaga);
