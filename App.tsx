@@ -17,11 +17,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import LiveScreen from "./src/screens/LiveScreen";
 import { Icon } from "react-native-elements";
-import Icon2 from 'react-native-vector-icons/Ionicons';
 import { useFonts } from 'expo-font';
+import AuthScreen from "./src/screens/AuthScreen";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-   rootReducer,
    composeWithDevTools(applyMiddleware(sagaMiddleware, logger))
 );
 sagaMiddleware.run(rootSaga);
@@ -29,6 +28,7 @@ sagaMiddleware.run(rootSaga);
 // 여기서 스크린 props 정의
 export type RootBottomTabParamList = {
    Home: undefined;
+   Auth: undefined;
 };
 const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
@@ -57,12 +57,13 @@ export default function App() {
                               tabBarIcon: () => <Icon name="home" />,
                            }}
                         />
-                         <Tab.Screen
-                           name="Live"
-                           component={LiveScreen}
+                        
+                        <Tab.Screen
+                           name="Auth"
+                           component={AuthScreen}
                            options={{
                               headerShown: false,
-                              tabBarIcon: () => <Icon name='home'/>,
+                              tabBarIcon: () => <Icon name="lock" />,
                            }}
                         />
                      </Tab.Navigator>
