@@ -16,7 +16,7 @@ function HomeContainer({ navigation }: Props) {
       dispatch(setSnackbar({ visible: true, snackbar: "테스트" }));
    }, []);
 
-   return <Home />;
+   return <Home navigation={navigation}/>;
 }
 
 export default HomeContainer;

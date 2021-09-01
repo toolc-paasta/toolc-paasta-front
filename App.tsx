@@ -15,6 +15,7 @@ import AppInit from "./AppInit";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
+import SearchScreen from './src/screens/SearchScreen'
 import { Icon } from "react-native-elements";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -27,6 +28,7 @@ sagaMiddleware.run(rootSaga);
 // 여기서 스크린 props 정의
 export type RootBottomTabParamList = {
    Home: undefined;
+   Search: undefined;
 };
 const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
@@ -45,6 +47,14 @@ export default function App() {
                         <Tab.Screen
                            name="Home"
                            component={HomeScreen}
+                           options={{
+                              headerShown: false,
+                              tabBarIcon: () => <Icon name="home" />,
+                           }}
+                        />
+                        <Tab.Screen
+                           name="Search"
+                           component={SearchScreen}
                            options={{
                               headerShown: false,
                               tabBarIcon: () => <Icon name="home" />,
