@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, Input } from "react-native-elements";
-import { Icon } from "react-native-elements/dist/icons/Icon";
+import { Button, Input, ListItem, Icon } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import { signInInfoType } from "../types";
 
@@ -9,22 +8,67 @@ type AuthProps = {
    userInfo: signInInfoType;
    errMsg: signInInfoType;
    onChange: (name: string, value: string) => void;
+   selectGender: (v: number) => void;
 };
 
-function Signin({ userInfo, errMsg, onChange }: AuthProps) {
+function Signin({ userInfo, errMsg, onChange, selectGender }: AuthProps) {
    return (
       <ScrollView style={styles.container} enabled>
          <View style={styles.insideContainer}>
             <View style={styles.inputContainer}>
                <Input
                   placeholder={"아이디"}
-                  leftIcon={<Icon name="user" type="font-awesome" size={24} />}
+                  leftIcon={
+                     <Icon name="id-card" type="font-awesome" size={24} />
+                  }
                   value={userInfo.id}
                   style={styles.input}
                   errorMessage={errMsg.id}
                   onChangeText={(value) => onChange("id", value)}
                   errorStyle={styles.err}
                />
+               <Input
+                  placeholder={"성함"}
+                  leftIcon={<Icon name="perm-identity" size={24} />}
+                  value={userInfo.name}
+                  style={styles.input}
+                  errorMessage={errMsg.name}
+                  onChangeText={(value) => onChange("name", value)}
+                  errorStyle={styles.err}
+               />
+               <ListItem containerStyle={{ padding: 10, paddingBottom: 20 }}>
+                  <Icon name="wc" size={24} />
+                  <ListItem.Content
+                     style={{
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                     }}>
+                     <Button
+                        title="남자"
+                        type="outline"
+                        onPress={() => selectGender(0)}
+                        containerStyle={styles.buttonContainer}
+                        buttonStyle={{
+                           borderColor: userInfo.sex === 0 ? "#2196f3" : "gray",
+                        }}
+                        titleStyle={{
+                           color: userInfo.sex === 0 ? "#2196f3" : "gray",
+                        }}
+                     />
+                     <Button
+                        title="여자"
+                        type="outline"
+                        onPress={() => selectGender(1)}
+                        containerStyle={styles.buttonContainer}
+                        buttonStyle={{
+                           borderColor: userInfo.sex === 1 ? "#2196f3" : "gray",
+                        }}
+                        titleStyle={{
+                           color: userInfo.sex === 1 ? "#2196f3" : "gray",
+                        }}
+                     />
+                  </ListItem.Content>
+               </ListItem>
                <Input
                   placeholder={"비밀번호"}
                   leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
@@ -70,8 +114,11 @@ const styles = StyleSheet.create({
    input: {
       paddingLeft: 10,
    },
+   buttonContainer: {
+      width: "30%",
+   },
    button: {
-      width: 100,
+      borderColor: "gray",
    },
    buttonPwReset: {
       width: 110,

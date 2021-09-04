@@ -1,6 +1,5 @@
 import AppLoading from "expo-app-loading";
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./src/modules";
@@ -8,8 +7,9 @@ import SnackBar from "rn-animated-snackbar";
 import { clearSnackbar } from "./src/modules/snackbar";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import { Platform } from "react-native";
+import { Alert, Platform } from "react-native";
 import { setToken } from "./src/modules/pushToken";
+import { navigateTo } from "./RootNavigation";
 
 type Props = {
    children: JSX.Element;
@@ -21,6 +21,29 @@ export default function AppInit({ children }: Props) {
    const snackbarState = useSelector(({ snackbar }: RootState) => snackbar);
 
    const dispatch = useDispatch();
+
+   useEffect(() => {
+      // 끄면 작동을 안함
+      const subscription_fore = Notifications.addNotificationReceivedListener(
+         (notification) => {
+            const data = notification.request.content.data;
+            if (data.type === "navigate") {
+               navigateTo(data.to, data.params || {});
+            }
+         }
+      );
+      const subscription_back =
+         Notifications.addNotificationResponseReceivedListener((res) => {
+            const data = res.notification.request.content.data;
+            if (data.type === "navigate") {
+               navigateTo(data.to, data.params || {});
+            }
+         });
+      return () => {
+         subscription_fore.remove();
+         subscription_back.remove();
+      };
+   }, []);
 
    const preload = async (): Promise<void> => {
       try {

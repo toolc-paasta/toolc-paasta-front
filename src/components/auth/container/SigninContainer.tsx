@@ -59,11 +59,15 @@ function SigninContainer({ navigation }: Props) {
       password: "",
       passwordCheck: "",
       id: "",
+      name: "",
+      sex: -1,
    });
    const [errMsg, setErrMsg] = useState<signInInfoType>({
       id: "",
       password: "",
       passwordCheck: "",
+      name: "",
+      sex: -1,
    });
    const [userType, setUserType] = useState<number>(3);
    const [childInfo, setChildInfo] = useState<childInfoType>({
@@ -114,6 +118,9 @@ function SigninContainer({ navigation }: Props) {
          setChildInfo((prev) => ({ ...prev, [name]: value }));
       }
    };
+   const selectGender = (v: number) => {
+      setUserInfo((prev) => ({ ...prev, sex: v }));
+   };
 
    const onPressLogin = async () => {
       if (!checkLoginInfo<signInInfoType>(userInfo, setErrMsg, false)) return;
@@ -122,9 +129,9 @@ function SigninContainer({ navigation }: Props) {
       try {
          // const res = await SignUp(userInfo.id, userInfo.password);
          // dispatch(signin(res));
-      } catch (err) {
+      } catch (err: any) {
          // 중복 아이디 처리
-         if (err.message === "ID가 중복된 회원입니다.") {
+         if (err?.message === "ID가 중복된 회원입니다.") {
             handleError<signInInfoType>("auth/id-already-in-use", setErrMsg);
          } else {
             dispatch(setSnackbar({ visible: true, snackbar: SERVER_ERROR }));
@@ -157,7 +164,6 @@ function SigninContainer({ navigation }: Props) {
    const onPressKinder = useCallback((kinder) => {
       setSelectedKinder(kinder);
    }, []);
-
    return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
          <View style={{ height: 100, paddingTop: 30, paddingBottom: 10 }}>
@@ -206,6 +212,7 @@ function SigninContainer({ navigation }: Props) {
                      userInfo={userInfo}
                      errMsg={errMsg}
                      onChange={onChange}
+                     selectGender={selectGender}
                   />
                </View>
             ) : (

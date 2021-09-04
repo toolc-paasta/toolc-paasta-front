@@ -1,3 +1,5 @@
+import { signInInfoType, userInfoType } from "../../components/auth/types";
+
 type setErrMsg<T> = (value: T | ((prevState: T) => T)) => void;
 
 export default function handleError<T>(code: string, setErrMsg: setErrMsg<T>) {
@@ -57,14 +59,24 @@ export default function handleError<T>(code: string, setErrMsg: setErrMsg<T>) {
             password: "기존 비밀번호와 같은 비밀번호입니다.",
          }));
          return true;
+      case "blank_name":
+         setErrMsg((prev) => ({
+            ...prev,
+            name: "이름을 입력해주세요.",
+         }));
+         return true;
+      case "blank_gender":
+         setErrMsg((prev) => ({
+            ...prev,
+            name: "성별을 선택해주세요",
+         }));
+         return true;
       default:
          return false;
    }
 }
 
-export const checkLoginInfo = <
-   T extends { id: string; password: string; passwordCheck?: string }
->(
+export const checkLoginInfo = <T extends Partial<signInInfoType>>(
    info: T,
    setErrMsg: setErrMsg<T>,
    isLogin: boolean
@@ -82,6 +94,12 @@ export const checkLoginInfo = <
    if (!isLogin) {
       if (info.password !== info.passwordCheck) {
          handleError<T>("not_match_password_and_check", setErrMsg);
+         return false;
+      } else if (!info.name) {
+         handleError<T>("blank_name", setErrMsg);
+         return false;
+      } else if (info.sex === -1) {
+         handleError<T>("blank_gender", setErrMsg);
          return false;
       }
    }

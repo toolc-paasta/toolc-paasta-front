@@ -20,6 +20,7 @@ import SearchScreen from "./src/screens/SearchScreen";
 import { Icon } from "react-native-elements";
 import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
+import { navigationRef } from "./RootNavigation";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
    rootReducer,
@@ -49,7 +50,9 @@ export default function App() {
             }}>
             <Provider store={store}>
                <AppInit>
-                  <NavigationContainer documentTitle={{ enabled: false }}>
+                  <NavigationContainer
+                     ref={navigationRef}
+                     documentTitle={{ enabled: false }}>
                      <Tab.Navigator initialRouteName="Home">
                         <Tab.Screen
                            name="Home"

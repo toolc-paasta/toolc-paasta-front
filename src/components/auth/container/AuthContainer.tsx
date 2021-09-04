@@ -34,7 +34,7 @@ function AuthContainer({ navigation }: Props) {
       try {
          //     const res = await login(userInfo.id, userInfo.password);
          //      dispatch(signin(res));
-      } catch (err) {
+      } catch (err: any) {
          // 비밀번호, 아이디 처리
          if (err.message === "비밀번호가 일치하지 않습니다.") {
             handleError<userInfoType>("auth/wrong-password", setErrMsg);

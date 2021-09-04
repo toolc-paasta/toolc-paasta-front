@@ -5,6 +5,8 @@ export type userInfoType = {
 
 export type signInInfoType = {
    id: string;
+   name: string;
+   sex: number;
    password: string;
    passwordCheck: string;
 };
