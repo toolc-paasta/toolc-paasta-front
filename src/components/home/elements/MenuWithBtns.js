@@ -5,13 +5,13 @@ import { btns_for_ad } from './data';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-export default function MenuWithBtns({type}) {
+export default function MenuWithBtns({user_type,navigation}) {
 
   const [authType,setAuthType] = useState()
   
   useEffect(() => {
-    console.log(type)
-    type==='pr' ? setAuthType(btns_for_pr) : setAuthType(btns_for_ad)
+    console.log(user_type)
+    user_type==='pr' ? setAuthType(btns_for_pr) : setAuthType(btns_for_ad)
   }, []);
 
   return (
@@ -26,6 +26,7 @@ export default function MenuWithBtns({type}) {
                   size={35}
                   color="black"
                   style={styles.icon}
+                  onPress={() => navigation.navigate('List')}
                 />
             </TouchableOpacity>
             <View style={styles.textView}>
