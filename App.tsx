@@ -46,7 +46,7 @@ export default function App() {
          <StatusBar style="auto" />
          <SafeAreaView
             style={{
-               flex: 1,
+               flex: 1
             }}>
             <Provider store={store}>
                <AppInit>
