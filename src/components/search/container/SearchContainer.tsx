@@ -2,21 +2,21 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loading } from "../../../modules/loading";
-import { BottomTabNavigation } from "../../../screens/HomeScreen";
-import Home from "../view/Home";
+import { BottomTabNavigation } from "../../../screens/SearchScreen";
+import Search from "../view/Search";
 
 type Props = {
    navigation: BottomTabNavigation;
 };
 
-function HomeContainer({ navigation }: Props) {
+function SearchContainer({ navigation }: Props) {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      
+      dispatch(loading());
    }, []);
 
-   return <Home navigation={navigation} />;
+   return <Search navigation={navigation} />;
 }
 
-export default HomeContainer;
+export default SearchContainer;

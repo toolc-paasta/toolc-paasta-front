@@ -15,8 +15,13 @@ import AppInit from "./AppInit";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
+import LiveScreen from "./src/screens/LiveScreen";
+import SearchScreen from './src/screens/SearchScreen'
+import ListScreen from './src/screens/ListScreen'
 import { Icon } from "react-native-elements";
-
+import { useFonts } from "expo-font";
+import AuthScreen from "./src/screens/AuthScreen";
+import { navigationRef } from "./RootNavigation";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
    rootReducer,
@@ -27,24 +32,58 @@ sagaMiddleware.run(rootSaga);
 // 여기서 스크린 props 정의
 export type RootBottomTabParamList = {
    Home: undefined;
+   Auth: undefined;
+   Search: undefined;
+   List: undefined;
 };
 const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
 export default function App() {
+   const [loaded] = useFonts({
+      Font: require("./assets/Font.ttf"),
+   });
+
    return (
       <SafeAreaProvider>
          <StatusBar style="auto" />
          <SafeAreaView
             style={{
-               flex: 1,
+               flex: 1
             }}>
             <Provider store={store}>
                <AppInit>
-                  <NavigationContainer documentTitle={{ enabled: false }}>
+                  <NavigationContainer
+                     ref={navigationRef}
+                     documentTitle={{ enabled: false }}>
                      <Tab.Navigator initialRouteName="Home">
                         <Tab.Screen
                            name="Home"
                            component={HomeScreen}
+                           options={{
+                              headerShown: false,
+                              tabBarIcon: () => <Icon name="home" />,
+                           }}
+                        />
+
+                        <Tab.Screen
+                           name="Auth"
+                           component={AuthScreen}
+                           options={{
+                              headerShown: false,
+                              tabBarIcon: () => <Icon name="lock" />,
+                           }}
+                        />
+                        <Tab.Screen
+                           name="Search"
+                           component={SearchScreen}
+                           options={{
+                              headerShown: false,
+                              tabBarIcon: () => <Icon name="home" />,
+                           }}
+                        />
+                        <Tab.Screen
+                           name="List"
+                           component={ListScreen}
                            options={{
                               headerShown: false,
                               tabBarIcon: () => <Icon name="home" />,
