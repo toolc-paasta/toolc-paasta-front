@@ -5,26 +5,27 @@ import { btns_for_ad } from './data';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
-export default function MenuWithBtns({user_type}) {
+export default function MenuWithBtns({type}) {
 
-  const [type,setType] = useState()
-
+  const [authType,setAuthType] = useState()
+  
   useEffect(() => {
-    user_type==='pr' ? setType(btns_for_pr) : setType(btns_for_ad)
+    console.log(type)
+    type==='pr' ? setAuthType(btns_for_pr) : setAuthType(btns_for_ad)
   }, []);
 
   return (
     <>
       <Text style={styles.articleMainText}>바로가기 메뉴</Text>
       <View style={styles.row}>
-        {type?.map((item, i) => (
+        {authType?.map((item, i) => (
           <View style={styles.btnContainer} key={i}>
             <TouchableOpacity style={styles.btn}>
                 <Icon
-                    name={item.img}
-                    size={35}
-                    color="black"
-                    style={styles.icon}
+                  name={item.img}
+                  size={35}
+                  color="black"
+                  style={styles.icon}
                 />
             </TouchableOpacity>
             <View style={styles.textView}>
