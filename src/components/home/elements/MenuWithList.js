@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet} from 'react-native';
-import { current_list } from './data';
+import { current_list } from '../../elements/data';
 
 export default function MenuWithList() {
 

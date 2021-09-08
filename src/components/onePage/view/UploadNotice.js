@@ -1,30 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Dimensions, Text, View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import Header from '../../elements/Header'
 export default function UploadNotice() {
  
   const [title,setTitle] = useState()
   const [content,setContent] = useState()
+  const [isSubmit,setIsSubmit] = useState(false)
 
-  const onSubmit = () => {
-    console.log(title,content)
-  }
+  useEffect(() => {
+    if(isSubmit){
+      console.log('제출')
+      console.log(title,content)
+      setIsSubmit(false)
+    }
+  }, [isSubmit]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Icon 
-          style={styles.headerBtn}
-          name={'arrow-back-outline'}
-          size={35}
-          color="black"
-        />
-        <Text style={styles.headerText}>가정통신문</Text>
-        <TouchableOpacity style={styles.btn} onPress={()=>onSubmit()}>
-          <Text style={styles.btnText}>보내기</Text>
-        </TouchableOpacity>
-      </View>
+      <Header header_title={'가정통신문 보내기'} setIsSubmit={setIsSubmit}/>
       <View style={[styles.box, styles.box1]}>
         <TextInput
           style={styles.input1}
@@ -50,33 +44,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width,
-  },
-  header:{
-    height:40,
-    alignItems:'center',
-    marginTop:10,
-    paddingBottom:10,
-    width: Dimensions.get('window').width,
-    borderBottomWidth:1,
-    flexDirection: 'row',
-  },
-  headerText:{
-    textAlign:'center',
-    fontSize:17,
-    paddingLeft:20
-  },
-  btn:{
-    width:50,
-    height:35,
-    borderRadius:10,
-    backgroundColor:'#e2e2e2',
-    justifyContent: 'center',
-    position: 'absolute', 
-    right: 35
-  },
-  btnText:{
-    textAlign:'center',
-    fontSize:15
   },
   box: {
     paddingTop:10,

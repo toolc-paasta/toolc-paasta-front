@@ -3,12 +3,17 @@ import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import Constants from 'expo-constants';
 import MenuWithBtns from '../elements/MenuWithBtns.js';
 import MenuWithList from '../elements/MenuWithList.js';
-import { temp_data } from '../elements/data';
+import { temp_data } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { BottomTabNavigation } from "../../../screens/SearchScreen";
 
 const TYPE = temp_data.type
 
-export default function Home() {
+type Props = {
+  navigation: BottomTabNavigation;
+}
+
+function Home({ navigation }: Props) {
   
   const [isAuth,setIsAuth] = useState(temp_data.auth);
 
@@ -24,6 +29,7 @@ export default function Home() {
                size={35}
                color="black"
                style={styles.icon}
+               onPress={() => navigation.navigate("Home")}
             />
           </View>
         </View>
@@ -31,7 +37,7 @@ export default function Home() {
           <Text style={styles.articleTopText}>{temp_data.user_name} {TYPE=='pr' ? '학부모님' : (TYPE=='tc' ? '교사님' : '원장님' ) }, 안녕하세요</Text>          
         </View>
         <View style={styles.articleMain}>
-          <MenuWithBtns user_type={TYPE}/>
+          <MenuWithBtns user_type={TYPE} navigation={navigation}/>
         </View>
         <View style={styles.articleMain}>
           <MenuWithList/>
@@ -113,3 +119,5 @@ const styles = StyleSheet.create({
   },
 
 });
+
+export default Home;
