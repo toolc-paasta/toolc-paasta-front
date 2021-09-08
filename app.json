@@ -23,7 +23,6 @@
             "backgroundColor": "#FFFFFF"
          },
          "permissions": ["RECEIVE_BOOT_COMPLETED"],
-         "googleServicesFile": "./google-services.json",
          "package": "com.callmeshin75.passta"
       },
       "web": {

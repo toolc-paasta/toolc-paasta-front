@@ -16,12 +16,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import LiveScreen from "./src/screens/LiveScreen";
-<<<<<<< HEAD
-import SearchScreen from "./src/screens/SearchScreen";
-=======
 import SearchScreen from './src/screens/SearchScreen'
 import ListScreen from './src/screens/ListScreen'
->>>>>>> sunghyun/2
 import { Icon } from "react-native-elements";
 import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
