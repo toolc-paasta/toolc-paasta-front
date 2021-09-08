@@ -25,7 +25,7 @@ const Stack = createStackNavigator<AuthStackScreenParamList>();
 function AuthScreen({ navigation }: Props) {
    const auth = useSelector(({ auth }: RootState) => auth);
    return (
-      <Stack.Navigator initialRouteName={auth.signined ? "Profile" : "FCM"}>
+      <Stack.Navigator initialRouteName={auth.signined ? "Profile" : "Login"}>
          <Stack.Screen
             name="Login"
             component={AuthContainer}

@@ -23,19 +23,33 @@ export default function AppInit({ children }: Props) {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      // 끄면 작동을 안함
+      // killed 되면 인식 안함
+      /*
+         {
+            to:"Auth",
+            params: {
+               screen:"Login"
+            }
+         }
+         {
+            to:"Auth",
+            params: {
+               screen:"Login"
+               params:{
+                  screen:"Profile"
+               }
+            }
+         }
+         */
       const subscription_fore = Notifications.addNotificationReceivedListener(
          (notification) => {
             const data = notification.request.content.data;
-            if (data.type === "navigate") {
-               navigateTo(data.to, data.params || {});
-            }
          }
       );
       const subscription_back =
          Notifications.addNotificationResponseReceivedListener((res) => {
             const data = res.notification.request.content.data;
-            if (data.type === "navigate") {
+            if (data.to) {
                navigateTo(data.to, data.params || {});
             }
          });
@@ -69,11 +83,18 @@ export default function AppInit({ children }: Props) {
          if (Platform.OS === "android") {
             Notifications.setNotificationChannelAsync("default", {
                name: "default",
-               importance: Notifications.AndroidImportance.MAX,
+               importance: Notifications.AndroidImportance.DEFAULT,
                vibrationPattern: [0, 250, 250, 250],
                lightColor: "#FF231F7C",
             });
          }
+         Notifications.setNotificationHandler({
+            handleNotification: async () => ({
+               shouldShowAlert: true,
+               shouldPlaySound: true,
+               shouldSetBadge: true,
+            }),
+         });
       } catch (err) {
          console.log(err);
       }
