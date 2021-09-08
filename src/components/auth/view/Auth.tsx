@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, Icon, Input } from "react-native-elements";
+import { Icon } from "react-native-elements";
+import Button from '../../elements/Button'
+import Input from '../../elements/Input'
 import { ScrollView } from "react-native-gesture-handler";
 import { userInfoType } from "../types";
 
@@ -28,36 +30,33 @@ function Auth({
             <View style={styles.inputContainer}>
                <Input
                   placeholder={"아이디"}
-                  leftIcon={<Icon name="user" type="font-awesome" size={24} />}
+                  icon='person'
                   value={userInfo.id}
-                  style={styles.input}
                   errorMessage={errMsg.id}
-                  onChangeText={(value) => onChange("id", value)}
-                  errorStyle={styles.err}
+                  onChangeText={(value: any) => onChange("id", value)}
                />
                <Input
                   placeholder={"비밀번호"}
-                  leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
+                  icon='lock'
                   secureTextEntry={true}
-                  style={styles.input}
                   value={userInfo.password}
-                  onChangeText={(value) => onChange("password", value)}
+                  onChangeText={(value: any) => onChange("password", value)}
                   errorMessage={errMsg.password}
-                  errorStyle={styles.err}
                />
 
                <View style={styles.buttonContainer}>
                   <Button
-                     title={"회원가입"}
-                     type="clear"
-                     containerStyle={styles.button}
-                     titleStyle={{ color: "black" }}
-                     onPress={goToSignin}
+                     title='로그인'
+                     color='secondary'
+                     wide
+                     onPress={onPressLogin}
                   />
                   <Button
-                     title={"로그인"}
-                     onPress={onPressLogin}
-                     containerStyle={styles.button}
+                     title='회원가입'
+                     color='primary'
+                     wide
+                     margin
+                     onPress={goToSignin}
                   />
                </View>
             </View>
@@ -76,9 +75,6 @@ const styles = StyleSheet.create({
    insideContainer: {
       padding: 30,
       paddingTop: 50,
-   },
-   err: {
-      color: "red",
    },
    headerContainer: {
       height: 100,
@@ -103,10 +99,8 @@ const styles = StyleSheet.create({
       left: 0,
    },
    buttonContainer: {
-      flexDirection: "row",
-      justifyContent: "flex-end",
       width: "100%",
-      marginTop: 30,
+      marginTop: 24,
    },
    info: {
       paddingTop: 30,
