@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import Constants from 'expo-constants';
 import MenuWithBtns from '../elements/MenuWithBtns.js';
 import MenuWithList from '../elements/MenuWithList.js';
-import { temp_data } from '../elements/data';
+import { temp_data } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomTabNavigation } from "../../../screens/SearchScreen";
 

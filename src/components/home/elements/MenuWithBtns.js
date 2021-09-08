@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet,TouchableOpacity,Dimensions } from 'react-native';
-import { btns_for_pr } from './data';
-import { btns_for_ad } from './data';
+import { btns_for_pr } from '../../elements/data';
+import { btns_for_ad } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 
