@@ -10,17 +10,25 @@ import * as Notifications from "expo-notifications";
 import { Alert, Platform } from "react-native";
 import { setToken } from "./src/modules/pushToken";
 import { navigateTo } from "./RootNavigation";
+import { setCustomText } from 'react-native-global-props'
 
 type Props = {
    children: JSX.Element;
 };
 
+const customTextProps = {
+   style: {
+     fontFamily: 'Font'
+   }
+ }
+
 export default function AppInit({ children }: Props) {
    const [preLoading, setPreloading] = useState(true);
    const loading = useSelector(({ loading }: RootState) => loading);
    const snackbarState = useSelector(({ snackbar }: RootState) => snackbar);
-
+   
    const dispatch = useDispatch();
+   setCustomText(customTextProps)
 
    useEffect(() => {
       // killed 되면 인식 안함

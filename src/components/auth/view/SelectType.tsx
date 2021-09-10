@@ -1,6 +1,7 @@
 import React from "react";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import { Button, Icon } from "react-native-elements";
+import { colors } from '../../elements/theme'
 
 type Props = {
    onSelectType: (num: number) => void;
@@ -30,34 +31,35 @@ function SelectType({ onSelectType, userType }: Props) {
                alignItems: "center",
                paddingBottom: 30,
             }}>
-            <Text style={{ fontSize: 20 }}>어느 분이신가요?</Text>
+            <Text style={{ fontSize: 20 }}>어떤 계정으로 가입하시나요?</Text>
          </View>
          <View style={styles.typesContainer}>
             {cardDatas.map((item, idx) => (
-               <Pressable
-                  key={idx}
-                  style={[
-                     styles.cardContainer,
-                     {
-                        borderColor: userType === idx ? "#2196f3" : "gray",
-                     },
-                  ]}
-                  onPress={() => onSelectType(idx)}>
-                  <Icon
-                     name={item.name}
-                     type={item.type}
-                     size={Dimensions.get("window").width * 0.3 * 0.4}
-                     color={userType === idx ? "#2196f3" : "gray"}
-                  />
+               <View style={styles.typeContainer}>
+                  <Pressable
+                     key={idx}
+                     style={[
+                        styles.cardContainer,
+                        {backgroundColor: userType === idx ? colors.primary : colors.secondary}
+                     ]}
+                     onPress={() => onSelectType(idx)}>
+                     <Icon
+                        name={item.name}
+                        type={item.type}
+                        size={Dimensions.get("window").width * 0.1}
+                        color={userType === idx ? colors.background : colors.primary}
+                     />
+                  </Pressable>
                   <Text
                      style={{
                         alignSelf: "center",
-                        color: userType === idx ? "#2196f3" : "gray",
+                        color: colors.primary,
                         paddingTop: 10,
+                        fontSize: 18
                      }}>
                      {item.title}
                   </Text>
-               </Pressable>
+               </View>
             ))}
          </View>
       </View>
@@ -70,14 +72,15 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       justifyContent: "space-around",
    },
+   typeContainer: {
+      width: '25%',
+   },
    cardContainer: {
-      width: "30%",
-      height: Dimensions.get("window").width * 0.3,
+      width: "100%",
+      height: Dimensions.get("window").width * 0.25,
       justifyContent: "center",
       alignItems: "center",
-      opacity: 0.8,
-      borderWidth: 1,
-      borderRadius: 20,
+      borderRadius: 999,
    },
 });
 
