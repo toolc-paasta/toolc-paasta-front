@@ -16,12 +16,30 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import LiveScreen from "./src/screens/LiveScreen";
-import SearchScreen from './src/screens/SearchScreen'
-import ListScreen from './src/screens/ListScreen'
+import SearchScreen from "./src/screens/SearchScreen";
+import ListScreen from "./src/screens/ListScreen";
 import { Icon } from "react-native-elements";
 import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
 import { navigationRef } from "./RootNavigation";
+
+import PubNub from "pubnub";
+import { PubNubProvider } from "pubnub-react";
+import { REACT_APP_PUBLISH_KEY, REACT_APP_SUBSCRIBE_KEY } from "@env";
+
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Setting a timer"]);
+// pubnub 설정
+
+const pubnub = new PubNub({
+   publishKey: REACT_APP_PUBLISH_KEY,
+   subscribeKey: REACT_APP_SUBSCRIBE_KEY,
+   uuid: Math.ceil(Math.random() * 1000000).toString(),
+});
+
+// redux
+
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
    rootReducer,
@@ -48,49 +66,51 @@ export default function App() {
          <StatusBar style="auto" />
          <SafeAreaView
             style={{
-               flex: 1
+               flex: 1,
             }}>
             <Provider store={store}>
                <AppInit>
-                  <NavigationContainer
-                     ref={navigationRef}
-                     documentTitle={{ enabled: false }}>
-                     <Tab.Navigator initialRouteName="Home">
-                        <Tab.Screen
-                           name="Home"
-                           component={HomeScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
+                  <PubNubProvider client={pubnub}>
+                     <NavigationContainer
+                        ref={navigationRef}
+                        documentTitle={{ enabled: false }}>
+                        <Tab.Navigator initialRouteName="Home">
+                           <Tab.Screen
+                              name="Home"
+                              component={HomeScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="home" />,
+                              }}
+                           />
 
-                        <Tab.Screen
-                           name="Auth"
-                           component={AuthScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="lock" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="Search"
-                           component={SearchScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="List"
-                           component={ListScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                     </Tab.Navigator>
-                  </NavigationContainer>
+                           <Tab.Screen
+                              name="Auth"
+                              component={AuthScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="lock" />,
+                              }}
+                           />
+                           <Tab.Screen
+                              name="Search"
+                              component={SearchScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="home" />,
+                              }}
+                           />
+                           <Tab.Screen
+                              name="List"
+                              component={ListScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="home" />,
+                              }}
+                           />
+                        </Tab.Navigator>
+                     </NavigationContainer>
+                  </PubNubProvider>
                </AppInit>
             </Provider>
          </SafeAreaView>

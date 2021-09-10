@@ -53,6 +53,10 @@ function AuthContainer({ navigation }: Props) {
       navigation.navigate("Signin");
    };
 
+   const goToMap = (): void => {
+      navigation.navigate("Map");
+   };
+
    return (
       <Auth
          userInfo={userInfo}
@@ -60,6 +64,7 @@ function AuthContainer({ navigation }: Props) {
          onChange={onChange}
          onPressLogin={onPressLogin}
          goToSignin={goToSignin}
+         goToMap={goToMap}
       />
    );
 }

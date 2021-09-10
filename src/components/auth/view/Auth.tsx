@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
-import Button from '../../elements/Button'
-import Input from '../../elements/Input'
+import Button from "../../elements/Button";
+import Input from "../../elements/Input";
 import { ScrollView } from "react-native-gesture-handler";
 import { userInfoType } from "../types";
 
@@ -12,6 +12,7 @@ type AuthProps = {
    onChange: (name: string, value: string) => void;
    onPressLogin: () => void;
    goToSignin: () => void;
+   goToMap: () => void;
 };
 
 function Auth({
@@ -20,6 +21,7 @@ function Auth({
    onChange,
    onPressLogin,
    goToSignin,
+   goToMap,
 }: AuthProps) {
    return (
       <ScrollView style={styles.container} enabled>
@@ -30,14 +32,14 @@ function Auth({
             <View style={styles.inputContainer}>
                <Input
                   placeholder={"아이디"}
-                  icon='person'
+                  icon="person"
                   value={userInfo.id}
                   errorMessage={errMsg.id}
                   onChangeText={(value: any) => onChange("id", value)}
                />
                <Input
                   placeholder={"비밀번호"}
-                  icon='lock'
+                  icon="lock"
                   secureTextEntry={true}
                   value={userInfo.password}
                   onChangeText={(value: any) => onChange("password", value)}
@@ -46,19 +48,22 @@ function Auth({
 
                <View style={styles.buttonContainer}>
                   <Button
-                     title='로그인'
-                     color='secondary'
+                     title="로그인"
+                     color="secondary"
                      wide
                      onPress={onPressLogin}
                   />
                   <Button
-                     title='회원가입'
-                     color='primary'
+                     title="회원가입"
+                     color="primary"
                      wide
                      margin
                      onPress={goToSignin}
                   />
                </View>
+            </View>
+            <View style={{ marginTop: 20 }}>
+               <Button title="맵" color="primary" onPress={goToMap} />
             </View>
          </View>
       </ScrollView>

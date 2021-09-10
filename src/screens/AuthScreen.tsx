@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../modules";
 import ProfileContainer from "../components/profile/container/ProfileContainer";
 import FcmContainer from "../components/fcm/container/FcmContainer";
+import MapContainer from "../components/map/container/MapContainer";
 
 type Props = BottomTabScreenProps<RootBottomTabParamList, "Auth">;
 
@@ -18,6 +19,7 @@ export type AuthStackScreenParamList = {
    Signin: undefined;
    Profile: undefined;
    FCM: undefined;
+   Map: undefined;
 };
 
 const Stack = createStackNavigator<AuthStackScreenParamList>();
@@ -45,6 +47,11 @@ function AuthScreen({ navigation }: Props) {
             name="FCM"
             component={FcmContainer}
             options={{ headerShown: false }}
+         />
+         <Stack.Screen
+            name="Map"
+            component={MapContainer}
+            options={{ title: "맵" }}
          />
       </Stack.Navigator>
    );
