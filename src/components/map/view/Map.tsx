@@ -1,14 +1,21 @@
 import React from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import * as Location from "expo-location";
+import MapView, { Marker, PROVIDER_GOOGLE, Region } from "react-native-maps";
 import { Button, Image } from "react-native-elements";
 
 type Props = {
-   region: Location.LocationObject | null | undefined;
-   mapViewRef: React.MutableRefObject<MapView | undefined>;
+   region: Region;
+   mapViewRef: React.RefObject<MapView>;
    onPressSharePosition: () => Promise<void>;
    cancleSharePosition: () => void;
+   onAnimateRegion: (
+      reg: Region,
+      details?:
+         | {
+              isGesture: boolean;
+           }
+         | undefined
+   ) => void;
 };
 
 function Map({
@@ -16,6 +23,7 @@ function Map({
    mapViewRef,
    onPressSharePosition,
    cancleSharePosition,
+   onAnimateRegion,
 }: Props) {
    return (
       <View style={styles.container}>
@@ -28,21 +36,13 @@ function Map({
             <Button title="종료" type="clear" onPress={cancleSharePosition} />
          </View>
          <MapView
+            ref={mapViewRef}
             provider={PROVIDER_GOOGLE}
-            region={{
-               latitude: region?.coords.latitude || 0,
-               longitude: region?.coords.longitude || 0,
-               latitudeDelta: 0.005,
-               longitudeDelta: 0.005,
-            }}
+            region={region}
             key="Gmap"
-            style={styles.map}>
-            <Marker
-               key={`marker`}
-               coordinate={{
-                  latitude: region?.coords.latitude || 0,
-                  longitude: region?.coords.longitude || 0,
-               }}>
+            style={styles.map}
+            onRegionChangeComplete={onAnimateRegion}>
+            <Marker key={`marker`} coordinate={region}>
                <View style={[styles.markerWrap]}>
                   <Image
                      source={require("../../../../assets/map_marker.png")}
