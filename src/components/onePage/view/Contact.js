@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native';
+import Constants from 'expo-constants';
 import Header from '../../elements/Header'
 import { users } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -85,10 +86,10 @@ export default function Contact({navigation}) {
   };
 
   return (
-    <>
-      <Header header_title={'전화번호부'}/>
+    <View style={styles.container}>
+      <Header header_title={'전화번호부'} navigation={navigation}/>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container}>
+        <View>
           <View style={styles.searchBox}>
             <Icon
               name={'search-outline'}
@@ -113,13 +114,17 @@ export default function Contact({navigation}) {
           
         </View>
       </SafeAreaView>
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
+    padding: 15,
   },
   searchBox:{
     flexDirection: 'row',

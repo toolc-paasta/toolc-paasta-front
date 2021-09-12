@@ -20,13 +20,12 @@ export default function MenuWithBtns({user_type,navigation}) {
       <View style={styles.row}>
         {authType?.map((item, i) => (
           <View style={styles.btnContainer} key={i}>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate(item.onclick)}>
                 <Icon
                   name={item.img}
                   size={35}
                   color="black"
                   style={styles.icon}
-                  onPress={() => navigation.navigate('List')}
                 />
             </TouchableOpacity>
             <View style={styles.textView}>

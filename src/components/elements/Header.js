@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Dimensions, Text, View, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function UploadNotice({header_title,setIsSubmit,setModalVisible,navigation}) {
+export default function Header({header_title,setIsSubmit,IsInsert,navigation,}) {
  
-  const [title,setTitle] = useState()
-  const [content,setContent] = useState()
 
   const onSubmit = () => {
     Alert.alert(
@@ -37,6 +35,11 @@ export default function UploadNotice({header_title,setIsSubmit,setModalVisible,n
         {setIsSubmit!=null && (
           <TouchableOpacity style={styles.btn} onPress={()=>onSubmit()}>
             <Text style={styles.btnText}>전송</Text>
+          </TouchableOpacity>
+        )}
+        {IsInsert!=null && (
+          <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('ListDeatul')}>
+            <Text style={styles.btnText}>글쓰기</Text>
           </TouchableOpacity>
         )}
       </View>

@@ -10,14 +10,11 @@ import {
   Modal,
   Dimensions,
 } from 'react-native';
+import Constants from 'expo-constants';
 import Header from '../../elements/Header'
 import { users } from '../../elements/data';
 import ManageDetail from './ManageDetail'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { BottomTabNavigation } from "../../../screens/SearchScreen";
-
-
-
 
 export default function Manage({navigation}) {
   const [search, setSearch] = useState('');
@@ -90,10 +87,10 @@ export default function Manage({navigation}) {
 
 
   return (
-    <View>
-      <Header header_title={'회원관리'}/>
+    <View style={styles.container}>
+      <Header header_title={'회원관리'} navigation={navigation}/>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container}>
+        <View>
           <View style={styles.searchBox}>
             <Icon
               name={'search-outline'}
@@ -138,7 +135,11 @@ export default function Manage({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
+    padding: 15,
   },
   searchBox:{
     flexDirection: 'row',
@@ -187,4 +188,3 @@ const styles = StyleSheet.create({
     elevation: 5
   },
 });
-
