@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Modal, Dimensions} from 'react-native';
 import Constants from 'expo-constants';
-import { list1 } from '../../elements/data';
+import { list_parent } from '../../elements/data';
+import { list_notice } from '../../elements/data';
 import Header from '../../elements/Header'
 import ListDetail from './ListDetail'
-export default function List({navigation}) {
+export default function List({navigation, headerTitle}) {
 
   const [date,setDate] = useState(new Date());
   const [data,setData] = useState();
   const [isSubmit,setIsSubmit] = useState(false)
   const [modalVisible, setModalVisible] = useState(false);
+
+  const DATA  = headerTitle==='공지 모아보기' ? list_notice : list_parent
 
   const makeTime = (t) => {
     const sec = Math.floor((date.getTime()-t.getTime())/1000)
@@ -31,9 +34,9 @@ export default function List({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Header header_title={'학부모 게시판'} navigation={navigation}/>
+      <Header header_title={headerTitle} navigation={navigation} IsInsert={true}/>
       <ScrollView style={styles.listContainer}>
-        {list1.map((item, i) => (
+        {DATA.map((item, i) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
             <View>
               <Text style={styles.mainText}>{item.title}</Text>
@@ -52,7 +55,7 @@ export default function List({navigation}) {
       }}>
         <View style={styles.modalView}>
           <View>
-            <ListDetail data={data} date={date} setModalVisible={setModalVisible} navigation={navigation}/>
+            <ListDetail data={data} date={date} setModalVisible={setModalVisible} navigation={navigation} header_title={headerTitle}/>
           </View>
         </View>
       </Modal>

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Dimensions, Text, View, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function UploadNotice({header_title,setIsSubmit,setModalVisible,navigation}) {
+export default function Header({header_title,setIsSubmit,IsInsert,navigation,setModalVisible,}) {
  
-  const [title,setTitle] = useState()
-  const [content,setContent] = useState()
 
   const onSubmit = () => {
     Alert.alert(
@@ -24,6 +22,13 @@ export default function UploadNotice({header_title,setIsSubmit,setModalVisible,n
     );
   }
 
+  const back = () => {
+    if(setModalVisible)
+      setModalVisible(false)
+    else
+      navigation.goBack()
+  }
+
   return (
       <View style={styles.header}>
         <Icon 
@@ -31,12 +36,17 @@ export default function UploadNotice({header_title,setIsSubmit,setModalVisible,n
           name={'arrow-back-outline'}
           size={30}
           color="black"
-          onPress={() => navigation.goBack()}
+          onPress={() => back()}
         />
         <Text style={styles.headerText}>{header_title}</Text>
         {setIsSubmit!=null && (
           <TouchableOpacity style={styles.btn} onPress={()=>onSubmit()}>
             <Text style={styles.btnText}>전송</Text>
+          </TouchableOpacity>
+        )}
+        {IsInsert!=null && (
+          <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('UploadNotice')}>
+            <Text style={styles.btnText}>글쓰기</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -61,7 +71,7 @@ const styles = StyleSheet.create({
     backgroundColor:'#e2e2e2',
     justifyContent: 'center',
     position: 'absolute', 
-    right: 35
+    right: 5
   },
   btnText:{
     textAlign:'center',

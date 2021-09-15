@@ -6,23 +6,26 @@ import {
   View,
   FlatList,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Modal,
+  Dimensions,
 } from 'react-native';
 import Constants from 'expo-constants';
 import Header from '../../elements/Header'
 import { users } from '../../elements/data';
+import ManageDetail from './ManageDetail'
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function Contact({navigation}) {
+export default function Manage({navigation}) {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [data,setData] = useState();
 
   useEffect(() => {
-    
     setFilteredDataSource(users);
     setMasterDataSource(users);
-      
   }, []);
 
   const searchFilterFunction = (text) => {
@@ -60,9 +63,6 @@ export default function Contact({navigation}) {
         <Text style={[styles.itemStyle,styles.itemStyle1]}>
           {item.name}
         </Text>
-        <Text style={[styles.itemStyle,styles.itemStyle2]}>
-          {item.contact.substring(0,3)+'-'+item.contact.substring(3,7)+'-'+item.contact.substring(7,11)}
-        </Text>
       </TouchableOpacity>
     );
   };
@@ -81,13 +81,14 @@ export default function Contact({navigation}) {
   };
 
   const getItem = (item) => {
-    
-    alert('name : ' + item.name + ' / phone : ' + item.contact);
+    setData(item)
+    setModalVisible(true)
   };
+
 
   return (
     <View style={styles.container}>
-      <Header header_title={'전화번호부'} navigation={navigation}/>
+      <Header header_title={'회원관리'} navigation={navigation}/>
       <SafeAreaView style={{ flex: 1 }}>
         <View>
           <View style={styles.searchBox}>
@@ -111,10 +112,24 @@ export default function Contact({navigation}) {
             ItemSeparatorComponent={ItemSeparatorView}
             renderItem={ItemView}
           />
-          
         </View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.modalView}>
+            <View>
+              <ManageDetail data={data}  setModalVisible={setModalVisible}/>
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     </View>
+     
   );
 };
 
@@ -152,16 +167,24 @@ const styles = StyleSheet.create({
   itemStyle1: {
     paddingLeft:5
   },
-  itemStyle2: {
-    position:'absolute',
-    right:20,
-  },
-  iconBox:{
-  },
-  icon:{
-  },
   textInputStyle: {
     paddingLeft:10,
   },
+  modalView: {
+    height: Dimensions.get('window').height/10*9,
+    width: Dimensions.get('window').width/10*9,
+    
+    backgroundColor:'#ffffff',
+    zIndex:2,
+    marginLeft:Dimensions.get('window').width/20,
+    marginTop:Dimensions.get('window').width/20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
 });
-

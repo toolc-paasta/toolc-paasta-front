@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet} from 'react-native';
-import { current_list } from '../../elements/data';
+import { list_current } from '../../elements/data';
 
 export default function MenuWithList() {
 
@@ -29,7 +29,7 @@ export default function MenuWithList() {
     <>
       <Text style={styles.articleMainText}>즐겨찾기 메뉴</Text>
       <View style={styles.listContainer}>
-        {current_list.map((item, i) => (
+        {list_current.map((item, i) => (
           <View style={styles.list} key={i}>
             <Text style={styles.mainText}>{item.title}</Text>
             <Text style={styles.subText} numberOfLines={1}>{item.content}</Text>

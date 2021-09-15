@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Dimensions, Text, View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Dimensions, Text, View, StyleSheet, TextInput} from 'react-native';
+import Constants from 'expo-constants';
 import Header from '../../elements/Header'
 export default function UploadNotice() {
  
@@ -18,7 +18,7 @@ export default function UploadNotice() {
 
   return (
     <View style={styles.container}>
-      <Header header_title={'가정통신문 보내기'} setIsSubmit={setIsSubmit}/>
+      <Header header_title={'글쓰기'} setIsSubmit={setIsSubmit}/>
       <View style={[styles.box, styles.box1]}>
         <TextInput
           style={styles.input1}
@@ -42,8 +42,10 @@ export default function UploadNotice() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
+    
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#fff',
+    padding: 15,
   },
   box: {
     paddingTop:10,
