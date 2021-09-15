@@ -5,6 +5,7 @@ import MapView, { Marker, Region } from "react-native-maps";
 import * as Location from "expo-location";
 import pubnub from "pubnub";
 import { parseToRegion } from "../../../lib/utils/parseLocation";
+import { useKeepAwake } from "expo-keep-awake";
 
 type Props = {};
 type watchKeyType = {
@@ -23,6 +24,8 @@ function MapContainer({}: Props) {
    });
    const [watchKey, setWatchKey] = useState<watchKeyType | null>();
    const mapViewRef = useRef<MapView>() as React.RefObject<MapView>;
+
+   useKeepAwake();   
 
    useEffect(() => {
       const pubnubListeners = {
