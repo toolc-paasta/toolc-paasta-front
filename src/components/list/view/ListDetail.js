@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Dimensions} from 'react-native';
+import Constants from 'expo-constants';
 import { comment } from '../../elements/data';
 import Header from '../../elements/Header'
-export default function ListDetail({data,date,setModalVisible,navigation}) {
+export default function ListDetail({data,date,setModalVisible,navigation,header_title}) {
 
   const makeTime = (t) => {
     const sec = Math.floor((date.getTime()-t.getTime())/1000)
@@ -23,8 +24,8 @@ export default function ListDetail({data,date,setModalVisible,navigation}) {
   }
 
   return (
-    <ScrollView>
-      <Header header_title={'학부모 게시판'} setModalVisible={setModalVisible} navigation={navigation}/>
+    <ScrollView style={styles.container}>
+      <Header header_title={header_title} setModalVisible={setModalVisible} navigation={navigation}/>
       <View style={[styles.box, styles.box1]}>
         <Text style={styles.input1}>{data.title}</Text>
         <Text style={styles.input1_2}>{data.time.getMonth()+1}월 {data.time.getDate()}일</Text>
@@ -49,6 +50,9 @@ export default function ListDetail({data,date,setModalVisible,navigation}) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingTop: Constants.statusBarHeight,
+  },
   box: {
     paddingTop:10,
     paddingBottom:10,

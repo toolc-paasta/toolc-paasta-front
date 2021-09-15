@@ -55,7 +55,7 @@ export default function List({navigation, headerTitle}) {
       }}>
         <View style={styles.modalView}>
           <View>
-            <ListDetail data={data} date={date} setModalVisible={setModalVisible} navigation={navigation}/>
+            <ListDetail data={data} date={date} setModalVisible={setModalVisible} navigation={navigation} header_title={headerTitle}/>
           </View>
         </View>
       </Modal>
