@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
-import { colors } from './theme'
 
 type Props = {
   title: string; // 버튼 내용
@@ -9,6 +8,15 @@ type Props = {
   wide?: boolean; // wide 사이즈
   margin?: boolean; // true면 wide일 시 top, 아닐 시 left 마진 생성
   onPress: () => void;
+}
+
+const colors = {
+  primary: '#ffd257',
+  secondary: '#fee9b0',
+  black: '#2c2c2c',
+  background: '#fdfcf8',
+  error: '#f82d48',
+  clear: 'transparent'
 }
 
 const StyledButton = ({
@@ -30,8 +38,7 @@ const StyledButton = ({
     },
     title: {
       color: color === 'clear' ? colors.black : colors.background,
-      fontSize: 18,
-      fontFamily: 'Font'
+      fontSize: 18
     }
   });
 

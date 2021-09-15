@@ -14,7 +14,7 @@ type Props = {
 const colors = {
   primary: '#ffd257',
   secondary: '#fee9b0',
-  black: '#212121',
+  black: '#2c2c2c',
   background: '#fdfcf8',
   error: '#f82d48',
   clear: 'transparent'
@@ -30,7 +30,9 @@ const StyledButton = ({
 }: Props) => {
 
   const styles = StyleSheet.create({
-    
+    inputStyle: {
+      fontFamily: 'Font'
+    }
   });
 
   return (
@@ -39,13 +41,11 @@ const StyledButton = ({
       leftIcon={<Icon name={icon} size={28} color='#ffd257' />}
       secureTextEntry={secureTextEntry}
       value={value}
-
+      inputStyle={styles.inputStyle}
       onChangeText={onChangeText}
       errorMessage={errorMessage}
     />
   )
-
-  
 }
 
 

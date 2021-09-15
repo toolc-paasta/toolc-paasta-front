@@ -26,6 +26,7 @@ import { useCallback } from "react";
 import FindKindergarden from "../view/FindKindergarden";
 import axios from "axios";
 import { apiXmlToObject } from "../../../lib/utils/xmlParser";
+import { colors } from '../../elements/theme'
 
 type Props = StackScreenProps<AuthStackScreenParamList, "Signin">;
 
@@ -36,22 +37,23 @@ const labels: string[][] = [
    ["선택"],
 ];
 const customStyles = {
-   stepStrokeFinishedColor: "#2196f3",
-   stepIndicatorLabelFinishedColor: "#ffffff",
-   separatorFinishedColor: "#2196f3",
-   stepIndicatorFinishedColor: "#2196f3",
+   stepStrokeFinishedColor: colors.primary,
+   stepIndicatorLabelFinishedColor: colors.background,
+   separatorFinishedColor: colors.primary,
+   stepIndicatorFinishedColor: colors.primary,
 
    stepStrokeWidth: 3,
-   stepStrokeCurrentColor: "#2196f3",
-   stepIndicatorCurrentColor: "#ffffff",
-   stepIndicatorLabelCurrentColor: "#2196f3",
-   currentStepLabelColor: "#2196f3",
+   stepStrokeCurrentColor: colors.primary,
+   stepIndicatorCurrentColor: colors.background,
+   stepIndicatorLabelCurrentColor: colors.primary,
+   currentStepLabelColor: colors.black,
 
-   stepStrokeUnFinishedColor: "#aaaaaa",
-   separatorUnFinishedColor: "#aaaaaa",
-   stepIndicatorUnFinishedColor: "#ffffff",
-   stepIndicatorLabelUnFinishedColor: "#aaaaaa",
-   labelColor: "#999999",
+   stepStrokeUnFinishedColor: colors.secondary,
+   separatorUnFinishedColor: colors.secondary,
+   stepIndicatorUnFinishedColor: colors.background,
+   stepIndicatorLabelUnFinishedColor: colors.secondary,
+   labelColor: colors.black,
+   labelFontFamily: 'Font'
 };
 
 function SigninContainer({ navigation }: Props) {
