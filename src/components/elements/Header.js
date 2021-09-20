@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Dimensions, Text, View, StyleSheet, Alert, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+
+
 export default function Header({header_title,setIsSubmit,IsInsert,navigation,setModalVisible,}) {
  
 
