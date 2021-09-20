@@ -35,7 +35,7 @@ import { REACT_APP_PUBLISH_KEY, REACT_APP_SUBSCRIBE_KEY } from "@env";
 import { LogBox } from "react-native";
 
 LogBox.ignoreLogs(["Setting a timer"]);
-// pubnub 설정
+// pubnub 설정test
 
 const pubnub = new PubNub({
    publishKey: REACT_APP_PUBLISH_KEY,
