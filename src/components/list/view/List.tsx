@@ -28,9 +28,9 @@ export default function List({navigation, headerTitle}:Props) {
     const unit = ['초','분','시간','일']
     while(temp>24){
       if(count<2 && temp>60)
-        temp = (temp/60)
+        temp = Math.floor(temp/60)
       else if(count>=2)
-        temp = (temp/24)
+        temp = Math.floor(temp/24)
       else
         return(temp+unit[count]+' 전')
       count++
