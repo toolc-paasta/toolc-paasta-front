@@ -17,17 +17,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import ManagementScreen from "./src/screens/ManagementScreen";
 import LiveScreen from "./src/screens/LiveScreen";
-<<<<<<< HEAD
 import SearchScreen from "./src/screens/SearchScreen";
-import ListScreen from "./src/screens/ListScreen";
-=======
-import SearchScreen from './src/screens/SearchScreen'
-import ListDetailScreen from './src/screens/ListDetailScreen'
-import ParentBoardScreen from './src/screens/ParentBoardScreen'
-import NoticeBoardScreen from './src/screens/NoticeBoardScreen'
-import UploadNoticeScreen from './src/screens/UploadNoticeScreen'
-import ContactScreen from './src/screens/ContactScreen'
->>>>>>> sunghyun/3
+import ListDetailScreen from "./src/screens/ListDetailScreen";
+import ParentBoardScreen from "./src/screens/ParentBoardScreen";
+import NoticeBoardScreen from "./src/screens/NoticeBoardScreen";
+import UploadNoticeScreen from "./src/screens/UploadNoticeScreen";
+import ContactScreen from "./src/screens/ContactScreen";
 import { Icon } from "react-native-elements";
 import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
@@ -99,7 +94,6 @@ export default function App() {
                               }}
                            />
 
-<<<<<<< HEAD
                            <Tab.Screen
                               name="Auth"
                               component={AuthScreen}
@@ -117,8 +111,48 @@ export default function App() {
                               }}
                            />
                            <Tab.Screen
-                              name="List"
-                              component={ListScreen}
+                              name="ListDetail"
+                              component={ListDetailScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="home" />,
+                              }}
+                           />
+                           <Tab.Screen
+                              name="NoticeBoard"
+                              component={NoticeBoardScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="home" />,
+                              }}
+                           />
+                           <Tab.Screen
+                              name="ParentBoard"
+                              component={ParentBoardScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="home" />,
+                              }}
+                           />
+                           <Tab.Screen
+                              name="Management"
+                              component={ManagementScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="home" />,
+                              }}
+                           />
+                           <Tab.Screen
+                              name="Contact"
+                              component={ContactScreen}
+                              options={{
+                                 headerShown: false,
+                                 tabBarIcon: () => <Icon name="home" />,
+                              }}
+                           />
+                           <Tab.Screen
+                              name="UploadNotice"
+                              component={UploadNoticeScreen}
                               options={{
                                  headerShown: false,
                                  tabBarIcon: () => <Icon name="home" />,
@@ -127,74 +161,6 @@ export default function App() {
                         </Tab.Navigator>
                      </NavigationContainer>
                   </PubNubProvider>
-=======
-                        <Tab.Screen
-                           name="Auth"
-                           component={AuthScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="lock" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="Search"
-                           component={SearchScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="ListDetail"
-                           component={ListDetailScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="NoticeBoard"
-                           component={NoticeBoardScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="ParentBoard"
-                           component={ParentBoardScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="Management"
-                           component={ManagementScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="Contact"
-                           component={ContactScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                        <Tab.Screen
-                           name="UploadNotice"
-                           component={UploadNoticeScreen}
-                           options={{
-                              headerShown: false,
-                              tabBarIcon: () => <Icon name="home" />,
-                           }}
-                        />
-                     </Tab.Navigator>
-                  </NavigationContainer>
->>>>>>> sunghyun/3
                </AppInit>
             </Provider>
          </SafeAreaView>

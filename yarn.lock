@@ -1780,6 +1780,18 @@
   resolved "https://registry.yarnpkg.com/@types/pubnub/-/pubnub-4.29.4.tgz#bee45905d60f1e074e5715e804e4f3a53fc41a0d"
   integrity sha512-OFj5VbtvA9wsmNHLBV52Q8l5rrtyF8zzXllYSGLYDs6cPQie9Lv1HIZ/IRNaZS+LCqOTy5MOO0v7effhbWe3Cw==
 
+"@types/react-native-dotenv@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-dotenv/-/react-native-dotenv-0.2.0.tgz#32c58422a422c1adf68acce363ed791314d5a8e7"
+  integrity sha512-ZxX+dU/yoQc0jTk+/NWttkiuXceJyN5FpOSqDl0WynN5GDzxwH7OMruQ47qcY8llo2RD3irjvzJ9BwC8gDiq0A==
+
+"@types/react-native-global-props@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-global-props/-/react-native-global-props-1.1.0.tgz#ff3ec93b1b3b37421c86596ea5120eec8a440f38"
+  integrity sha512-E227aqryfeOnxnTf31M7mHncI0G7tdKaAfaBbDZJ8xFPaAElZCVV5i9TePXTZDjMy5yjD8a9HWqb5K3RUIf9mg==
+  dependencies:
+    "@types/react-native" "*"
+
 "@types/react-native-loading-spinner-overlay@^0.5.3":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@types/react-native-loading-spinner-overlay/-/react-native-loading-spinner-overlay-0.5.3.tgz#babb9a30fa4fb6abac1dae057209a891208c6dcf"

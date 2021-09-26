@@ -13,6 +13,8 @@
       "@react-navigation/native": "^6.0.2",
       "@react-navigation/stack": "^6.0.7",
       "@types/pubnub": "^4.29.4",
+      "@types/react-native-dotenv": "^0.2.0",
+      "@types/react-native-global-props": "^1.1.0",
       "@types/react-native-loading-spinner-overlay": "^0.5.3",
       "@types/react-redux": "^7.1.18",
       "@types/redux-logger": "^3.0.9",
