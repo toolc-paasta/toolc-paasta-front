@@ -1,5 +1,5 @@
-import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
+import { StackScreenProps } from "@react-navigation/stack";
 import { AuthStackScreenParamList } from "../../../screens/AuthScreen";
 import Landing from "../view/Landing";
 
@@ -9,6 +9,7 @@ function LandingContainer({
    const goTo = (to: keyof AuthStackScreenParamList) => {
       navigation.navigate(to);
    };
+
    return <Landing goTo={goTo} />;
 }
 
