@@ -33,6 +33,7 @@ import { PubNubProvider } from "pubnub-react";
 import { REACT_APP_PUBLISH_KEY, REACT_APP_SUBSCRIBE_KEY } from "@env";
 
 import { LogBox } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 // pubnub 설정
@@ -53,6 +54,10 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 // 여기서 스크린 props 정의
+export type RootStackParamList = {
+   Auth: undefined;
+   Main: undefined;
+};
 export type RootBottomTabParamList = {
    Home: undefined;
    Auth: undefined;
@@ -64,6 +69,8 @@ export type RootBottomTabParamList = {
    Contact: undefined;
    UploadNotice: undefined;
 };
+
+const Stack = createStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
 export default function App() {
@@ -84,81 +91,105 @@ export default function App() {
                      <NavigationContainer
                         ref={navigationRef}
                         documentTitle={{ enabled: false }}>
-                        <Tab.Navigator initialRouteName="Home">
-                           <Tab.Screen
-                              name="Home"
-                              component={HomeScreen}
-                              options={{
-                                 headerShown: false,
-                                 tabBarIcon: () => <Icon name="home" />,
-                              }}
-                           />
-
-                           <Tab.Screen
+                        <Stack.Navigator initialRouteName="Auth">
+                           <Stack.Screen
                               name="Auth"
                               component={AuthScreen}
                               options={{
                                  headerShown: false,
-                                 tabBarIcon: () => <Icon name="lock" />,
                               }}
                            />
-                           <Tab.Screen
-                              name="Search"
-                              component={SearchScreen}
+                           <Stack.Screen
+                              name="Main"
                               options={{
                                  headerShown: false,
-                                 tabBarIcon: () => <Icon name="home" />,
-                              }}
-                           />
-                           <Tab.Screen
-                              name="ListDetail"
-                              component={ListDetailScreen}
-                              options={{
-                                 headerShown: false,
-                                 tabBarIcon: () => <Icon name="home" />,
-                              }}
-                           />
-                           <Tab.Screen
-                              name="NoticeBoard"
-                              component={NoticeBoardScreen}
-                              options={{
-                                 headerShown: false,
-                                 tabBarIcon: () => <Icon name="home" />,
-                              }}
-                           />
-                           <Tab.Screen
-                              name="ParentBoard"
-                              component={ParentBoardScreen}
-                              options={{
-                                 headerShown: false,
-                                 tabBarIcon: () => <Icon name="home" />,
-                              }}
-                           />
-                           <Tab.Screen
-                              name="Management"
-                              component={ManagementScreen}
-                              options={{
-                                 headerShown: false,
-                                 tabBarIcon: () => <Icon name="home" />,
-                              }}
-                           />
-                           <Tab.Screen
-                              name="Contact"
-                              component={ContactScreen}
-                              options={{
-                                 headerShown: false,
-                                 tabBarIcon: () => <Icon name="home" />,
-                              }}
-                           />
-                           <Tab.Screen
-                              name="UploadNotice"
-                              component={UploadNoticeScreen}
-                              options={{
-                                 headerShown: false,
-                                 tabBarIcon: () => <Icon name="home" />,
-                              }}
-                           />
-                        </Tab.Navigator>
+                              }}>
+                              {() => (
+                                 <Tab.Navigator initialRouteName="Home">
+                                    <Tab.Screen
+                                       name="Home"
+                                       component={HomeScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                    <Tab.Screen
+                                       name="Search"
+                                       component={SearchScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                    <Tab.Screen
+                                       name="ListDetail"
+                                       component={ListDetailScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                    <Tab.Screen
+                                       name="NoticeBoard"
+                                       component={NoticeBoardScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                    <Tab.Screen
+                                       name="ParentBoard"
+                                       component={ParentBoardScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                    <Tab.Screen
+                                       name="Management"
+                                       component={ManagementScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                    <Tab.Screen
+                                       name="Contact"
+                                       component={ContactScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                    <Tab.Screen
+                                       name="UploadNotice"
+                                       component={UploadNoticeScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                 </Tab.Navigator>
+                              )}
+                           </Stack.Screen>
+                        </Stack.Navigator>
                      </NavigationContainer>
                   </PubNubProvider>
                </AppInit>

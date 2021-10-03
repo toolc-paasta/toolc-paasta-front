@@ -1,20 +1,24 @@
 import React from "react";
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { RootBottomTabParamList } from "../../App";
+import { RootStackParamList } from "../../App";
 import AuthContainer from "../components/auth/container/AuthContainer";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+   createStackNavigator,
+   StackScreenProps,
+} from "@react-navigation/stack";
 import SigninContainer from "../components/auth/container/SigninContainer";
 import { useSelector } from "react-redux";
 import { RootState } from "../modules";
 import ProfileContainer from "../components/profile/container/ProfileContainer";
 import FcmContainer from "../components/fcm/container/FcmContainer";
 import MapContainer from "../components/map/container/MapContainer";
+import LandingContainer from "../components/landing/container/LandingContainer";
 
-type Props = BottomTabScreenProps<RootBottomTabParamList, "Auth">;
+type Props = StackScreenProps<RootStackParamList, "Auth">;
 
-export type BottomTabNavigation = Props["navigation"];
+export type StackScreenNavigation = Props["navigation"];
 
 export type AuthStackScreenParamList = {
+   Landing: undefined;
    Login: undefined;
    Signin: undefined;
    Profile: undefined;
@@ -27,7 +31,12 @@ const Stack = createStackNavigator<AuthStackScreenParamList>();
 function AuthScreen({ navigation }: Props) {
    const auth = useSelector(({ auth }: RootState) => auth);
    return (
-      <Stack.Navigator initialRouteName={auth.signined ? "Profile" : "Login"}>
+      <Stack.Navigator initialRouteName={"Landing"}>
+         <Stack.Screen
+            name="Landing"
+            component={LandingContainer}
+            options={{ headerShown: false }}
+         />
          <Stack.Screen
             name="Login"
             component={AuthContainer}
