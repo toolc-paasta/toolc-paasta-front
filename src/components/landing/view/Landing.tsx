@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { StyleSheet, View, Text, Animated } from "react-native";
 import { AuthStackScreenParamList } from "../../../screens/AuthScreen";
 import StyledButton from "../../elements/Button";
@@ -11,7 +11,7 @@ type Props = {
 };
 
 function Landing({ goTo }: Props) {
-   const [lottie, setLottie] = useState(new Array(3));
+   const [lottie, setLottie] = useState(new Array(3).fill(""));
 
    const scrollOffsetAnimatedValue = useRef(new Animated.Value(0)).current;
    const positionAnimatedValue = useRef(new Animated.Value(0)).current;
@@ -23,17 +23,31 @@ function Landing({ goTo }: Props) {
          "https://assets7.lottiefiles.com/datafiles/MaKSoctsyXXTCDOpDktJYEcS3ws5SI6CLDo7iyMc/ex-splash.json",
       ];
 
-      urls.forEach((url, item) => {
-         fetch(url)
-            .then((response) => response.json())
-            .then((data) =>
-               setLottie((prev) => {
-                  prev[item] = data;
-                  return [...prev];
-               })
-            );
+      let arr = new Array(urls.length);
+      Promise.all(
+         urls.map(async (url, idx) => {
+            await fetch(url)
+               .then((response) => response.json())
+               .then((data) => (arr[idx] = data));
+         })
+      ).then(() => {
+         setLottie(arr);
       });
    }, []);
+
+   const renderItem = (source: string, idx: number) => {
+      return (
+         <View key={idx} style={styles.pageView} collapsable={false}>
+            {source ? (
+               <View style={styles.lottieContainer}>
+                  <LottieView source={source} autoPlay loop />
+               </View>
+            ) : (
+               <></>
+            )}
+         </View>
+      );
+   };
 
    return (
       <View style={styles.container}>
@@ -45,33 +59,10 @@ function Landing({ goTo }: Props) {
                   scrollOffsetAnimatedValue.setValue(e.nativeEvent.offset);
                   positionAnimatedValue.setValue(e.nativeEvent.position);
                }}>
-               <View key="1" style={styles.pageView}>
-                  {lottie[0] ? (
-                     <View style={styles.lottieContainer}>
-                        <LottieView source={lottie[0]} autoPlay loop />
-                     </View>
-                  ) : (
-                     <></>
-                  )}
-               </View>
-               <View key="2" style={styles.pageView}>
-                  {lottie[1] ? (
-                     <View style={styles.lottieContainer}>
-                        <LottieView source={lottie[1]} autoPlay loop />
-                     </View>
-                  ) : (
-                     <></>
-                  )}
-               </View>
-               <View key="3" style={styles.pageView}>
-                  {lottie[2] ? (
-                     <View style={styles.lottieContainer}>
-                        <LottieView source={lottie[2]} autoPlay loop />
-                     </View>
-                  ) : (
-                     <></>
-                  )}
-               </View>
+               {useMemo(
+                  () => lottie.map((item, idx) => renderItem(item, idx)),
+                  [lottie]
+               )}
             </PagerView>
             <Indicator
                scrollOffsetAnimatedValue={scrollOffsetAnimatedValue}

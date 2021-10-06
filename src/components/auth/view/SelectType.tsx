@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import { Button, Icon } from "react-native-elements";
-import { colors } from '../../elements/theme'
+import { colors } from "../../elements/theme";
 
 type Props = {
    onSelectType: (num: number) => void;
@@ -35,19 +35,26 @@ function SelectType({ onSelectType, userType }: Props) {
          </View>
          <View style={styles.typesContainer}>
             {cardDatas.map((item, idx) => (
-               <View style={styles.typeContainer}>
+               <View style={styles.typeContainer} key={`type_${idx}`}>
                   <Pressable
                      key={idx}
                      style={[
                         styles.cardContainer,
-                        {backgroundColor: userType === idx ? colors.primary : colors.secondary}
+                        {
+                           backgroundColor:
+                              userType === idx
+                                 ? colors.primary
+                                 : colors.secondary,
+                        },
                      ]}
                      onPress={() => onSelectType(idx)}>
                      <Icon
                         name={item.name}
                         type={item.type}
                         size={Dimensions.get("window").width * 0.1}
-                        color={userType === idx ? colors.background : colors.primary}
+                        color={
+                           userType === idx ? colors.background : colors.primary
+                        }
                      />
                   </Pressable>
                   <Text
@@ -55,7 +62,7 @@ function SelectType({ onSelectType, userType }: Props) {
                         alignSelf: "center",
                         color: colors.primary,
                         paddingTop: 10,
-                        fontSize: 18
+                        fontSize: 18,
                      }}>
                      {item.title}
                   </Text>
@@ -73,7 +80,7 @@ const styles = StyleSheet.create({
       justifyContent: "space-around",
    },
    typeContainer: {
-      width: '25%',
+      width: "25%",
    },
    cardContainer: {
       width: "100%",
