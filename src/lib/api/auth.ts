@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { Platform } from "react-native";
+import { kinderType } from "../../components/auth/types";
 import {
    DirectorSignUpType,
    LoginType,
@@ -10,18 +10,9 @@ import {
 
 const Address = "http://www.stmap.kro.kr:8080";
 
-/*
-   모든 api는 token으로 이루어짐.
-
-   따라서 비회원이더라도 token을 받아야함.
-
-   0. 회원 auth 토큰, 비회원 아이디가 둘 다 없으면 비회원 아이디 생성
-   1. 회원 auth 토큰이 있으면, 회원 auth 토큰을 우선.
-      1-1. 로그인 성공하면, 토큰과 함께 프로필 정보 받음.
-   2. 만약 비회원 아이디만 있거나, 회원 토큰이 invalid 할 경우, 비회원ID를 보내고 토큰을 받음.
-      2-1. 만약 비회원 아이디가 invalid 할 경우 새로 생성
-
-*/
+export const clearAccessToken = () => {
+   axios.defaults.headers.common["Authorization"] = null;
+};
 
 const setTokens = async (tokens: { accessToken: string }) => {
    const tokensObj = {
@@ -58,7 +49,7 @@ export const parentLogin = async (props: LoginType) => {
          `${Address}/api/member/parents/login`,
          props
       );
-      await setTokens(res.data.response.accessToken);
+      await setTokens(res.data.response);
    } catch (err) {
       console.log(err.response.data);
       throw err;
@@ -80,11 +71,8 @@ export const parentSignUp = async (props: ParentSignup, expoToken: string) => {
          password: props.password,
          expoToken: expoToken,
       });
-      // 로그인 성공시 정보조회
-      console.log(res.data.response);
       return res.data.response;
    } catch (err) {
-      console.log(err.response.data);
       throw err;
    }
 };
@@ -106,16 +94,16 @@ export const directorLogin = async (props: LoginType) => {
          `${Address}/api/member/director/login`,
          props
       );
-      await setTokens(res.data.response.accessToken);
+      await setTokens(res.data.response);
    } catch (err) {
-      console.log(err.response.data);
       throw err;
    }
 };
 
 export const directorSignUp = async (
    props: DirectorSignUpType,
-   expoToken: string
+   expoToken: string,
+   kinder: kinderType
 ) => {
    try {
       const res = await axios.post(
@@ -128,11 +116,21 @@ export const directorSignUp = async (
          password: props.password,
          expoToken: expoToken,
       });
-      // 로그인 성공시 정보조회
-      console.log(res.data.response);
+      await registerCenter(kinder);
       return res.data.response;
    } catch (err) {
       console.log(err.response.data);
+      throw err;
+   }
+};
+
+export const registerCenter = async (props: kinderType) => {
+   try {
+      await axios.post(`${Address}/api/member/director/registerCenter`, {
+         ...props,
+         foundationDate: "2012-12-12",
+      });
+   } catch (err) {
       throw err;
    }
 };
@@ -143,7 +141,6 @@ export const getTeacherInfo = async () => {
       const res = await axios.get(`${Address}/api/member/teacher`);
       return res.data.response;
    } catch (err) {
-      console.log(err.response.data);
       throw err;
    }
 };
@@ -154,9 +151,9 @@ export const teacherLogin = async (props: LoginType) => {
          `${Address}/api/member/teacher/login`,
          props
       );
-      await setTokens(res.data.response.accessToken);
+      await setTokens(res.data.response);
    } catch (err) {
-      console.log(err.response.data);
+      console.log(err.response);
       throw err;
    }
 };
@@ -168,10 +165,7 @@ export const teacherSignUp = async (
    try {
       const res = await axios.post(
          `${Address}/api/member/teacher/signup`,
-         props,
-         {
-            withCredentials: true,
-         }
+         props
       );
       // 성공시 로그인
       await teacherLogin({
@@ -179,8 +173,6 @@ export const teacherSignUp = async (
          password: props.password,
          expoToken: expoToken,
       });
-      // 로그인 성공시 정보조회
-      console.log(res.data.response);
       return res.data.response;
    } catch (err) {
       console.log(err.response.data);

@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Icon, Button as RNButton, ListItem } from "react-native-elements";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import { ScrollView } from "react-native-gesture-handler";
@@ -9,6 +9,8 @@ import { userInfoType } from "../types";
 type AuthProps = {
    userInfo: userInfoType;
    errMsg: userInfoType;
+   userType: number;
+   settingUserType: (v: number) => void;
    onChange: (name: string, value: string) => void;
    onPressLogin: () => void;
    goToSignin: () => void;
@@ -19,6 +21,8 @@ type AuthProps = {
 function Auth({
    userInfo,
    errMsg,
+   userType,
+   settingUserType,
    onChange,
    onPressLogin,
    goToSignin,
@@ -32,6 +36,32 @@ function Auth({
                <Text style={styles.header}>로그인</Text>
             </View>
             <View style={styles.inputContainer}>
+               <ListItem containerStyle={{ padding: 10, paddingBottom: 20 }}>
+                  <ListItem.Content
+                     style={{
+                        flexDirection: "row",
+                        justifyContent: "space-around",
+                     }}>
+                     {["학부모", "선생님", "원장님"].map((item, idx) => {
+                        return (
+                           <RNButton
+                              key={`usertype_${idx}`}
+                              title={item}
+                              type="outline"
+                              onPress={() => settingUserType(idx)}
+                              containerStyle={styles.userTypeButtonContainer}
+                              buttonStyle={{
+                                 borderColor:
+                                    userType === idx ? "#2196f3" : "gray",
+                              }}
+                              titleStyle={{
+                                 color: userType === idx ? "#2196f3" : "gray",
+                              }}
+                           />
+                        );
+                     })}
+                  </ListItem.Content>
+               </ListItem>
                <Input
                   placeholder={"아이디"}
                   icon="person"
@@ -111,6 +141,9 @@ const styles = StyleSheet.create({
       width: 110,
       position: "absolute",
       left: 0,
+   },
+   userTypeButtonContainer: {
+      flexGrow: 1,
    },
    buttonContainer: {
       width: "100%",

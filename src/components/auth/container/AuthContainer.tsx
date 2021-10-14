@@ -1,8 +1,20 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { navigationRef } from "../../../../RootNavigation";
+import {
+   clearAccessToken,
+   directorLogin,
+   getDirectorInfo,
+   getParentInfo,
+   getTeacherInfo,
+   parentLogin,
+   teacherLogin,
+} from "../../../lib/api/auth";
 import handleError, { checkLoginInfo } from "../../../lib/utils/authFunctions";
 import { SERVER_ERROR } from "../../../lib/utils/strings";
+import { RootState } from "../../../modules";
+import { signin } from "../../../modules/auth";
 import { loading, unloading } from "../../../modules/loading";
 import { setSnackbar } from "../../../modules/snackbar";
 import { AuthStackScreenParamList } from "../../../screens/AuthScreen";
@@ -12,6 +24,7 @@ import Auth from "../view/Auth";
 type Props = StackScreenProps<AuthStackScreenParamList, "Login">;
 
 function AuthContainer({ navigation }: Props) {
+   const [userType, setUserType] = useState<number>(0);
    const [userInfo, setUserInfo] = useState<userInfoType>({
       password: "",
       loginId: "",
@@ -21,6 +34,7 @@ function AuthContainer({ navigation }: Props) {
       password: "",
    });
    const [wrongPW, setWrongPW] = useState(false);
+   const pushToken = useSelector(({ pushToken }: RootState) => pushToken);
    const dispatch = useDispatch();
 
    const onChange = (name: string, value: string): void => {
@@ -32,21 +46,50 @@ function AuthContainer({ navigation }: Props) {
       if (!checkLoginInfo<userInfoType>(userInfo, setErrMsg, true)) return;
       dispatch(loading());
       try {
-         //     const res = await login(userInfo.id, userInfo.password);
-         //      dispatch(signin(res));
+         let res;
+         switch (userType) {
+            case 0:
+               await parentLogin({
+                  ...userInfo,
+                  expoToken: pushToken.token,
+               });
+               res = await getParentInfo();
+               break;
+            case 1:
+               await teacherLogin({
+                  ...userInfo,
+                  expoToken: pushToken.token,
+               });
+               res = await getTeacherInfo();
+               break;
+            default:
+               await directorLogin({
+                  ...userInfo,
+                  expoToken: pushToken.token,
+               });
+               res = await getDirectorInfo();
+         }
+
+         dispatch(signin(res));
+         navigationRef.current?.navigate("Main");
       } catch (err: any) {
          // 비밀번호, 아이디 처리
-         if (err.message === "비밀번호가 일치하지 않습니다.") {
+         if (err.response.data?.message === "비밀번호가 일치하지 않습니다.") {
             handleError<userInfoType>("auth/wrong-password", setErrMsg);
             setWrongPW(true);
-         } else if (err.message === "존재하지 않는 회원입니다.") {
+         } else if (
+            err.response.data?.message === "존재하지 않는 회원입니다."
+         ) {
             handleError<userInfoType>("auth/user-not-found", setErrMsg);
          } else {
             dispatch(setSnackbar({ visible: true, snackbar: SERVER_ERROR }));
          }
-         return;
       }
       dispatch(unloading());
+   };
+
+   const settingUserType = (type: number) => {
+      setUserType(type);
    };
 
    const goToSignin = (): void => {
@@ -69,6 +112,8 @@ function AuthContainer({ navigation }: Props) {
          goToSignin={goToSignin}
          goToMap={goToMap}
          goToFCM={goToFCM}
+         userType={userType}
+         settingUserType={settingUserType}
       />
    );
 }

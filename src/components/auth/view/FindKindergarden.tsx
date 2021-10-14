@@ -70,14 +70,15 @@ function FindKindergarden({
                   key={`kinder_${idx}`}
                   onPress={() => onPressKinder(item)}
                   style={[
-                     styleFunc(item.name === selectedKinder?.name).listItem,
+                     styleFunc(item.centerName === selectedKinder?.centerName)
+                        .listItem,
                   ]}>
                   <ListItem.Content>
-                     <ListItem.Title>{item.name}</ListItem.Title>
+                     <ListItem.Title>{item.centerName}</ListItem.Title>
                      <ListItem.Subtitle>
                         {item.tel}
                         {"\t"}
-                        {item.addr}
+                        {item.address}
                      </ListItem.Subtitle>
                   </ListItem.Content>
                </ListItem>

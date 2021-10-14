@@ -7,9 +7,9 @@ export const apiXmlToObject = (xml) => {
    const addr = json.getElementsByTagName("craddr").map((item) => item.value);
 
    const ret = names.map((item, idx) => ({
-      name: item,
+      centerName: item,
       tel: tels[idx],
-      addr: addr[idx],
+      address: addr[idx],
    }));
 
    return ret.sort((a, b) => {

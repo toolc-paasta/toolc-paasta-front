@@ -146,7 +146,7 @@ function SigninContainer({ navigation }: Props) {
       ) {
          return;
       }
-      dispatch(loading());
+      // dispatch(loading());
       try {
          let res;
          switch (userType) {
@@ -161,15 +161,10 @@ function SigninContainer({ navigation }: Props) {
                );
                break;
             case 1:
-               res = await teacherSignUp(
-                  {
-                     ...userInfo,
-                  },
-                  pushToken.token
-               );
+               res = await teacherSignUp(userInfo, pushToken.token);
                break;
             default:
-               if (userInfo.connectionNumber) {
+               if (userInfo.connectionNumber && selectedKinder) {
                   res = await directorSignUp(
                      {
                         ...userInfo,
@@ -177,7 +172,8 @@ function SigninContainer({ navigation }: Props) {
                            userInfo.connectionNumber
                         ),
                      },
-                     pushToken.token
+                     pushToken.token,
+                     selectedKinder
                   );
                }
                break;
@@ -189,10 +185,10 @@ function SigninContainer({ navigation }: Props) {
          if (err?.response.data.message === "ID가 중복된 회원입니다.") {
             handleError<signInInfoType>("auth/id-already-in-use", setErrMsg);
          } else {
-            dispatch(setSnackbar({ visible: true, snackbar: SERVER_ERROR }));
+            // dispatch(setSnackbar({ visible: true, snackbar: SERVER_ERROR }));
          }
       }
-      dispatch(unloading());
+      // dispatch(unloading());
    };
 
    const goNext = useCallback((): void => {
