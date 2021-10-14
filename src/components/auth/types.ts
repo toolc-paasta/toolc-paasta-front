@@ -1,20 +1,22 @@
+export type sexType = "남성" | "여성";
 export type userInfoType = {
-   id: string;
+   loginId: string;
    password: string;
 };
 
 export type signInInfoType = {
-   id: string;
+   loginId: string;
    name: string;
-   sex: number;
+   sex: sexType;
    password: string;
    passwordCheck: string;
+   connectionNumber?: string;
 };
 
 export type childInfoType = {
-   name: string;
-   sex: string;
-   birth: string;
+   childName: string;
+   childSex: sexType;
+   childBirthday: string;
 };
 
 type areaType = {

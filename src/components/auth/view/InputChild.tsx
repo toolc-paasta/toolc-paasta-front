@@ -17,8 +17,8 @@ function InputChild({ childInfo, onChangeChild, birthErr }: Props) {
             <Text>아이이름</Text>
             <ListItem.Content>
                <Input
-                  value={childInfo.name}
-                  onChangeText={(v) => onChangeChild("name", v)}
+                  value={childInfo.childName}
+                  onChangeText={(v) => onChangeChild("childName", v)}
                   containerStyle={{ width: 200 }}
                   renderErrorMessage={false}
                />
@@ -35,20 +35,24 @@ function InputChild({ childInfo, onChangeChild, birthErr }: Props) {
                   title="남자"
                   type="outline"
                   containerStyle={[]}
-                  buttonStyle={[stylesFunc(childInfo.sex === "male").button]}
-                  titleStyle={[
-                     stylesFunc(childInfo.sex === "male").buttonTitle,
+                  buttonStyle={[
+                     stylesFunc(childInfo.childSex === "남성").button,
                   ]}
-                  onPress={() => onChangeChild("sex", "male")}
+                  titleStyle={[
+                     stylesFunc(childInfo.childSex === "남성").buttonTitle,
+                  ]}
+                  onPress={() => onChangeChild("childSex", "남성")}
                />
                <Button
                   title="여자"
                   type="outline"
-                  buttonStyle={[stylesFunc(childInfo.sex === "female").button]}
-                  titleStyle={[
-                     stylesFunc(childInfo.sex === "female").buttonTitle,
+                  buttonStyle={[
+                     stylesFunc(childInfo.childSex === "여성").button,
                   ]}
-                  onPress={() => onChangeChild("sex", "female")}
+                  titleStyle={[
+                     stylesFunc(childInfo.childSex === "여성").buttonTitle,
+                  ]}
+                  onPress={() => onChangeChild("childSex", "여성")}
                />
             </ListItem.Content>
          </ListItem>
@@ -62,8 +66,8 @@ function InputChild({ childInfo, onChangeChild, birthErr }: Props) {
                }}>
                <Input
                   placeholder="20180429"
-                  value={childInfo.birth}
-                  onChangeText={(v) => onChangeChild("birth", v)}
+                  value={childInfo.childBirthday}
+                  onChangeText={(v) => onChangeChild("childBirthday", v)}
                   containerStyle={{ width: 200 }}
                   errorMessage={birthErr}
                />

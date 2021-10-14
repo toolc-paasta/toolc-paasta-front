@@ -30,6 +30,7 @@ const Stack = createStackNavigator<AuthStackScreenParamList>();
 
 function AuthScreen({ navigation }: Props) {
    const auth = useSelector(({ auth }: RootState) => auth);
+
    return (
       <Stack.Navigator initialRouteName={"Landing"}>
          <Stack.Screen

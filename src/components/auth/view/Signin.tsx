@@ -2,16 +2,26 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button, Input, ListItem, Icon } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
-import { signInInfoType } from "../types";
+import StyledButton from "../../elements/Button";
+import { sexType, signInInfoType } from "../types";
 
 type AuthProps = {
    userInfo: signInInfoType;
+   isDirector: boolean;
    errMsg: signInInfoType;
    onChange: (name: string, value: string) => void;
-   selectGender: (v: number) => void;
+   selectGender: (v: sexType) => void;
+   onPressLogin: () => Promise<void>;
 };
 
-function Signin({ userInfo, errMsg, onChange, selectGender }: AuthProps) {
+function Signin({
+   userInfo,
+   errMsg,
+   isDirector,
+   onChange,
+   selectGender,
+   onPressLogin,
+}: AuthProps) {
    return (
       <ScrollView style={styles.container} enabled>
          <View style={styles.insideContainer}>
@@ -21,10 +31,10 @@ function Signin({ userInfo, errMsg, onChange, selectGender }: AuthProps) {
                   leftIcon={
                      <Icon name="id-card" type="font-awesome" size={24} />
                   }
-                  value={userInfo.id}
+                  value={userInfo.loginId}
                   style={styles.input}
-                  errorMessage={errMsg.id}
-                  onChangeText={(value) => onChange("id", value)}
+                  errorMessage={errMsg.loginId}
+                  onChangeText={(value) => onChange("loginId", value)}
                   errorStyle={styles.err}
                />
                <Input
@@ -46,29 +56,44 @@ function Signin({ userInfo, errMsg, onChange, selectGender }: AuthProps) {
                      <Button
                         title="남자"
                         type="outline"
-                        onPress={() => selectGender(0)}
+                        onPress={() => selectGender("남성")}
                         containerStyle={styles.buttonContainer}
                         buttonStyle={{
-                           borderColor: userInfo.sex === 0 ? "#2196f3" : "gray",
+                           borderColor:
+                              userInfo.sex === "남성" ? "#2196f3" : "gray",
                         }}
                         titleStyle={{
-                           color: userInfo.sex === 0 ? "#2196f3" : "gray",
+                           color: userInfo.sex === "남성" ? "#2196f3" : "gray",
                         }}
                      />
                      <Button
                         title="여자"
                         type="outline"
-                        onPress={() => selectGender(1)}
+                        onPress={() => selectGender("여성")}
                         containerStyle={styles.buttonContainer}
                         buttonStyle={{
-                           borderColor: userInfo.sex === 1 ? "#2196f3" : "gray",
+                           borderColor:
+                              userInfo.sex === "여성" ? "#2196f3" : "gray",
                         }}
                         titleStyle={{
-                           color: userInfo.sex === 1 ? "#2196f3" : "gray",
+                           color: userInfo.sex === "여성" ? "#2196f3" : "gray",
                         }}
                      />
                   </ListItem.Content>
                </ListItem>
+               {isDirector && (
+                  <Input
+                     placeholder={"전화번호"}
+                     leftIcon={<Icon name="phone" size={24} />}
+                     style={styles.input}
+                     value={userInfo.connectionNumber}
+                     errorMessage={errMsg.connectionNumber}
+                     onChangeText={(value) =>
+                        onChange("connectionNumber", value)
+                     }
+                     errorStyle={styles.err}
+                  />
+               )}
                <Input
                   placeholder={"비밀번호"}
                   leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
@@ -88,6 +113,12 @@ function Signin({ userInfo, errMsg, onChange, selectGender }: AuthProps) {
                   errorMessage={errMsg.passwordCheck}
                   onChangeText={(value) => onChange("passwordCheck", value)}
                   errorStyle={styles.err}
+               />
+               <StyledButton
+                  title="회원가입"
+                  color="primary"
+                  wide
+                  onPress={onPressLogin}
                />
             </View>
          </View>

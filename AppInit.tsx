@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./src/modules";
 import SnackBar from "rn-animated-snackbar";
 import { clearSnackbar } from "./src/modules/snackbar";
-import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
-import { Alert, Platform } from "react-native";
 import { setToken } from "./src/modules/pushToken";
 import { navigateTo } from "./RootNavigation";
 import { setCustomText } from "react-native-global-props";
+import notificationInit from "./src/lib/utils/inits/notificationInit";
 
 type Props = {
    children: JSX.Element;
@@ -30,6 +29,7 @@ export default function AppInit({ children }: Props) {
    const dispatch = useDispatch();
    setCustomText(customTextProps);
 
+   // notification 처리 연결
    useEffect(() => {
       // killed 되면 인식 안함
       /*
@@ -70,39 +70,10 @@ export default function AppInit({ children }: Props) {
    const preload = async (): Promise<void> => {
       try {
          //초기화 작업
-         if (Constants.isDevice) {
-            const { status: existingStatus } =
-               await Notifications.getPermissionsAsync();
-            let finalStatus = existingStatus;
-            if (existingStatus !== "granted") {
-               const { status } = await Notifications.requestPermissionsAsync();
-               finalStatus = status;
-            }
-            if (finalStatus !== "granted") {
-               alert("Failed to get push token for push notification!");
-               return;
-            }
-            const token = (await Notifications.getExpoPushTokenAsync()).data;
+         const token = await notificationInit();
+         if (token) {
             dispatch(setToken({ token: token }));
-         } else {
-            alert("Must use physical device for Push Notifications");
          }
-
-         if (Platform.OS === "android") {
-            Notifications.setNotificationChannelAsync("default", {
-               name: "default",
-               importance: Notifications.AndroidImportance.DEFAULT,
-               vibrationPattern: [0, 250, 250, 250],
-               lightColor: "#FF231F7C",
-            });
-         }
-         Notifications.setNotificationHandler({
-            handleNotification: async () => ({
-               shouldShowAlert: true,
-               shouldPlaySound: true,
-               shouldSetBadge: true,
-            }),
-         });
       } catch (err) {
          console.log(err);
       }

@@ -13,6 +13,7 @@ type AuthProps = {
    onPressLogin: () => void;
    goToSignin: () => void;
    goToMap: () => void;
+   goToFCM: () => void;
 };
 
 function Auth({
@@ -22,6 +23,7 @@ function Auth({
    onPressLogin,
    goToSignin,
    goToMap,
+   goToFCM,
 }: AuthProps) {
    return (
       <ScrollView style={styles.container} enabled>
@@ -33,9 +35,9 @@ function Auth({
                <Input
                   placeholder={"아이디"}
                   icon="person"
-                  value={userInfo.id}
-                  errorMessage={errMsg.id}
-                  onChangeText={(value: any) => onChange("id", value)}
+                  value={userInfo.loginId}
+                  errorMessage={errMsg.loginId}
+                  onChangeText={(value: any) => onChange("loginId", value)}
                />
                <Input
                   placeholder={"비밀번호"}
@@ -62,8 +64,15 @@ function Auth({
                   />
                </View>
             </View>
-            <View style={{ marginTop: 20 }}>
-               <Button title="맵" color="primary" onPress={goToMap} />
+            <View
+               style={{
+                  width: "100%",
+                  marginTop: 20,
+                  flexDirection: "row",
+                  padding: 30,
+               }}>
+               <Button title="맵" color="primary" onPress={goToMap} wide />
+               <Button title="FCM" color="primary" onPress={goToFCM} wide />
             </View>
          </View>
       </ScrollView>

@@ -14,10 +14,10 @@ type Props = StackScreenProps<AuthStackScreenParamList, "Login">;
 function AuthContainer({ navigation }: Props) {
    const [userInfo, setUserInfo] = useState<userInfoType>({
       password: "",
-      id: "",
+      loginId: "",
    });
    const [errMsg, setErrMsg] = useState<userInfoType>({
-      id: "",
+      loginId: "",
       password: "",
    });
    const [wrongPW, setWrongPW] = useState(false);
@@ -56,6 +56,9 @@ function AuthContainer({ navigation }: Props) {
    const goToMap = (): void => {
       navigation.navigate("Map");
    };
+   const goToFCM = (): void => {
+      navigation.navigate("FCM");
+   };
 
    return (
       <Auth
@@ -65,6 +68,7 @@ function AuthContainer({ navigation }: Props) {
          onPressLogin={onPressLogin}
          goToSignin={goToSignin}
          goToMap={goToMap}
+         goToFCM={goToFCM}
       />
    );
 }

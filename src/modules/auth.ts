@@ -1,7 +1,17 @@
 export type authStateType = {
    id: string;
-   signined?: Boolean;
    profileImg?: string;
+   loginId: string;
+   name: string;
+   connectionNumber: string | null;
+   sex: string;
+   authority: string;
+   center?: string;
+   role?: string | null;
+   aclass?: string | null;
+   childName?: string;
+   childBirthday?: string;
+   student?: string | null;
 };
 
 //액션 타입
@@ -17,9 +27,14 @@ export const signout = () => ({ type: SIGNOUT });
 
 type AuthAction = ReturnType<typeof signin> | ReturnType<typeof signout>;
 
-const initialState: authStateType = {
+const initialState: authStateType & { signined: boolean } = {
    signined: false,
    id: "",
+   loginId: "",
+   name: "",
+   connectionNumber: "",
+   sex: "",
+   authority: "",
 };
 
 export default function auth(state = initialState, action: AuthAction) {

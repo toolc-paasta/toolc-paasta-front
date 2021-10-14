@@ -91,7 +91,7 @@ export default function App() {
                      <NavigationContainer
                         ref={navigationRef}
                         documentTitle={{ enabled: false }}>
-                        <Stack.Navigator initialRouteName="Main">
+                        <Stack.Navigator initialRouteName="Auth">
                            <Stack.Screen
                               name="Auth"
                               component={AuthScreen}

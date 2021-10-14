@@ -71,6 +71,17 @@ export default function handleError<T>(code: string, setErrMsg: setErrMsg<T>) {
             name: "성별을 선택해주세요",
          }));
          return true;
+      case "blank_phone":
+         setErrMsg((prev) => ({
+            ...prev,
+            connectionNumber: "전화번호를 입력해주세요.",
+         }));
+         return true;
+      case "connectionNumber_not_formmatted":
+         setErrMsg((prev) => ({
+            ...prev,
+            connectionNumber: "01012345678 형태로 입력해주세요.",
+         }));
       default:
          return false;
    }
@@ -79,9 +90,10 @@ export default function handleError<T>(code: string, setErrMsg: setErrMsg<T>) {
 export const checkLoginInfo = <T extends Partial<signInInfoType>>(
    info: T,
    setErrMsg: setErrMsg<T>,
-   isLogin: boolean
+   isLogin: boolean,
+   isDirector?: boolean
 ) => {
-   if (!info.id) {
+   if (!info.loginId) {
       handleError<T>("blank_id", setErrMsg);
       return false;
    } else if (!info.password) {
@@ -98,9 +110,19 @@ export const checkLoginInfo = <T extends Partial<signInInfoType>>(
       } else if (!info.name) {
          handleError<T>("blank_name", setErrMsg);
          return false;
-      } else if (info.sex === -1) {
-         handleError<T>("blank_gender", setErrMsg);
-         return false;
+      }
+      if (isDirector) {
+         if (!info.connectionNumber) {
+            handleError<T>("blank_phone", setErrMsg);
+            return false;
+         } else if (
+            !/^01([0|1|6|7|8|9])([0-9]{4})([0-9]{4})$/.test(
+               info.connectionNumber
+            )
+         ) {
+            handleError<T>("connectionNumber_not_formmatted", setErrMsg);
+            return false;
+         }
       }
    }
    return true;
