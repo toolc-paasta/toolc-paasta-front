@@ -4,9 +4,9 @@ import Constants from 'expo-constants';
 import Header from '../../elements/Header'
 export default function UploadNotice() {
  
-  const [title,setTitle] = useState()
-  const [content,setContent] = useState()
-  const [isSubmit,setIsSubmit] = useState(false)
+  const [title,setTitle] = useState<any>()
+  const [content,setContent] = useState<any>()
+  const [isSubmit,setIsSubmit] = useState<boolean>(false)
 
   useEffect(() => {
     if(isSubmit){
@@ -18,7 +18,7 @@ export default function UploadNotice() {
 
   return (
     <View style={styles.container}>
-      <Header header_title={'글쓰기'} setIsSubmit={setIsSubmit}/>
+      <Header header_title={'글쓰기'} setIsSubmit={setIsSubmit} IsInsert={null} navigation={null} setModalVisible={false}/>
       <View style={[styles.box, styles.box1]}>
         <TextInput
           style={styles.input1}
@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
   box1:{
     borderBottomWidth:1,
     borderBottomColor:'#bdbdbd'
+  },
+  box2:{
+
   },
   input1:{
     padding:5,

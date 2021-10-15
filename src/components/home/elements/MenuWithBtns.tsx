@@ -3,22 +3,37 @@ import { Text, View, StyleSheet,TouchableOpacity,Dimensions } from 'react-native
 import { btns_for_pr } from '../../elements/data';
 import { btns_for_ad } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { BottomTabNavigation } from "../../../screens/SearchScreen";
 
+type Btn = {
+  id:number;
+  title:string;
+  img:string;
+  onclick:string;
+}
 
-export default function MenuWithBtns({user_type,navigation}) {
+type Props = {
+  user_type:string;
+  navigation:BottomTabNavigation;
 
-  const [authType,setAuthType] = useState()
+};
+
+const btnPr:Btn[] = btns_for_pr;
+const btnAd:Btn[] = btns_for_ad;
+
+export default function MenuWithBtns({user_type,navigation}:Props) {
+
+  const [authType,setAuthType] = useState<any>()
   
   useEffect(() => {
-    console.log(user_type)
-    user_type==='pr' ? setAuthType(btns_for_pr) : setAuthType(btns_for_ad)
+    user_type==='pr' ? setAuthType(btnPr) : setAuthType(btnAd)
   }, []);
 
   return (
     <>
       <Text style={styles.articleMainText}>바로가기 메뉴</Text>
       <View style={styles.row}>
-        {authType?.map((item, i) => (
+        {authType?.map((item :any, i :any) => (
           <View style={styles.btnContainer} key={i}>
             <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate(item.onclick)}>
                 <Icon

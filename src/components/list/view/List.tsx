@@ -5,25 +5,32 @@ import { list_parent } from '../../elements/data';
 import { list_notice } from '../../elements/data';
 import Header from '../../elements/Header'
 import ListDetail from './ListDetail'
-export default function List({navigation, headerTitle}) {
+import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
 
-  const [date,setDate] = useState(new Date());
-  const [data,setData] = useState();
-  const [isSubmit,setIsSubmit] = useState(false)
-  const [modalVisible, setModalVisible] = useState(false);
+type Props = {
+  headerTitle:string;
+  navigation:BottomTabNavigation;
+};
+
+export default function List({navigation, headerTitle}:Props) {
+
+  const [date,setDate] = useState<any>(new Date());
+  const [data,setData] = useState<any>();
+  const [isSubmit,setIsSubmit] = useState<boolean>(false)
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const DATA  = headerTitle==='공지 모아보기' ? list_notice : list_parent
 
-  const makeTime = (t) => {
+  const makeTime = (t: Date) => {
     const sec = Math.floor((date.getTime()-t.getTime())/1000)
     let temp = sec
     let count = 0
     const unit = ['초','분','시간','일']
     while(temp>24){
       if(count<2 && temp>60)
-        temp = parseInt(temp/60)
+        temp = Math.floor(temp/60)
       else if(count>=2)
-        temp = parseInt(temp/24)
+        temp = Math.floor(temp/24)
       else
         return(temp+unit[count]+' 전')
       count++
@@ -34,7 +41,7 @@ export default function List({navigation, headerTitle}) {
 
   return (
     <View style={styles.container}>
-      <Header header_title={headerTitle} navigation={navigation} IsInsert={true}/>
+      <Header header_title={headerTitle} navigation={navigation} IsInsert={true} setIsSubmit={null} setModalVisible={false}/>
       <ScrollView style={styles.listContainer}>
         {DATA.map((item, i) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
