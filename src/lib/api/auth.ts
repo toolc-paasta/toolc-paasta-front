@@ -38,7 +38,6 @@ export const getParentInfo = async () => {
       const res = await axios.get(`${Address}/api/member/parents`);
       return res.data.response;
    } catch (err) {
-      console.log(err.response.data);
       throw err;
    }
 };
@@ -51,7 +50,6 @@ export const parentLogin = async (props: LoginType) => {
       );
       await setTokens(res.data.response);
    } catch (err) {
-      console.log(err.response.data);
       throw err;
    }
 };
@@ -83,7 +81,6 @@ export const getDirectorInfo = async () => {
       const res = await axios.get(`${Address}/api/member/director`);
       return res.data.response;
    } catch (err) {
-      console.log(err.response.data);
       throw err;
    }
 };
@@ -94,6 +91,7 @@ export const directorLogin = async (props: LoginType) => {
          `${Address}/api/member/director/login`,
          props
       );
+      console.log(res.data.response);
       await setTokens(res.data.response);
    } catch (err) {
       throw err;
@@ -102,8 +100,7 @@ export const directorLogin = async (props: LoginType) => {
 
 export const directorSignUp = async (
    props: DirectorSignUpType,
-   expoToken: string,
-   kinder: kinderType
+   expoToken: string
 ) => {
    try {
       const res = await axios.post(
@@ -116,20 +113,22 @@ export const directorSignUp = async (
          password: props.password,
          expoToken: expoToken,
       });
-      await registerCenter(kinder);
       return res.data.response;
    } catch (err) {
-      console.log(err.response.data);
       throw err;
    }
 };
 
 export const registerCenter = async (props: kinderType) => {
    try {
-      await axios.post(`${Address}/api/member/director/registerCenter`, {
-         ...props,
-         foundationDate: "2012-12-12",
-      });
+      const res = await axios.post(
+         `${Address}/api/member/director/registerCenter`,
+         {
+            centerName: props.centerName,
+            address: props.address,
+            foundationDate: props.foundationDate,
+         }
+      );
    } catch (err) {
       throw err;
    }
@@ -153,7 +152,6 @@ export const teacherLogin = async (props: LoginType) => {
       );
       await setTokens(res.data.response);
    } catch (err) {
-      console.log(err.response);
       throw err;
    }
 };
@@ -175,7 +173,6 @@ export const teacherSignUp = async (
       });
       return res.data.response;
    } catch (err) {
-      console.log(err.response.data);
       throw err;
    }
 };

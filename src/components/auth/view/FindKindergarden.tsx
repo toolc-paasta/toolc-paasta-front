@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import code from "../sigungu.json";
 import ModalSelector from "react-native-modal-selector";
-import { Button, ListItem } from "react-native-elements";
+import { Button, Input, ListItem } from "react-native-elements";
 import { areaInfoType, kinderListType, kinderType } from "../types";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -15,6 +15,8 @@ type Props = {
    kinderList: kinderListType | null;
    onPressKinder: (kinder: kinderType) => void;
    selectedKinder: kinderType | null;
+   foundationDateErr: string;
+   onChangeFoundationDate: (v: string) => void;
 };
 
 const state = code.map((item, idx) => ({ key: idx, label: item.name }));
@@ -33,9 +35,28 @@ function FindKindergarden({
    kinderList,
    onPressKinder,
    selectedKinder,
+   foundationDateErr,
+   onChangeFoundationDate,
 }: Props) {
    return (
       <View style={styles.container}>
+         <ListItem>
+            <Text>설립일</Text>
+            <ListItem.Content
+               style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+               }}>
+               <Input
+                  placeholder="20180429"
+                  value={selectedKinder?.foundationDate}
+                  onChangeText={(v) => onChangeFoundationDate(v)}
+                  containerStyle={{ width: 200 }}
+                  errorMessage={foundationDateErr}
+               />
+            </ListItem.Content>
+         </ListItem>
          <View style={styles.selectContaienr}>
             <ModalSelector
                data={state}
@@ -106,7 +127,6 @@ const styles = StyleSheet.create({
    selectContaienr: {
       flexDirection: "row",
       paddingLeft: 30,
-      paddingTop: 30,
    },
    kinderListContainer: {
       padding: 20,

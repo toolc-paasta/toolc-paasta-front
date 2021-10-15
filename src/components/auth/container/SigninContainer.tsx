@@ -1,6 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 import { AuthStackScreenParamList } from "../../../screens/AuthScreen";
 import Signin from "../view/Signin";
 import PagerView from "react-native-pager-view";
@@ -31,6 +31,7 @@ import { colors } from "../../elements/theme";
 import {
    directorSignUp,
    parentSignUp,
+   registerCenter,
    teacherSignUp,
 } from "../../../lib/api/auth";
 import parseToBirth from "../../../lib/utils/parseToBirth";
@@ -98,6 +99,7 @@ function SigninContainer({ navigation }: Props) {
       null
    );
    const [birthErr, setBirthErr] = useState<string | undefined>();
+   const [foundationDateErr, setFoundationDateErr] = useState<string>("");
 
    const pushToken = useSelector(({ pushToken }: RootState) => pushToken);
    const dispatch = useDispatch();
@@ -106,6 +108,26 @@ function SigninContainer({ navigation }: Props) {
    const onChange = (name: string, value: string): void => {
       setErrMsg((prev) => ({ ...prev, [name]: "" }));
       setUserInfo((prev) => ({ ...prev, [name]: value }));
+   };
+   const onChangeKinderFoundationDate = (value: string) => {
+      if (value.length > 8) {
+         return;
+      }
+      if (foundationDateErr) {
+         setFoundationDateErr("");
+      }
+      if (value.length === 8) {
+         if (parseInt(value.slice(6, 8)) > 31) {
+            setFoundationDateErr("일은 1~31일까지 있습니다.");
+            return;
+         }
+      } else if (value.length === 6) {
+         if (parseInt(value.slice(4, 6)) > 13) {
+            setFoundationDateErr("월은 1~12월까지 있습니다.");
+            return;
+         }
+      }
+      setSelectedKinder((prev) => ({ ...prev, foundationDate: value }));
    };
    const onChangeChild = (name: string, value: string): void => {
       if (name === "childBirthday") {
@@ -146,7 +168,7 @@ function SigninContainer({ navigation }: Props) {
       ) {
          return;
       }
-      // dispatch(loading());
+      dispatch(loading());
       try {
          let res;
          switch (userType) {
@@ -172,9 +194,14 @@ function SigninContainer({ navigation }: Props) {
                            userInfo.connectionNumber
                         ),
                      },
-                     pushToken.token,
-                     selectedKinder
+                     pushToken.token
                   );
+                  await registerCenter({
+                     ...selectedKinder,
+                     foundationDate: parseToBirth(
+                        selectedKinder?.foundationDate
+                     ),
+                  });
                }
                break;
          }
@@ -185,16 +212,44 @@ function SigninContainer({ navigation }: Props) {
          if (err?.response.data.message === "ID가 중복된 회원입니다.") {
             handleError<signInInfoType>("auth/id-already-in-use", setErrMsg);
          } else {
-            // dispatch(setSnackbar({ visible: true, snackbar: SERVER_ERROR }));
+            dispatch(setSnackbar({ visible: true, snackbar: SERVER_ERROR }));
          }
       }
-      // dispatch(unloading());
+      dispatch(unloading());
    };
 
+   const checkSecondPage = () => {
+      if (
+         position == 1 &&
+         userType === 0 &&
+         !(childInfo.childBirthday && childInfo.childName && childInfo.childSex)
+      ) {
+         Alert.alert("안내", "아이의 정보를 전부 입력해주세요.", [
+            { text: "확인", onPress: () => {}, style: "default" },
+         ]);
+         return false;
+      } else if (
+         position == 1 &&
+         userType === 2 &&
+         !(
+            selectedKinder?.address &&
+            selectedKinder.centerName &&
+            selectedKinder.foundationDate
+         )
+      ) {
+         Alert.alert("안내", "유치원 정보를 전부 입력해주세요.", [
+            { text: "확인", onPress: () => {}, style: "default" },
+         ]);
+         return false;
+      }
+      return true;
+   };
    const goNext = useCallback((): void => {
-      pagerRef.current?.setPage(position + 1);
-      setPosition((prev) => prev + 1);
-   }, [pagerRef, position]);
+      if (checkSecondPage()) {
+         pagerRef.current?.setPage(position + 1);
+         setPosition((prev) => prev + 1);
+      }
+   }, [pagerRef, position, userType, childInfo, selectedKinder]);
    const goPrev = useCallback((): void => {
       pagerRef.current?.setPage(position - 1);
       setPosition((prev) => prev - 1);
@@ -202,7 +257,6 @@ function SigninContainer({ navigation }: Props) {
    const onSelectType = useCallback((num: number): void => {
       setUserType(num);
    }, []);
-
    const onSearchKinder = useCallback(async () => {
       const key = "	f4c1bb8d56fb4d07923725f4458c8d09";
       const res = await axios.get(
@@ -213,7 +267,7 @@ function SigninContainer({ navigation }: Props) {
    }, [areaInfo]);
 
    const onPressKinder = useCallback((kinder) => {
-      setSelectedKinder(kinder);
+      setSelectedKinder((prev) => ({ ...prev, ...kinder }));
    }, []);
 
    return (
@@ -244,6 +298,8 @@ function SigninContainer({ navigation }: Props) {
                         kinderList={kinderList}
                         onPressKinder={onPressKinder}
                         selectedKinder={selectedKinder}
+                        foundationDateErr={foundationDateErr}
+                        onChangeFoundationDate={onChangeKinderFoundationDate}
                      />
                   </View>
                ) : (

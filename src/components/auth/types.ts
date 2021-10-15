@@ -30,9 +30,10 @@ export type areaInfoType = {
 };
 
 export type kinderType = {
-   centerName: string;
-   address: string;
-   tel: string;
+   centerName?: string;
+   address?: string;
+   tel?: string;
+   foundationDate: string;
 };
 
 export type kinderListType = kinderType[];
