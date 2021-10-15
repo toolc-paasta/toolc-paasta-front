@@ -6,7 +6,17 @@ import MenuWithList from '../elements/MenuWithList';
 import { temp_data } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomTabNavigation } from "../../../screens/SearchScreen";
-
+import { RootState } from "../../../modules";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearAccessToken,
+  directorLogin,
+  getDirectorInfo,
+  getParentInfo,
+  getTeacherInfo,
+  parentLogin,
+  teacherLogin,
+} from "../../../lib/api/auth";
 const TYPE = temp_data.type
 
 type Props = {
@@ -14,7 +24,7 @@ type Props = {
 }
 
 function Home({ navigation }: Props) {
-  
+  let res;
   const [isAuth,setIsAuth] = useState(temp_data.auth);
 
   return (
