@@ -77,7 +77,9 @@ export default function App() {
    const [loaded] = useFonts({
       Font: require("./assets/Font.ttf"),
    });
-
+      /*
+      https://pacific-jeep-805.notion.site/DayCare-API-Specification-2ba71edd27054a42a5d9a167e46688ab
+      */
    return (
       <SafeAreaProvider>
          <StatusBar style="auto" />

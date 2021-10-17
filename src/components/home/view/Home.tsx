@@ -21,9 +21,10 @@ const TYPE = temp_data.type
 
 type Props = {
   navigation: BottomTabNavigation;
+  auth:any;
 }
 
-function Home({ navigation }: Props) {
+function Home({ navigation,auth }: Props) {
   let res;
   const [isAuth,setIsAuth] = useState(temp_data.auth);
 
@@ -44,7 +45,7 @@ function Home({ navigation }: Props) {
           </View>
         </View>
         <View style={styles.articleTop}>
-          <Text style={styles.articleTopText}>{temp_data.user_name} {TYPE=='pr' ? '학부모님' : (TYPE=='tc' ? '교사님' : '원장님' ) }, 안녕하세요</Text>          
+          <Text style={styles.articleTopText}>{auth.name} {auth.authority=='TEACHER' ? '선생님' : (auth.authority=='DIRECTOR' ? '원장님' : '학부모님' ) }, 안녕하세요</Text>          
         </View>
         <View style={styles.articleMain}>
           <MenuWithBtns user_type={TYPE} navigation={navigation}/>

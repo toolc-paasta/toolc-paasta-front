@@ -6,33 +6,28 @@ import Home from "../view/Home";
 import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  clearAccessToken,
-  directorLogin,
-  getDirectorInfo,
   getParentInfo,
-  getTeacherInfo,
-  parentLogin,
-  teacherLogin,
 } from "../../../lib/api/auth";
 
 type Props = {
    navigation: BottomTabNavigation;
+   
 };
 
 function HomeContainer({ navigation }: Props) {
    let res;
+   
+   const auth =  useSelector(({auth} :RootState) => auth)
+   
 
    const getInfo = async() => {
-      console.log('qwer') 
-      res = await getParentInfo();
    }
   
     useEffect(() => {
       getInfo()
-      console.log('hihihi')
     }, []);
 
-   return <Home navigation={navigation} />;
+   return <Home navigation={navigation} auth={auth}/>;
 }
 
 export default HomeContainer;
