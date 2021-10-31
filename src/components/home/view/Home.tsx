@@ -6,17 +6,30 @@ import MenuWithList from '../elements/MenuWithList';
 import { temp_data } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomTabNavigation } from "../../../screens/SearchScreen";
-
-const TYPE = temp_data.type
+import { RootState } from "../../../modules";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearAccessToken,
+  directorLogin,
+  getDirectorInfo,
+  getParentInfo,
+  getTeacherInfo,
+  parentLogin,
+  teacherLogin,
+} from "../../../lib/api/auth";
 
 type Props = {
   navigation: BottomTabNavigation;
+  auth:any;
 }
 
-function Home({ navigation }: Props) {
-  
-  const [isAuth,setIsAuth] = useState(temp_data.auth);
-
+function Home({ navigation,auth }: Props) {
+  let res;
+  const [isAuth,setIsAuth] = useState(true);
+/*
+선생 qwer1106 qwer1234$
+학부모 shkim1106 qwer1234%
+ */
   return (
     <View style={styles.container}>
     {isAuth ? (
@@ -34,10 +47,10 @@ function Home({ navigation }: Props) {
           </View>
         </View>
         <View style={styles.articleTop}>
-          <Text style={styles.articleTopText}>{temp_data.user_name} {TYPE=='pr' ? '학부모님' : (TYPE=='tc' ? '교사님' : '원장님' ) }, 안녕하세요</Text>          
+          <Text style={styles.articleTopText}>{auth.name} {auth.authority=='TEACHER' ? '선생님' : (auth.authority=='DIRECTOR' ? '원장님' : '학부모님' ) }, 안녕하세요</Text>          
         </View>
         <View style={styles.articleMain}>
-          <MenuWithBtns user_type={TYPE} navigation={navigation}/>
+          <MenuWithBtns user_type={auth.authority} navigation={navigation}/>
         </View>
         <View style={styles.articleMain}>
           <MenuWithList/>

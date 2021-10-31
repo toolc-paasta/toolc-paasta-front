@@ -26,7 +26,7 @@ export default function MenuWithBtns({user_type,navigation}:Props) {
   const [authType,setAuthType] = useState<any>()
   
   useEffect(() => {
-    user_type==='pr' ? setAuthType(btnPr) : setAuthType(btnAd)
+    user_type==='PARENT' ? setAuthType(btnPr) : setAuthType(btnAd)
   }, []);
 
   return (
@@ -44,7 +44,7 @@ export default function MenuWithBtns({user_type,navigation}:Props) {
                 />
             </TouchableOpacity>
             <View style={styles.textView}>
-              <Text style={styles.text}>{item.title.length>6 ? (item.title.split(' ')[0]+'\n'+item.title.split(' ')[1]) : (item.title)}</Text>
+              <Text style={styles.text}>{item.title}</Text>
             </View>
           </View>  
         ))}
