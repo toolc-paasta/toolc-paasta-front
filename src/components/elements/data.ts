@@ -15,18 +15,18 @@ export const users = [
 ]
 
 export const btns_for_pr = [
-{id: 0, title: '공지 모아보기', img:'book-outline'},
-{id: 1, title: '개인 톡', img:'clipboard-outline'},
-{id: 2, title: '학부모 게시판', img:'logo-twitch'},
-{id: 3, title: '셔틀 위치 확인', img:'logo-youtube'},
+{id: 0, title: '공지 모아보기', img:'book-outline', onclick:'NoticeBoard'},
+{id: 1, title: '개인 톡', img:'clipboard-outline', onclick:'??'},
+{id: 2, title: '학부모 게시판', img:'logo-twitch', onclick:'ParentBoard'},
+{id: 3, title: '셔틀 위치 확인', img:'logo-youtube', onclick:'??'},
 ];
 
 export const btns_for_ad = [
 {id: 0, title: '회원 관리', img:'book-outline', onclick:'Management'},
 {id: 1, title: '공지 모아보기', img:'mail-outline', onclick:'NoticeBoard'},
-{id: 2, title: '개인 톡', img:'call-outline'},
+{id: 2, title: '개인 톡', img:'call-outline', onclick:'??'},
 {id: 3, title: '학부모 게시판', img:'car-outline', onclick:'ParentBoard'},
-{id: 4, title: '셔틀 관리', img:'clipboard-outline'},
+{id: 4, title: '셔틀 관리', img:'clipboard-outline', onclick:'??'},
 {id: 5, title: '전화번호부', img:'log-in-outline', onclick:'Contact'},
 ];
 

@@ -3,18 +3,34 @@ import { Text, View, StyleSheet, ScrollView, Dimensions} from 'react-native';
 import Constants from 'expo-constants';
 import { comment } from '../../elements/data';
 import Header from '../../elements/Header'
-export default function ListDetail({data,date,setModalVisible,navigation,header_title}) {
+import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
 
-  const makeTime = (t) => {
+type List = {
+  time: Date; 
+  title: string; 
+  content:string;
+}
+
+type Props = {
+  data:List;
+  date:Date;
+  setModalVisible:React.Dispatch<React.SetStateAction<boolean>>;
+  header_title:string;
+  navigation:BottomTabNavigation;
+};
+
+export default function ListDetail({data,date,setModalVisible,header_title,navigation,} :Props) {
+
+  const makeTime = (t: Date) => {
     const sec = Math.floor((date.getTime()-t.getTime())/1000)
     let temp = sec
     let count = 0
     const unit = ['초','분','시간','일']
     while(temp>24){
       if(count<2 && temp>60)
-        temp = parseInt(temp/60)
+        temp = Math.floor(temp/60)
       else if(count>=2)
-        temp = parseInt(temp/24)
+        temp = Math.floor(temp/24)
       else
         return(temp+unit[count]+' 전')
       count++
@@ -25,7 +41,7 @@ export default function ListDetail({data,date,setModalVisible,navigation,header_
 
   return (
     <ScrollView style={styles.container}>
-      <Header header_title={header_title} setModalVisible={setModalVisible} navigation={navigation}/>
+      <Header header_title={header_title} setModalVisible={setModalVisible} setIsSubmit={false} navigation={navigation} IsInsert={null} />
       <View style={[styles.box, styles.box1]}>
         <Text style={styles.input1}>{data.title}</Text>
         <Text style={styles.input1_2}>{data.time.getMonth()+1}월 {data.time.getDate()}일</Text>
@@ -62,6 +78,9 @@ const styles = StyleSheet.create({
   },
   box1:{
     flexDirection: 'row',
+  },
+  box2:{
+    
   },
   box3:{
     borderBottomWidth:0,

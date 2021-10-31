@@ -2,7 +2,7 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "target":"ES2016", 
+    "target":"ES2016",
     "typeRoots": ["./types"],
   }
 }

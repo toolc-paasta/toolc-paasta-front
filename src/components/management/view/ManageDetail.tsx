@@ -4,9 +4,17 @@ import Header from '../../elements/Header'
 import { comment } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
+type Users = {
+  id: number; 
+  name: string; 
+  contact:string;
+}
+type Props = {
+  data:Users;
+  setModalVisible:React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-export default function ManageDetail({data,setModalVisible}) {
-
+export default function ManageDetail({data,setModalVisible}:Props) {
 
   return (
     <ScrollView>
@@ -33,19 +41,19 @@ export default function ManageDetail({data,setModalVisible}) {
       <View style={[styles.box, styles.box1]}>
         <Text style={styles.input1}>{data.name}</Text>
       </View>
-      <View style={[styles.box, styles.box2]}>
+      <View style={[styles.box]}>
         <Text style={styles.input2}>{data.contact}</Text>
       </View>
-      <View style={[styles.box, styles.box2]}>
+      <View style={[styles.box]}>
         <Text style={styles.input2}>{data.contact}</Text>
       </View>
-      <View style={[styles.box, styles.box2]}>
+      <View style={[styles.box]}>
         <Text style={styles.input2}>{data.contact}</Text>
       </View>
-      <View style={[styles.box, styles.box2]}>
+      <View style={[styles.box]}>
         <Text style={styles.input2}>{data.contact}</Text>
       </View>
-      <View style={[styles.box, styles.box2]}>
+      <View style={[styles.box]}>
         <Text style={styles.input2}>{data.contact}</Text>
       </View>
       <View style={styles.btnContainer}>
@@ -112,4 +120,5 @@ const styles = StyleSheet.create({
     borderRadius:30,
     borderWidth:1   
   },
+  icon:{}
 });

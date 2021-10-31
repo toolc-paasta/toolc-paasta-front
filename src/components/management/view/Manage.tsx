@@ -15,25 +15,35 @@ import Header from '../../elements/Header'
 import { users } from '../../elements/data';
 import ManageDetail from './ManageDetail'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { BottomTabNavigation } from "../../../screens/ManagementScreen";
 
-export default function Manage({navigation}) {
+type Props = {
+  navigation:BottomTabNavigation;
+};
+
+type Item = {
+  name:string;
+  contact:number;
+}
+
+export default function Manage({navigation}:Props) {
   const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
-  const [masterDataSource, setMasterDataSource] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [data,setData] = useState();
+  const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
+  const [masterDataSource, setMasterDataSource] = useState<any>([]);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [data,setData] = useState<any>();
 
   useEffect(() => {
     setFilteredDataSource(users);
     setMasterDataSource(users);
   }, []);
 
-  const searchFilterFunction = (text) => {
+  const searchFilterFunction = (text:string) => {
     // Check if searched text is not blank
     if (text) {
       // Inserted text is not blank
       // Filter the masterDataSource and update FilteredDataSource
-      const newData = masterDataSource.filter(function (item) {
+      const newData = masterDataSource.filter(function (item:Item) {
         // Applying filter for the inserted text in search bar
         const itemData = item.name ? item.name : ''
         const textData = text
@@ -49,7 +59,7 @@ export default function Manage({navigation}) {
     }
   };
 
-  const ItemView = ({ item }) => {
+  const ItemView = ({item}:any) => {
     return (
       <TouchableOpacity style={styles.list} onPress={() => getItem(item)}>
         <View style={[styles.itemStyle,styles.iconBox]}>
@@ -80,7 +90,7 @@ export default function Manage({navigation}) {
     );
   };
 
-  const getItem = (item) => {
+  const getItem = (item:Item) => {
     setData(item)
     setModalVisible(true)
   };
@@ -88,7 +98,7 @@ export default function Manage({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Header header_title={'회원관리'} navigation={navigation}/>
+      <Header header_title={'회원관리'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
       <SafeAreaView style={{ flex: 1 }}>
         <View>
           <View style={styles.searchBox}>
@@ -169,6 +179,10 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     paddingLeft:10,
+  },
+  iconBox:{
+  },
+  icon:{
   },
   modalView: {
     height: Dimensions.get('window').height/10*9,

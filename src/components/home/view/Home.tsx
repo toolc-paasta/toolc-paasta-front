@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
-import MenuWithBtns from '../elements/MenuWithBtns.js';
-import MenuWithList from '../elements/MenuWithList.js';
+import MenuWithBtns from '../elements/MenuWithBtns';
+import MenuWithList from '../elements/MenuWithList';
 import { temp_data } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomTabNavigation } from "../../../screens/SearchScreen";

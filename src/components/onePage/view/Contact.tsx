@@ -12,11 +12,21 @@ import Constants from 'expo-constants';
 import Header from '../../elements/Header'
 import { users } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { BottomTabNavigation } from "../../../screens/ContactScreen";
 
-export default function Contact({navigation}) {
-  const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
-  const [masterDataSource, setMasterDataSource] = useState([]);
+type Props = {
+  navigation:BottomTabNavigation;
+};
+
+type Item = {
+  name:string;
+  contact:number;
+}
+
+export default function Contact({navigation}:Props) {
+  const [search, setSearch] = useState<any>('');
+  const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
+  const [masterDataSource, setMasterDataSource] = useState<any>([]);
 
   useEffect(() => {
     
@@ -25,12 +35,12 @@ export default function Contact({navigation}) {
       
   }, []);
 
-  const searchFilterFunction = (text) => {
+  const searchFilterFunction = (text:string) => {
     // Check if searched text is not blank
     if (text) {
       // Inserted text is not blank
       // Filter the masterDataSource and update FilteredDataSource
-      const newData = masterDataSource.filter(function (item) {
+      const newData = masterDataSource.filter(function (item:Item) {
         // Applying filter for the inserted text in search bar
         const itemData = item.name ? item.name : ''
         const textData = text
@@ -46,7 +56,7 @@ export default function Contact({navigation}) {
     }
   };
 
-  const ItemView = ({ item }) => {
+  const ItemView = ({ item }:any) => {
     return (
       <TouchableOpacity style={styles.list} onPress={() => getItem(item)}>
         <View style={[styles.itemStyle,styles.iconBox]}>
@@ -80,14 +90,14 @@ export default function Contact({navigation}) {
     );
   };
 
-  const getItem = (item) => {
+  const getItem = (item:Item) => {
     
     alert('name : ' + item.name + ' / phone : ' + item.contact);
   };
 
   return (
     <View style={styles.container}>
-      <Header header_title={'전화번호부'} navigation={navigation}/>
+      <Header header_title={'전화번호부'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
       <SafeAreaView style={{ flex: 1 }}>
         <View>
           <View style={styles.searchBox}>

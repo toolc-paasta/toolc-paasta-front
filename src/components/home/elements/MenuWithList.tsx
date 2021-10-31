@@ -6,16 +6,17 @@ export default function MenuWithList() {
 
   const [date,SetDate] = useState(new Date());
 
-  const makeTime = (t) => {
+  const makeTime = (t: Date) => {
     const sec = Math.floor((date.getTime()-t.getTime())/1000)
     let temp = sec
     let count = 0
     const unit=['초','분','시간','일']
+
     while(temp>24){
       if(count<2 && temp>60)
-        temp = parseInt(temp/60)
+        temp = temp/60
       else if(count>=2)
-        temp = parseInt(temp/24)
+        temp = temp/24
       else
         return (temp+unit[count])
       count++
