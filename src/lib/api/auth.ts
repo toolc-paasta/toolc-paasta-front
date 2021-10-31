@@ -129,7 +129,9 @@ export const registerCenter = async (props: kinderType) => {
             foundationDate: props.foundationDate,
          }
       );
+      console.log(res.data.response);
    } catch (err) {
+      console.log(err.response.data);
       throw err;
    }
 };
@@ -152,6 +154,7 @@ export const teacherLogin = async (props: LoginType) => {
       );
       await setTokens(res.data.response);
    } catch (err) {
+      console.log(err.response.data);
       throw err;
    }
 };

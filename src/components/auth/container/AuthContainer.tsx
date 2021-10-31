@@ -77,10 +77,11 @@ function AuthContainer({ navigation }: Props) {
          if (err.response.data?.message === "비밀번호가 일치하지 않습니다.") {
             handleError<userInfoType>("auth/wrong-password", setErrMsg);
             setWrongPW(true);
-         } else if (
-            err.response.data?.message === "존재하지 않는 회원입니다."
-         ) {
+         } else if (err.response.data?.message === "없는 사용자 입니다.") {
             handleError<userInfoType>("auth/user-not-found", setErrMsg);
+            dispatch(
+               setSnackbar({ visible: true, snackbar: "없는 사용자입니다." })
+            );
          } else {
             dispatch(setSnackbar({ visible: true, snackbar: SERVER_ERROR }));
          }

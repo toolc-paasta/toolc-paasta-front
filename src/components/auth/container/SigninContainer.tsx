@@ -196,13 +196,13 @@ function SigninContainer({ navigation }: Props) {
                      },
                      pushToken.token
                   );
-                  /*
+
                   await registerCenter({
                      ...selectedKinder,
                      foundationDate: parseToBirth(
                         selectedKinder?.foundationDate
                      ),
-                  });*/
+                  });
                }
                break;
          }
