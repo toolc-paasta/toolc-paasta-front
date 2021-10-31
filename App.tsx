@@ -25,6 +25,7 @@ import UploadNoticeScreen from "./src/screens/UploadNoticeScreen";
 import ContactScreen from "./src/screens/ContactScreen";
 import ShuttleScreen from "./src/screens/ShuttleScreen";
 import TalkScreen from "./src/screens/TalkScreen";
+import NoticeScreen from "./src/screens/NoticeScreen";
 import { Icon } from "react-native-elements";
 import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
@@ -72,6 +73,7 @@ export type RootBottomTabParamList = {
    UploadNotice: undefined;
    Shuttle:undefined;
    Talk:undefined;
+   Notice:undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -205,6 +207,16 @@ export default function App() {
                                     <Tab.Screen
                                        name="Talk"
                                        component={TalkScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                    <Tab.Screen
+                                       name="Notice"
+                                       component={NoticeScreen}
                                        options={{
                                           headerShown: false,
                                           tabBarIcon: () => (

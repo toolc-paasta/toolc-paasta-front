@@ -38,12 +38,13 @@ function Home({ navigation,auth }: Props) {
           <Text style={styles.headerText}>{temp_data.kg_name}</Text>
           <View style={styles.headerIcon}>
             <Icon
-               name={'person-outline'}
+               name={'notifications-outline'}
                size={35}
                color="black"
                style={styles.icon}
-               onPress={() => navigation.navigate("Home")}
+               onPress={() => navigation.navigate("Notice")}
             />
+            <Text style={styles.headerIconText}>new</Text>
           </View>
         </View>
         <View style={styles.articleTop}>
@@ -115,6 +116,10 @@ const styles = StyleSheet.create({
   headerIcon:{
     position:'absolute',
     right:10
+  },
+  headerIconText:{
+    color:'red',
+    
   },
   icon:{
    fontSize:25
