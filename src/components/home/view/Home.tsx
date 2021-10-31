@@ -17,7 +17,6 @@ import {
   parentLogin,
   teacherLogin,
 } from "../../../lib/api/auth";
-const TYPE = temp_data.type
 
 type Props = {
   navigation: BottomTabNavigation;
@@ -26,8 +25,11 @@ type Props = {
 
 function Home({ navigation,auth }: Props) {
   let res;
-  const [isAuth,setIsAuth] = useState(temp_data.auth);
-
+  const [isAuth,setIsAuth] = useState(true);
+/*
+선생 qwer1106 qwer1234$
+학부모 shkim1106 qwer1234%
+ */
   return (
     <View style={styles.container}>
     {isAuth ? (
@@ -48,7 +50,7 @@ function Home({ navigation,auth }: Props) {
           <Text style={styles.articleTopText}>{auth.name} {auth.authority=='TEACHER' ? '선생님' : (auth.authority=='DIRECTOR' ? '원장님' : '학부모님' ) }, 안녕하세요</Text>          
         </View>
         <View style={styles.articleMain}>
-          <MenuWithBtns user_type={TYPE} navigation={navigation}/>
+          <MenuWithBtns user_type={auth.authority} navigation={navigation}/>
         </View>
         <View style={styles.articleMain}>
           <MenuWithList/>
