@@ -21,3 +21,5 @@ export type LoginType = {
    password: string;
    expoToken: string;
 };
+
+export type authorityType = "TEACHER" | "DIRECTOR" | "ADMIN" | "PARENT";

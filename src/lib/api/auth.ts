@@ -24,14 +24,6 @@ const setTokens = async (tokens: { accessToken: string }) => {
    await AsyncStorage.setItem("@tokens", JSON.stringify(tokensObj));
 };
 
-export const logout = async () => {
-   try {
-      await AsyncStorage.removeItem("@tokens");
-   } catch (err) {
-      throw err;
-   }
-};
-
 // 학부모
 export const getParentInfo = async () => {
    try {
@@ -49,6 +41,7 @@ export const parentLogin = async (props: LoginType) => {
          props
       );
       await setTokens(res.data.response);
+      await AsyncStorage.setItem("@authorityType", "PARENT");
    } catch (err) {
       throw err;
    }
@@ -91,8 +84,8 @@ export const directorLogin = async (props: LoginType) => {
          `${Address}/api/member/director/login`,
          props
       );
-      console.log(res.data.response);
       await setTokens(res.data.response);
+      await AsyncStorage.setItem("@authorityType", "DIRECTOR");
    } catch (err) {
       throw err;
    }
@@ -153,6 +146,7 @@ export const teacherLogin = async (props: LoginType) => {
          props
       );
       await setTokens(res.data.response);
+      await AsyncStorage.setItem("@authorityType", "TEACHER");
    } catch (err) {
       console.log(err.response.data);
       throw err;
@@ -175,6 +169,46 @@ export const teacherSignUp = async (
          expoToken: expoToken,
       });
       return res.data.response;
+   } catch (err) {
+      throw err;
+   }
+};
+
+// 재인증
+export const init = async () => {
+   try {
+      const tokens = await AsyncStorage.getItem("@tokens").then(
+         async (value) => {
+            if (value) {
+               const tokens = JSON.parse(value);
+               return tokens;
+            }
+         }
+      );
+      if (tokens) {
+         await setTokens(tokens);
+      }
+      const type = await AsyncStorage.getItem("@authorityType");
+      switch (type) {
+         case "PARENT":
+            return await getParentInfo();
+         case "DIRECTOR":
+            return await getDirectorInfo();
+         case "TEACHER":
+            return await getTeacherInfo();
+         default:
+            return null;
+      }
+   } catch (err) {
+      throw err;
+   }
+};
+
+// 로그아웃
+export const logout = async () => {
+   try {
+      await AsyncStorage.removeItem("@tokens");
+      await AsyncStorage.removeItem("@authorityType");
    } catch (err) {
       throw err;
    }

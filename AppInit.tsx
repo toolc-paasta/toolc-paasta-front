@@ -7,9 +7,13 @@ import SnackBar from "rn-animated-snackbar";
 import { clearSnackbar } from "./src/modules/snackbar";
 import * as Notifications from "expo-notifications";
 import { setToken } from "./src/modules/pushToken";
-import { navigateTo } from "./RootNavigation";
+import { navigateTo, navigationRef } from "./RootNavigation";
 import { setCustomText } from "react-native-global-props";
 import notificationInit from "./src/lib/utils/inits/notificationInit";
+
+import { init } from "./src/lib/api/auth";
+import { signin } from "./src/modules/auth";
+import { usePubNub } from "pubnub-react";
 
 type Props = {
    children: JSX.Element;
@@ -25,6 +29,8 @@ export default function AppInit({ children }: Props) {
    const [preLoading, setPreloading] = useState(true);
    const loading = useSelector(({ loading }: RootState) => loading);
    const snackbarState = useSelector(({ snackbar }: RootState) => snackbar);
+
+   const pubnubState = usePubNub();
 
    const dispatch = useDispatch();
    setCustomText(customTextProps);
@@ -49,6 +55,7 @@ export default function AppInit({ children }: Props) {
             }
          }
          */
+
       const subscription_fore = Notifications.addNotificationReceivedListener(
          (notification) => {
             const data = notification.request.content.data;
@@ -74,10 +81,18 @@ export default function AppInit({ children }: Props) {
          if (token) {
             dispatch(setToken({ token: token }));
          }
+
+         // 인증 후 정보 받아오기
+         const userInfo = await init();
+         if (userInfo) {
+            dispatch(signin(userInfo));
+            pubnubState.setUUID(userInfo.loginId);
+         }
       } catch (err) {
          console.log(err);
       }
    };
+
    const onFinish = (): void => setPreloading(false);
 
    if (preLoading) {

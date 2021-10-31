@@ -1,5 +1,5 @@
 export type authStateType = {
-   id: string;
+   id: number;
    profileImg?: string;
    loginId: string;
    name: string;
@@ -11,6 +11,7 @@ export type authStateType = {
    aclass?: string | null;
    childName?: string;
    childBirthday?: string;
+   childSex?: string;
    student?: string | null;
 };
 
@@ -29,7 +30,7 @@ type AuthAction = ReturnType<typeof signin> | ReturnType<typeof signout>;
 
 const initialState: authStateType & { signined: boolean } = {
    signined: false,
-   id: "",
+   id: 123123412,
    loginId: "",
    name: "",
    connectionNumber: "",
@@ -37,7 +38,10 @@ const initialState: authStateType & { signined: boolean } = {
    authority: "",
 };
 
-export default function auth(state = initialState, action: AuthAction) {
+export default function auth(
+   state = initialState,
+   action: AuthAction
+): typeof initialState {
    switch (action.type) {
       case SIGNIN:
          return {
@@ -47,7 +51,12 @@ export default function auth(state = initialState, action: AuthAction) {
       case SIGNOUT:
          return {
             signined: false,
-            id: "",
+            id: 41231421312,
+            loginId: "",
+            name: "",
+            connectionNumber: "",
+            sex: "",
+            authority: "",
          };
       default:
          return state;

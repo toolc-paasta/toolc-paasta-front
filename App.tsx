@@ -30,15 +30,16 @@ import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
 import { navigationRef } from "./RootNavigation";
 
-import PubNub from "pubnub";
-import { PubNubProvider } from "pubnub-react";
-import { REACT_APP_PUBLISH_KEY, REACT_APP_SUBSCRIBE_KEY } from "@env";
-
 import { LogBox } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import { PubNubProvider } from "pubnub-react";
+import PubNub from "pubnub";
+import { REACT_APP_PUBLISH_KEY, REACT_APP_SUBSCRIBE_KEY } from "@env";
+
 LogBox.ignoreLogs(["Setting a timer"]);
-// pubnub 설정
+
+//pubnub config
 
 const pubnub = new PubNub({
    publishKey: REACT_APP_PUBLISH_KEY,
@@ -70,8 +71,8 @@ export type RootBottomTabParamList = {
    Management: undefined;
    Contact: undefined;
    UploadNotice: undefined;
-   Shuttle:undefined;
-   Talk:undefined;
+   Shuttle: undefined;
+   Talk: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -81,7 +82,7 @@ export default function App() {
    const [loaded] = useFonts({
       Font: require("./assets/Font.ttf"),
    });
-      /*
+   /*
       https://pacific-jeep-805.notion.site/DayCare-API-Specification-2ba71edd27054a42a5d9a167e46688ab
       */
    return (
@@ -92,8 +93,8 @@ export default function App() {
                flex: 1,
             }}>
             <Provider store={store}>
-               <AppInit>
-                  <PubNubProvider client={pubnub}>
+               <PubNubProvider client={pubnub}>
+                  <AppInit>
                      <NavigationContainer
                         ref={navigationRef}
                         documentTitle={{ enabled: false }}>
@@ -217,8 +218,8 @@ export default function App() {
                            </Stack.Screen>
                         </Stack.Navigator>
                      </NavigationContainer>
-                  </PubNubProvider>
-               </AppInit>
+                  </AppInit>
+               </PubNubProvider>
             </Provider>
          </SafeAreaView>
       </SafeAreaProvider>

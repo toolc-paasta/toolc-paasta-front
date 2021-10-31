@@ -14,8 +14,6 @@ type AuthProps = {
    onChange: (name: string, value: string) => void;
    onPressLogin: () => void;
    goToSignin: () => void;
-   goToMap: () => void;
-   goToFCM: () => void;
 };
 
 function Auth({
@@ -26,8 +24,6 @@ function Auth({
    onChange,
    onPressLogin,
    goToSignin,
-   goToMap,
-   goToFCM,
 }: AuthProps) {
    return (
       <ScrollView style={styles.container} enabled>
@@ -93,16 +89,6 @@ function Auth({
                      onPress={goToSignin}
                   />
                </View>
-            </View>
-            <View
-               style={{
-                  width: "100%",
-                  marginTop: 20,
-                  flexDirection: "row",
-                  padding: 30,
-               }}>
-               <Button title="맵" color="primary" onPress={goToMap} wide />
-               <Button title="FCM" color="primary" onPress={goToFCM} wide />
             </View>
          </View>
       </ScrollView>

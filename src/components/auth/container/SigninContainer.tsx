@@ -39,6 +39,7 @@ import { RootState } from "../../../modules";
 import parseToPhoneNumer from "../../../lib/utils/parseToPhoneNumer";
 import { signin } from "../../../modules/auth";
 import { navigationRef } from "../../../../RootNavigation";
+import { usePubNub } from "pubnub-react";
 
 type Props = StackScreenProps<AuthStackScreenParamList, "Signin">;
 
@@ -104,6 +105,8 @@ function SigninContainer({ navigation }: Props) {
    const pushToken = useSelector(({ pushToken }: RootState) => pushToken);
    const dispatch = useDispatch();
    const pagerRef: any = useRef<typeof PagerView>(null);
+
+   const pubnubState = usePubNub();
 
    const onChange = (name: string, value: string): void => {
       setErrMsg((prev) => ({ ...prev, [name]: "" }));
@@ -208,6 +211,7 @@ function SigninContainer({ navigation }: Props) {
          }
          dispatch(signin(res));
          navigationRef.current?.navigate("Main");
+         pubnubState.setUUID(res.loginId);
       } catch (err: any) {
          // 중복 아이디 처리
          if (err?.response.data.message === "ID가 중복된 회원입니다.") {

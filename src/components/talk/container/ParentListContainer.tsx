@@ -1,0 +1,68 @@
+import { StackScreenProps } from "@react-navigation/stack";
+import { usePubNub } from "pubnub-react";
+import React, { useEffect, useState } from "react";
+import { authStateType } from "../../../modules/auth";
+import { TalkStackScreenParamList } from "../../../screens/TalkScreen";
+import { messageType } from "../types";
+import ParentList from "../view/ParentList";
+
+type Props = {};
+
+const tempData: authStateType[] = [
+   {
+      authority: "PARENT",
+      childBirthday: "2020-12-12",
+      childName: "신성일",
+      childSex: "여성",
+      connectionNumber: null,
+      id: 18,
+      loginId: "testp11",
+      name: "신성일",
+      sex: "남성",
+   },
+];
+
+function ParentListContainer({
+   navigation,
+}: StackScreenProps<TalkStackScreenParamList, "ParentList">) {
+   const [parents, setParents] = useState<authStateType[]>([]);
+   const [message, addMessage] = useState<messageType[]>([]);
+   const pubnub = usePubNub();
+
+   useEffect(() => {
+      setParents(tempData);
+      const channels = tempData.map((item) => item.loginId);
+      pubnub.fetchMessages(
+         {
+            channels: channels,
+            end: Date.now(),
+            count: 1,
+         },
+         function (status, response) {
+            for (let list in response.channels) {
+               addMessage((prev) => [
+                  ...prev,
+                  {
+                     text: response.channels[list][0].message.text,
+                     sender: list,
+                  },
+               ]);
+            }
+         }
+      );
+   }, [pubnub]);
+
+   const goToTalkRoom = (channel: string) => {
+      navigation.navigate("TalkRoom", { channel: channel });
+   };
+
+   return (
+      <ParentList
+         parents={parents}
+         goToTalkRoom={goToTalkRoom}
+         message={message}
+      />
+   );
+}
+
+export default ParentListContainer;

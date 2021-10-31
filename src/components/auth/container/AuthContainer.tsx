@@ -1,4 +1,5 @@
 import { StackScreenProps } from "@react-navigation/stack";
+import { usePubNub } from "pubnub-react";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { navigationRef } from "../../../../RootNavigation";
@@ -36,6 +37,7 @@ function AuthContainer({ navigation }: Props) {
    const [wrongPW, setWrongPW] = useState(false);
    const pushToken = useSelector(({ pushToken }: RootState) => pushToken);
    const dispatch = useDispatch();
+   const pubnubState = usePubNub();
 
    const onChange = (name: string, value: string): void => {
       setErrMsg((prev) => ({ ...prev, [name]: "" }));
@@ -72,6 +74,7 @@ function AuthContainer({ navigation }: Props) {
 
          dispatch(signin(res));
          navigationRef.current?.navigate("Main");
+         pubnubState.setUUID(res.loginId);
       } catch (err: any) {
          // 비밀번호, 아이디 처리
          if (err.response.data?.message === "비밀번호가 일치하지 않습니다.") {
@@ -97,13 +100,6 @@ function AuthContainer({ navigation }: Props) {
       navigation.navigate("Signin");
    };
 
-   const goToMap = (): void => {
-      navigation.navigate("Map");
-   };
-   const goToFCM = (): void => {
-      navigation.navigate("FCM");
-   };
-
    return (
       <Auth
          userInfo={userInfo}
@@ -111,8 +107,6 @@ function AuthContainer({ navigation }: Props) {
          onChange={onChange}
          onPressLogin={onPressLogin}
          goToSignin={goToSignin}
-         goToMap={goToMap}
-         goToFCM={goToFCM}
          userType={userType}
          settingUserType={settingUserType}
       />

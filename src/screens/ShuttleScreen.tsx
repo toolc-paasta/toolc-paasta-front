@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { RootBottomTabParamList } from "../../App";
-import ShuttleContainer from "../components/shuttle/container/ShuttleContainer"
+import ShuttleContainer from "../components/shuttle/container/ShuttleContainer";
 
 type Props = BottomTabScreenProps<RootBottomTabParamList, "Shuttle">;
 

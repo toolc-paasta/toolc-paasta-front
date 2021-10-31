@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { RootStackParamList } from "../../App";
 import AuthContainer from "../components/auth/container/AuthContainer";
 import {
@@ -6,12 +6,11 @@ import {
    StackScreenProps,
 } from "@react-navigation/stack";
 import SigninContainer from "../components/auth/container/SigninContainer";
-import { useSelector } from "react-redux";
-import { RootState } from "../modules";
 import ProfileContainer from "../components/profile/container/ProfileContainer";
 import FcmContainer from "../components/fcm/container/FcmContainer";
-import MapContainer from "../components/map/container/MapContainer";
 import LandingContainer from "../components/landing/container/LandingContainer";
+import { RootState } from "../modules";
+import { useSelector } from "react-redux";
 
 type Props = StackScreenProps<RootStackParamList, "Auth">;
 
@@ -23,13 +22,18 @@ export type AuthStackScreenParamList = {
    Signin: undefined;
    Profile: undefined;
    FCM: undefined;
-   Map: undefined;
 };
 
 const Stack = createStackNavigator<AuthStackScreenParamList>();
 
 function AuthScreen({ navigation }: Props) {
    const auth = useSelector(({ auth }: RootState) => auth);
+
+   useEffect(() => {
+      if (auth.signined) {
+         navigation.navigate("Main");
+      }
+   }, [auth.signined]);
 
    return (
       <Stack.Navigator initialRouteName={"Landing"}>
@@ -57,11 +61,6 @@ function AuthScreen({ navigation }: Props) {
             name="FCM"
             component={FcmContainer}
             options={{ headerShown: false }}
-         />
-         <Stack.Screen
-            name="Map"
-            component={MapContainer}
-            options={{ title: "맵" }}
          />
       </Stack.Navigator>
    );

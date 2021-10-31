@@ -5,7 +5,12 @@ import snackbar from "./snackbar";
 import auth from "./auth";
 import pushToken from "./pushToken";
 
-const rootReducer = combineReducers({ loading, snackbar, auth, pushToken });
+const rootReducer = combineReducers({
+   loading,
+   snackbar,
+   auth,
+   pushToken,
+});
 
 export function* rootSaga() {
    yield all([]);
