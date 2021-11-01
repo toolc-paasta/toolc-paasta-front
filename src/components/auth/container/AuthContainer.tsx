@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { navigationRef } from "../../../../RootNavigation";
 import {
+   adminLogin,
    clearAccessToken,
    directorLogin,
+   getAdminInfo,
    getDirectorInfo,
    getParentInfo,
    getTeacherInfo,
@@ -45,7 +47,11 @@ function AuthContainer({ navigation }: Props) {
    };
 
    const onPressLogin = async () => {
-      if (!checkLoginInfo<userInfoType>(userInfo, setErrMsg, true)) return;
+      if (
+         userType !== 3 &&
+         !checkLoginInfo<userInfoType>(userInfo, setErrMsg, true)
+      )
+         return;
       dispatch(loading());
       try {
          let res;
@@ -64,16 +70,27 @@ function AuthContainer({ navigation }: Props) {
                });
                res = await getTeacherInfo();
                break;
-            default:
+            case 2:
                await directorLogin({
                   ...userInfo,
                   expoToken: pushToken.token,
                });
                res = await getDirectorInfo();
+               break;
+            default:
+               await adminLogin({
+                  ...userInfo,
+                  expoToken: pushToken.token,
+               });
+               res = await getAdminInfo();
          }
 
          dispatch(signin(res));
-         navigationRef.current?.navigate("Main");
+         if (userType !== 3) {
+            navigationRef.current?.navigate("Main");
+         } else {
+            navigationRef.current?.navigate("Admin");
+         }
          pubnubState.setUUID(res.loginId);
       } catch (err: any) {
          // 비밀번호, 아이디 처리

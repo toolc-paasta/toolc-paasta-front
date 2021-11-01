@@ -38,24 +38,27 @@ function Auth({
                         flexDirection: "row",
                         justifyContent: "space-around",
                      }}>
-                     {["학부모", "선생님", "원장님"].map((item, idx) => {
-                        return (
-                           <RNButton
-                              key={`usertype_${idx}`}
-                              title={item}
-                              type="outline"
-                              onPress={() => settingUserType(idx)}
-                              containerStyle={styles.userTypeButtonContainer}
-                              buttonStyle={{
-                                 borderColor:
-                                    userType === idx ? "#2196f3" : "gray",
-                              }}
-                              titleStyle={{
-                                 color: userType === idx ? "#2196f3" : "gray",
-                              }}
-                           />
-                        );
-                     })}
+                     {["학부모", "선생님", "원장님", "관리자"].map(
+                        (item, idx) => {
+                           return (
+                              <RNButton
+                                 key={`usertype_${idx}`}
+                                 title={item}
+                                 type="outline"
+                                 onPress={() => settingUserType(idx)}
+                                 containerStyle={styles.userTypeButtonContainer}
+                                 buttonStyle={{
+                                    borderColor:
+                                       userType === idx ? "#2196f3" : "gray",
+                                 }}
+                                 titleStyle={{
+                                    color:
+                                       userType === idx ? "#2196f3" : "gray",
+                                 }}
+                              />
+                           );
+                        }
+                     )}
                   </ListItem.Content>
                </ListItem>
                <Input

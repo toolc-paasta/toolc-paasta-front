@@ -31,7 +31,11 @@ function AuthScreen({ navigation }: Props) {
 
    useEffect(() => {
       if (auth.signined) {
-         navigation.navigate("Main");
+         if (auth.authority === "ADMIN") {
+            navigation.navigate("Admin");
+         } else {
+            navigation.navigate("Main");
+         }
       }
    }, [auth.signined]);
 

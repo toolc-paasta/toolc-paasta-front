@@ -36,6 +36,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { PubNubProvider } from "pubnub-react";
 import PubNub from "pubnub";
 import { REACT_APP_PUBLISH_KEY, REACT_APP_SUBSCRIBE_KEY } from "@env";
+import AdminScreen from "./src/screens/AdminScreen";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -60,6 +61,7 @@ sagaMiddleware.run(rootSaga);
 export type RootStackParamList = {
    Auth: undefined;
    Main: undefined;
+   Admin: undefined;
 };
 export type RootBottomTabParamList = {
    Home: undefined;
@@ -105,6 +107,11 @@ export default function App() {
                               options={{
                                  headerShown: false,
                               }}
+                           />
+                           <Stack.Screen
+                              name="Admin"
+                              component={AdminScreen}
+                              options={{ headerShown: false }}
                            />
                            <Stack.Screen
                               name="Main"

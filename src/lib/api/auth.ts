@@ -174,6 +174,27 @@ export const teacherSignUp = async (
    }
 };
 
+// 관리자
+export const getAdminInfo = async () => {
+   try {
+      const res = await axios.get(`${Address}/api/member/admin`);
+      return res.data.response;
+   } catch (err) {
+      throw err;
+   }
+};
+
+export const adminLogin = async (props: LoginType) => {
+   try {
+      const res = await axios.post(`${Address}/api/member/admin/login`, props);
+      await setTokens(res.data.response);
+      await AsyncStorage.setItem("@authorityType", "ADMIN");
+   } catch (err) {
+      console.log(err.response.data);
+      throw err;
+   }
+};
+
 // 재인증
 export const init = async () => {
    try {
@@ -197,7 +218,7 @@ export const init = async () => {
          case "TEACHER":
             return await getTeacherInfo();
          default:
-            return null;
+            return await getAdminInfo();
       }
    } catch (err) {
       throw err;
