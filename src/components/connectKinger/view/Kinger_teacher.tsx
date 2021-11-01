@@ -10,21 +10,21 @@ import {
 } from 'react-native';
 import Constants from 'expo-constants';
 import Header from '../../elements/Header'
-import { BottomTabNavigation } from "../../../screens/TalkScreen";
+import { BottomTabNavigation } from "../../../screens/KingerScreen";
 
 type Props = {
   navigation:BottomTabNavigation;
 };
 
 
-export default function Talk({navigation}:Props) {
+export default function Kinger({navigation}:Props) {
 
 
  
   return (
     <View style={styles.container}>
-        <Header header_title={'개인톡'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
-      <Text>qwer</Text>
+        <Header header_title={'유치원'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
+      <Text>교사</Text>
     </View>
   );
 };

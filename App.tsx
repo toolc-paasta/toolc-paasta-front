@@ -16,7 +16,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import ManagementScreen from "./src/screens/ManagementScreen";
-import LiveScreen from "./src/screens/LiveScreen";
 import SearchScreen from "./src/screens/SearchScreen";
 import ListDetailScreen from "./src/screens/ListDetailScreen";
 import ParentBoardScreen from "./src/screens/ParentBoardScreen";
@@ -26,6 +25,7 @@ import ContactScreen from "./src/screens/ContactScreen";
 import ShuttleScreen from "./src/screens/ShuttleScreen";
 import TalkScreen from "./src/screens/TalkScreen";
 import NoticeScreen from "./src/screens/NoticeScreen";
+import KingerScreen from "./src/screens/KingerScreen";
 import { Icon } from "react-native-elements";
 import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
@@ -74,6 +74,7 @@ export type RootBottomTabParamList = {
    Shuttle:undefined;
    Talk:undefined;
    Notice:undefined;
+   Kinger:undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -217,6 +218,16 @@ export default function App() {
                                     <Tab.Screen
                                        name="Notice"
                                        component={NoticeScreen}
+                                       options={{
+                                          headerShown: false,
+                                          tabBarIcon: () => (
+                                             <Icon name="home" />
+                                          ),
+                                       }}
+                                    />
+                                     <Tab.Screen
+                                       name="Kinger"
+                                       component={KingerScreen}
                                        options={{
                                           headerShown: false,
                                           tabBarIcon: () => (

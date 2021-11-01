@@ -25,7 +25,7 @@ type Props = {
 
 function Home({ navigation,auth }: Props) {
   let res;
-  const [isAuth,setIsAuth] = useState(true);
+  const [isAuth,setIsAuth] = useState(false);
 /*
 선생 qwer1106 qwer1234$
 학부모 shkim1106 qwer1234%
@@ -63,7 +63,7 @@ function Home({ navigation,auth }: Props) {
         <Text style={styles.blankText}>등록된 유치원이 없습니다. </Text>
         <Text style={styles.blankText}>먼저 등록을 해야 서비스를 </Text>
         <Text style={styles.blankText}>이용할 수 있습니다. </Text>
-        <TouchableOpacity style={styles.blackBtn} onPress={()=>console.log('click!')}>
+        <TouchableOpacity style={styles.blackBtn} onPress={() => navigation.navigate("Kinger")}>
           <Text style={[styles.blankText,styles.blankBtnText]}>유치원 인증하기</Text>
         </TouchableOpacity>
       </View>

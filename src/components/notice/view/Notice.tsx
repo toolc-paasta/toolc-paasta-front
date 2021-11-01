@@ -10,14 +10,14 @@ import {
 } from 'react-native';
 import Constants from 'expo-constants';
 import Header from '../../elements/Header'
-import { BottomTabNavigation } from "../../../screens/ContactScreen";
+import { BottomTabNavigation } from "../../../screens/NoticeScreen";
 
 type Props = {
   navigation:BottomTabNavigation;
 };
 
 
-export default function Shuttle({navigation}:Props) {
+export default function Notice({navigation}:Props) {
 
 
  

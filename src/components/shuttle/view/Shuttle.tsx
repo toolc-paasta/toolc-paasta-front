@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Constants from 'expo-constants';
 import Header from '../../elements/Header'
-import { BottomTabNavigation } from "../../../screens/ContactScreen";
+import { BottomTabNavigation } from "../../../screens/ShuttleScreen";
 
 type Props = {
   navigation:BottomTabNavigation;
