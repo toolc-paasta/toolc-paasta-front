@@ -21,6 +21,7 @@ const progressStepsStyle = {
    completedStepNumColor:colors.primary,
    disabledStepIconColor:colors.primary,
    progressBarColor:colors.primary,
+   topOffset:30,
  };
 
 type Props = {
@@ -37,27 +38,35 @@ function KingerContainer({ navigation }: Props) {
    return (
       <View style={{flex: 1,backgroundColor:'#ffffff'}}>
          <Header header_title={'내 유치원 등록'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
-         <ProgressSteps {...progressStepsStyle}>
+         <ProgressSteps {...progressStepsStyle} >
             <ProgressStep label="유치원 찾기 1" nextBtnTextStyle={{color: colors.black}} nextBtnText='다음'>
                <View style={styles.box}>
                   <Kinger1/>
                </View>
             </ProgressStep>
-            <ProgressStep label="유치원 찾기 2" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}} previousBtnText='이전' nextBtnText='다음'>
+            <ProgressStep scrollable={false} label="유치원 찾기 2" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}} previousBtnText='이전' nextBtnText='다음'>
                <View style={styles.box}>
                   <Kinger2/>
                </View>
             </ProgressStep>
-            {auth.authority=='PARENT' && (
+            {auth.authority=='PARENT' ? (
                <ProgressStep label="내 아이 찾기" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}}  nextBtnText='다음' previousBtnText='이전'>
                   <View style={{ alignItems: 'center' }}>
                      <Text>2222222!</Text>
                   </View>
                </ProgressStep>
+            ):(
+               <ProgressStep label="확인" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}}  nextBtnText='다음' previousBtnText='이전'>
+                  <View style={{ alignItems: 'center' }}>
+                     <Text>2222222!</Text>
+                  </View>
+               </ProgressStep>
             )}
-            <ProgressStep label="가입하기" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}}  previousBtnText='이전' finishBtnText>
+            <ProgressStep label="가입하기" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}}  previousBtnText='이전' finishBtnText='확인'>
                <View style={{ alignItems: 'center' }}>
-                  <Text>333333!</Text>
+                  <Text>1!</Text>
+                  
+                  
                </View>
             </ProgressStep>
          </ProgressSteps>
@@ -67,8 +76,8 @@ function KingerContainer({ navigation }: Props) {
 
 const styles = StyleSheet.create({
    box:{
-      
-      height:'100%',
+      height:'90%',
+      position:'relative',
    },
  });
 

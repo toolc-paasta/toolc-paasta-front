@@ -21,6 +21,18 @@ export const kinger = [
   {id: 0, name: '이얼싼유치원', adrr:'답십리로 130'},
   {id: 0, name: '123유치원', adrr:'공릉로 232'},
   {id: 0, name: 'xyz유치원', adrr:'광야로 123'},
+  {id: 0, name: 'abc유치원', adrr:'답십리로 130'},
+  {id: 0, name: '가나다유치원', adrr:'공릉로 232'},
+  {id: 0, name: '이찌니산유치원', adrr:'광야로 123'},
+  {id: 0, name: '이얼싼유치원', adrr:'답십리로 130'},
+  {id: 0, name: '123유치원', adrr:'공릉로 232'},
+  {id: 0, name: 'xyz유치원', adrr:'광야로 123'},
+  {id: 0, name: 'abc유치원', adrr:'답십리로 130'},
+  {id: 0, name: '가나다유치원', adrr:'공릉로 232'},
+  {id: 0, name: '이찌니산유치원', adrr:'광야로 123'},
+  {id: 0, name: '이얼싼유치원', adrr:'답십리로 130'},
+  {id: 0, name: '123유치원', adrr:'공릉로 232'},
+  {id: 0, name: 'xyz유치원', adrr:'광야로 123'},
   ]
   
 

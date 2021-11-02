@@ -9,7 +9,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Constants from 'expo-constants';
-import { users } from '../../elements/data';
+import { kinger } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 type Props = {
@@ -28,8 +28,8 @@ export default function Kinger2() {
 
   useEffect(() => {
     
-    setFilteredDataSource(users);
-    setMasterDataSource(users);
+    setFilteredDataSource(kinger);
+    setMasterDataSource(kinger);
       
   }, []);
 
@@ -87,32 +87,31 @@ export default function Kinger2() {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.searchBox}>
+        <Icon
+          name={'search-outline'}
+          size={30}
+          color="black"
+          style={styles.icon}
+        />
+        <TextInput
+          style={styles.textInputStyle}
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          underlineColorAndroid="transparent"
+          placeholder="유치원 명으로 검색"
+        />
+      </View>
+      <View style={{ flex: 1 }}>
         <View>
-          <View style={styles.searchBox}>
-            <Icon
-              name={'search-outline'}
-              size={30}
-              color="black"
-              style={styles.icon}
-            />
-            <TextInput
-              style={styles.textInputStyle}
-              onChangeText={(text) => searchFilterFunction(text)}
-              value={search}
-              underlineColorAndroid="transparent"
-              placeholder="유치원 명으로 검색"
-            />
-          </View>
           <FlatList
             data={filteredDataSource}
             keyExtractor={(item, index) => index.toString()}
             ItemSeparatorComponent={ItemSeparatorView}
             renderItem={ItemView}
           />
-          
         </View>
-      </SafeAreaView>
+      </View>
     </View>
   );
 };
@@ -124,6 +123,7 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
     padding: 5,
+    overflow:'hidden',
   },
   searchBox:{
     flexDirection: 'row',
@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
     height:50,
     borderWidth: 1,
     borderColor:'#ffd257',
-    marginTop:15,
     marginBottom:15,
     padding:10,
   },

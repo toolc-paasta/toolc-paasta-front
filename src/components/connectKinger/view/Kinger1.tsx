@@ -47,7 +47,7 @@ export default function Kinger1() {
         onValueChange={
           (value,key) => setArea_small([value,key])
         }
-        placeholder={area_big != '' ? placeholder2 : disabled}
+        placeholder={placeholder2}
         useNativeAndroidPickerStyle={false}
         style={area_big != '' ? pickerSelectStyles : pickerSelectStyles2}
         items={[...area1.filter(area1 => area1.key==area_big[1])]} 
