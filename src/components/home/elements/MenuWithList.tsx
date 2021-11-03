@@ -35,7 +35,7 @@ export default function MenuWithList() {
             <Text style={styles.mainText}>{item.title}</Text>
             <Text style={styles.subText} numberOfLines={1}>{item.content}</Text>
             <Text style={styles.timeText}>{makeTime(item.time)} 전</Text>
-          </View>  
+          </View>
         ))}
       </View>
     </>
