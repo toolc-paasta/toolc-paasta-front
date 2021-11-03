@@ -8,7 +8,7 @@ import TalkContainer from "../components/talk/container/TalkContainer";
 import Constants from "../lib/utils/constants";
 import { RootState } from "../modules";
 
-type Props = BottomTabScreenProps<RootBottomTabParamList, "Contact">;
+type Props = BottomTabScreenProps<RootBottomTabParamList, "Talk">;
 
 export type BottomTabNavigation = Props["navigation"];
 
