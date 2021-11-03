@@ -17,8 +17,7 @@ export const users = [
 export const btns_for_pr = [
 {id: 0, title: '공지 모아보기', img:'book-outline', onclick:'NoticeBoard'},
 {id: 1, title: '개인 톡', img:'clipboard-outline', onclick:'Talk'},
-{id: 2, title: '학부모 게시판', img:'logo-twitch', onclick:'ParentBoard'},
-{id: 3, title: '셔틀 위치 확인', img:'logo-youtube', onclick:'Shuttle'},
+{id: 2, title: '셔틀 위치 확인', img:'logo-youtube', onclick:'Shuttle'},
 ];
 
 export const btns_for_ad = [

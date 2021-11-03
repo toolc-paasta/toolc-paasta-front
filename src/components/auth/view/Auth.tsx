@@ -35,33 +35,27 @@ function Auth({
             <View style={styles.headerContainer}>
                <Text style={styles.header}>로그인</Text>
             </View>
+            <View
+               style={{
+                  width: "100%",
+                  flexDirection: "row",
+                  justifyContent: 'center',
+                  marginBottom: 16
+               }}>
+               {["학부모", "선생님", "원장님"].map((item, idx) => {
+                  return (
+                     <Button
+                        key={`usertype_${idx}`}
+                        title={item}
+                        color={userType === idx ? 'primary' : 'secondary'}
+                        onPress={() => settingUserType(idx)}
+                        margin={idx !== 0}
+                        paddingHorizontal={24}
+                     />
+                  );
+               })}
+            </View>
             <View style={styles.inputContainer}>
-               <ListItem containerStyle={{ padding: 10, paddingBottom: 20 }}>
-                  <ListItem.Content
-                     style={{
-                        flexDirection: "row",
-                        justifyContent: "space-around",
-                     }}>
-                     {["학부모", "선생님", "원장님"].map((item, idx) => {
-                        return (
-                           <RNButton
-                              key={`usertype_${idx}`}
-                              title={item}
-                              type="outline"
-                              onPress={() => settingUserType(idx)}
-                              containerStyle={styles.userTypeButtonContainer}
-                              buttonStyle={{
-                                 borderColor:
-                                    userType === idx ? "#2196f3" : "gray",
-                              }}
-                              titleStyle={{
-                                 color: userType === idx ? "#2196f3" : "gray",
-                              }}
-                           />
-                        );
-                     })}
-                  </ListItem.Content>
-               </ListItem>
                <Input
                   placeholder={"아이디"}
                   icon="person"
@@ -81,13 +75,13 @@ function Auth({
                <View style={styles.buttonContainer}>
                   <Button
                      title="로그인"
-                     color="secondary"
+                     color="primary"
                      wide
                      onPress={onPressLogin}
                   />
                   <Button
                      title="회원가입"
-                     color="primary"
+                     color="secondary"
                      wide
                      margin
                      onPress={goToSignin}

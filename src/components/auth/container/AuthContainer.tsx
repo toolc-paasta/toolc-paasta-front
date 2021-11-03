@@ -71,7 +71,7 @@ function AuthContainer({ navigation }: Props) {
          }
 
          dispatch(signin(res));
-         navigationRef.current?.navigate("Main");
+         navigationRef.current?.navigate("Home");
       } catch (err: any) {
          // 비밀번호, 아이디 처리
          if (err.response.data?.message === "비밀번호가 일치하지 않습니다.") {

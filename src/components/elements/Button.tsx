@@ -8,6 +8,7 @@ type Props = {
   color?: string; // 버튼 색 (primary, secondary, clear)
   wide?: boolean; // wide 사이즈
   margin?: boolean; // true면 wide일 시 top, 아닐 시 left 마진 생성
+  paddingHorizontal: number; // 좌우패딩
   onPress: () => void;
 }
 
@@ -16,6 +17,7 @@ const StyledButton = ({
   color,
   wide,
   margin,
+  paddingHorizontal,
   onPress,
 }: Props) => {
 
@@ -23,7 +25,8 @@ const StyledButton = ({
     button: {
       backgroundColor: color ? colors[color] : colors.secondary,
       borderRadius: 16,
-      width: wide ? '100%' : '30%',
+      width: wide ? '100%' : 'auto',
+      paddingHorizontal: paddingHorizontal,
       paddingVertical: 12,
       marginTop: (margin && wide) ? 16 : 0,
       marginLeft: (margin && !wide) ? 16 : 0
