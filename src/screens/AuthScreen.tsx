@@ -34,7 +34,7 @@ function AuthScreen({ navigation }: Props) {
          if (auth.authority === "ADMIN") {
             navigation.navigate("Admin");
          } else {
-            navigation.navigate("Main");
+            navigation.navigate("Home");
          }
       }
    }, [auth.signined]);

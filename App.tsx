@@ -13,7 +13,6 @@ import logger from "redux-logger";
 import AppInit from "./AppInit";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "./src/screens/HomeScreen";
 import ManagementScreen from "./src/screens/ManagementScreen";
 import SearchScreen from "./src/screens/SearchScreen";
@@ -26,7 +25,6 @@ import ShuttleScreen from "./src/screens/ShuttleScreen";
 import TalkScreen from "./src/screens/TalkScreen";
 import NoticeScreen from "./src/screens/NoticeScreen";
 import KingerScreen from "./src/screens/KingerScreen";
-import { Icon } from "react-native-elements";
 import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
 import { navigationRef } from "./RootNavigation";
@@ -69,14 +67,14 @@ export type RootStackParamList = {
    Management: undefined;
    Contact: undefined;
    UploadNotice: undefined;
-   Shuttle:undefined;
-   Talk:undefined;
-   Notice:undefined;
-   Kinger:undefined;
+   Shuttle: undefined;
+   Talk: undefined;
+   Notice: undefined;
+   Kinger: undefined;
+   Admin: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
-const Tab = createBottomTabNavigator<RootBottomTabParamList>();
 
 export default function App() {
    const [loaded] = useFonts({
@@ -186,6 +184,13 @@ export default function App() {
                            <Stack.Screen
                               name="Kinger"
                               component={KingerScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="Admin"
+                              component={AdminScreen}
                               options={{
                                  headerShown: false,
                               }}

@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Icon, Button as RNButton, ListItem } from "react-native-elements";
 import Button from "../../elements/Button";
 import Input from "../../elements/Input";
 import { ScrollView } from "react-native-gesture-handler";
@@ -35,15 +34,15 @@ function Auth({
                style={{
                   width: "100%",
                   flexDirection: "row",
-                  justifyContent: 'center',
-                  marginBottom: 16
+                  justifyContent: "center",
+                  marginBottom: 16,
                }}>
-               {["학부모", "선생님", "원장님"].map((item, idx) => {
+               {["학부모", "선생님", "원장님", "관리자"].map((item, idx) => {
                   return (
                      <Button
                         key={`usertype_${idx}`}
                         title={item}
-                        color={userType === idx ? 'primary' : 'secondary'}
+                        color={userType === idx ? "primary" : "secondary"}
                         onPress={() => settingUserType(idx)}
                         margin={idx !== 0}
                         paddingHorizontal={24}

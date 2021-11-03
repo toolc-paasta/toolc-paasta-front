@@ -210,7 +210,7 @@ function SigninContainer({ navigation }: Props) {
                break;
          }
          dispatch(signin(res));
-         navigationRef.current?.navigate("Main");
+         navigationRef.current?.navigate("Home");
          pubnubState.setUUID(res.loginId);
       } catch (err: any) {
          // 중복 아이디 처리
