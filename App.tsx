@@ -69,17 +69,10 @@ export type RootStackParamList = {
    Management: undefined;
    Contact: undefined;
    UploadNotice: undefined;
-<<<<<<< HEAD
-   Shuttle: undefined;
-   Talk: undefined;
-};
-export type RootBottomTabParamList = {
-=======
    Shuttle:undefined;
    Talk:undefined;
    Notice:undefined;
    Kinger:undefined;
->>>>>>> sunghyun/6
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -118,7 +111,6 @@ export default function App() {
                               component={HomeScreen}
                               options={{
                                  headerShown: false,
-<<<<<<< HEAD
                               }}
                            />
                            <Stack.Screen
@@ -184,134 +176,20 @@ export default function App() {
                                  headerShown: false,
                               }}
                            />
-=======
-                              }}>
-                              {() => (
-                                 <Tab.Navigator initialRouteName="Home">
-                                    <Tab.Screen
-                                       name="Home"
-                                       component={HomeScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Search"
-                                       component={SearchScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="ListDetail"
-                                       component={ListDetailScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="NoticeBoard"
-                                       component={NoticeBoardScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="ParentBoard"
-                                       component={ParentBoardScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Management"
-                                       component={ManagementScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Contact"
-                                       component={ContactScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="UploadNotice"
-                                       component={UploadNoticeScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Shuttle"
-                                       component={ShuttleScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Talk"
-                                       component={TalkScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Notice"
-                                       component={NoticeScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                     <Tab.Screen
-                                       name="Kinger"
-                                       component={KingerScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                 </Tab.Navigator>
-                              )}
-                           </Stack.Screen>
->>>>>>> sunghyun/6
+                           <Stack.Screen
+                              name="Notice"
+                              component={NoticeScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="Kinger"
+                              component={KingerScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
                         </Stack.Navigator>
                      </NavigationContainer>
                   </AppInit>
