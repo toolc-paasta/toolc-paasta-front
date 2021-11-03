@@ -13,15 +13,14 @@ type Props = {
     area2:string;
     kingerName:string;
     auth:any;
-    onlyBoard:boolean;
   };
 
-export default function Kinger3({area1,area2,kingerName,auth,onlyBoard}:Props) {
+export default function Kinger3({area1,area2,kingerName,auth}:Props) {
 
   return (
     
     <View style={styles.container}>      
-      <View style={[styles.graph,auth.authority == 'TEACHER' && onlyBoard !=true && {display:'none'}]}>
+      <View style={[styles.graph]}>
         <View style={styles.row}>
           <View style={[styles.left,styles.left0]}>
             <Text style={[styles.confirmText,styles.leftText]}>소속 시/도</Text>  
@@ -55,7 +54,7 @@ export default function Kinger3({area1,area2,kingerName,auth,onlyBoard}:Props) {
           </View>
         </View>
       </View>
-      <TouchableOpacity style={[styles.confirmBtn,onlyBoard==true && {display:'none'}]} onPress={() => console.log()}>
+      <TouchableOpacity style={[styles.confirmBtn]} onPress={() => console.log()}>
         <Text style={[styles.confirmText,styles.confirmBtnText]}>등록하기</Text>
       </TouchableOpacity>
     </View>

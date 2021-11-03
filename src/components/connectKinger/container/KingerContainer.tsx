@@ -80,15 +80,15 @@ function KingerContainer({ navigation }: Props) {
                   </View>
                </ProgressStep>
             ):(
-               <ProgressStep label="확인" {...progressStepStyle}>
+               <ProgressStep label="내 반 찾기" {...progressStepStyle}>
                   <View style={styles.box}>
-                     <Kinger3 area1={area1} area2={area2} kingerName={kingerName} auth={auth} onlyBoard={true}/>
+                     <Text>2222222!</Text>
                   </View>
                </ProgressStep>
             )}
             <ProgressStep label="가입하기"{...progressStepStyle} nextBtnStyle={{display:'none'}}>
                <View style={styles.box}>
-                  <Kinger3 area1={area1} area2={area2} kingerName={kingerName} auth={auth} onlyBoard={false}/>
+                  <Kinger3 area1={area1} area2={area2} kingerName={kingerName} auth={auth}/>
                </View>
             </ProgressStep>
          </ProgressSteps>
