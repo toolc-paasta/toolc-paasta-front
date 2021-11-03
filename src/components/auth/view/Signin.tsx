@@ -81,19 +81,16 @@ function Signin({
                      />
                   </ListItem.Content>
                </ListItem>
-               {isDirector && (
-                  <Input
-                     placeholder={"전화번호"}
-                     leftIcon={<Icon name="phone" size={24} />}
-                     style={styles.input}
-                     value={userInfo.connectionNumber}
-                     errorMessage={errMsg.connectionNumber}
-                     onChangeText={(value) =>
-                        onChange("connectionNumber", value)
-                     }
-                     errorStyle={styles.err}
-                  />
-               )}
+
+               <Input
+                  placeholder={"전화번호"}
+                  leftIcon={<Icon name="phone" size={24} />}
+                  style={styles.input}
+                  value={userInfo.connectionNumber}
+                  errorMessage={errMsg.connectionNumber}
+                  onChangeText={(value) => onChange("connectionNumber", value)}
+                  errorStyle={styles.err}
+               />
                <Input
                   placeholder={"비밀번호"}
                   leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
@@ -119,6 +116,7 @@ function Signin({
                   color="primary"
                   wide
                   onPress={onPressLogin}
+                  paddingHorizontal={20}
                />
             </View>
          </View>

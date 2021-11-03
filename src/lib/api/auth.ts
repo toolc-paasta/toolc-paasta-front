@@ -171,6 +171,7 @@ export const teacherSignUp = async (
       });
       return res.data.response;
    } catch (err) {
+      console.log(err.response.data);
       throw err;
    }
 };

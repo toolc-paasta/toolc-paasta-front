@@ -10,7 +10,7 @@ export type signInInfoType = {
    sex: sexType;
    password: string;
    passwordCheck: string;
-   connectionNumber?: string;
+   connectionNumber: string;
 };
 
 export type childInfoType = {

@@ -110,19 +110,17 @@ export const checkLoginInfo = <T extends Partial<signInInfoType>>(
       } else if (!info.name) {
          handleError<T>("blank_name", setErrMsg);
          return false;
-      }
-      if (isDirector) {
-         if (!info.connectionNumber) {
-            handleError<T>("blank_phone", setErrMsg);
-            return false;
-         } else if (
-            !/^01([0|1|6|7|8|9])([0-9]{4})([0-9]{4})$/.test(
-               info.connectionNumber
-            )
-         ) {
-            handleError<T>("connectionNumber_not_formmatted", setErrMsg);
-            return false;
-         }
+      } else if (!info.connectionNumber) {
+         handleError<T>("blank_phone", setErrMsg);
+         return false;
+      } else if (!info.connectionNumber) {
+         handleError<T>("blank_phone", setErrMsg);
+         return false;
+      } else if (
+         !/^01([0|1|6|7|8|9])([0-9]{4})([0-9]{4})$/.test(info.connectionNumber)
+      ) {
+         handleError<T>("connectionNumber_not_formmatted", setErrMsg);
+         return false;
       }
    }
    return true;

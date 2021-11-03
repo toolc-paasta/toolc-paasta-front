@@ -76,6 +76,7 @@ function SigninContainer({ navigation }: Props) {
       loginId: "",
       name: "",
       sex: "남성",
+      connectionNumber: "",
    });
    const [errMsg, setErrMsg] = useState<signInInfoType>({
       loginId: "",
@@ -83,6 +84,7 @@ function SigninContainer({ navigation }: Props) {
       passwordCheck: "",
       name: "",
       sex: "남성",
+      connectionNumber: "",
    });
    const [userType, setUserType] = useState<number>(3);
    const [childInfo, setChildInfo] = useState<childInfoType>({
@@ -181,6 +183,9 @@ function SigninContainer({ navigation }: Props) {
                      ...userInfo,
                      ...childInfo,
                      childBirthday: parseToBirth(childInfo.childBirthday),
+                     connectionNumber: parseToPhoneNumer(
+                        userInfo.connectionNumber
+                     ),
                   },
                   pushToken.token
                );
@@ -189,7 +194,7 @@ function SigninContainer({ navigation }: Props) {
                res = await teacherSignUp(userInfo, pushToken.token);
                break;
             default:
-               if (userInfo.connectionNumber && selectedKinder) {
+               if (selectedKinder) {
                   res = await directorSignUp(
                      {
                         ...userInfo,
@@ -213,6 +218,7 @@ function SigninContainer({ navigation }: Props) {
          navigationRef.current?.navigate("Home");
          pubnubState.setUUID(res.loginId);
       } catch (err: any) {
+         console.log(err);
          // 중복 아이디 처리
          if (err?.response.data.message === "ID가 중복된 회원입니다.") {
             handleError<signInInfoType>("auth/id-already-in-use", setErrMsg);

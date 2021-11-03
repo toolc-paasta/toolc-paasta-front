@@ -3,6 +3,7 @@ export type SignupInfo = {
    password: string;
    name: string;
    sex: "남성" | "여성";
+   connectionNumber: string;
 };
 export type ParentSignup = SignupInfo & {
    childName: string;
@@ -10,9 +11,7 @@ export type ParentSignup = SignupInfo & {
    childSex: "남성" | "여성";
 };
 
-export type DirectorSignUpType = SignupInfo & {
-   connectionNumber: string;
-};
+export type DirectorSignUpType = SignupInfo;
 
 export type TeacherSignUpType = SignupInfo;
 
