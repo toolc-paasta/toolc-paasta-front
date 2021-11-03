@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from "react-native";
-import { useEffect } from "react";
 import { BottomTabNavigation } from "../../../screens/ShuttleScreen";
 import Kinger1 from "../view/Kinger1";
 import Kinger2 from "../view/Kinger2";
+import Kinger3 from "../view/Kinger3";
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { RootState } from "../../../modules";
 import  {useSelector } from "react-redux";
@@ -24,6 +24,26 @@ const progressStepsStyle = {
    topOffset:30,
  };
 
+const progressStepStyle = {
+   previousBtnTextStyle:{color: colors.black},
+   nextBtnTextStyle:{color: colors.black},
+   previousBtnText:'이전',
+   nextBtnText:'다음',
+   scrollable:false,
+   nextBtnStyle:{
+      position:'absolute',
+      bottom:30,
+      right:0,
+
+   },
+   previousBtnStyle:{
+      position:'absolute',
+      bottom:30,
+      left:0,
+   }
+};
+
+
 type Props = {
    navigation: BottomTabNavigation;
 };
@@ -32,6 +52,10 @@ function KingerContainer({ navigation }: Props) {
 
    const auth =  useSelector(({auth} :RootState) => auth)
 
+   const [area1,setArea1] = useState<any>();  
+   const [area2,setArea2] = useState<any>();  
+   const [kingerName,setKingerName] = useState<any>();  
+
    useEffect(() => {
    }, []);
 
@@ -39,34 +63,32 @@ function KingerContainer({ navigation }: Props) {
       <View style={{flex: 1,backgroundColor:'#ffffff'}}>
          <Header header_title={'내 유치원 등록'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
          <ProgressSteps {...progressStepsStyle} >
-            <ProgressStep label="유치원 찾기 1" nextBtnTextStyle={{color: colors.black}} nextBtnText='다음'>
+            <ProgressStep label="유치원 찾기 1" {...progressStepStyle} nextBtnDisabled={area2 ==null ? true : false}>
                <View style={styles.box}>
-                  <Kinger1/>
+                  <Kinger1 setArea1={setArea1} setArea2={setArea2} />
                </View>
             </ProgressStep>
-            <ProgressStep scrollable={false} label="유치원 찾기 2" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}} previousBtnText='이전' nextBtnText='다음'>
-               <View style={styles.box}>
-                  <Kinger2/>
+            <ProgressStep label="유치원 찾기 2" {...progressStepStyle} nextBtnDisabled={kingerName ==null ? true : false}>
+               <View style={styles.box} >
+                  <Kinger2 setArea1={setArea1} setKingerName={setKingerName} />
                </View>
             </ProgressStep>
             {auth.authority=='PARENT' ? (
-               <ProgressStep label="내 아이 찾기" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}}  nextBtnText='다음' previousBtnText='이전'>
-                  <View style={{ alignItems: 'center' }}>
+               <ProgressStep label="내 아이 찾기" {...progressStepStyle}>
+                  <View style={styles.box}>
                      <Text>2222222!</Text>
                   </View>
                </ProgressStep>
             ):(
-               <ProgressStep label="확인" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}}  nextBtnText='다음' previousBtnText='이전'>
-                  <View style={{ alignItems: 'center' }}>
-                     <Text>2222222!</Text>
+               <ProgressStep label="확인" {...progressStepStyle}>
+                  <View style={styles.box}>
+                     <Kinger3 area1={area1} area2={area2} kingerName={kingerName} auth={auth} onlyBoard={true}/>
                   </View>
                </ProgressStep>
             )}
-            <ProgressStep label="가입하기" previousBtnTextStyle={{color: colors.black}} nextBtnTextStyle={{color: colors.black}}  previousBtnText='이전' finishBtnText='확인'>
-               <View style={{ alignItems: 'center' }}>
-                  <Text>1!</Text>
-                  
-                  
+            <ProgressStep label="가입하기"{...progressStepStyle} nextBtnStyle={{display:'none'}}>
+               <View style={styles.box}>
+                  <Kinger3 area1={area1} area2={area2} kingerName={kingerName} auth={auth} onlyBoard={false}/>
                </View>
             </ProgressStep>
          </ProgressSteps>
@@ -76,8 +98,10 @@ function KingerContainer({ navigation }: Props) {
 
 const styles = StyleSheet.create({
    box:{
-      height:'90%',
+      height:'95%',
       position:'relative',
+      justifyContent: 'center',
+      
    },
  });
 

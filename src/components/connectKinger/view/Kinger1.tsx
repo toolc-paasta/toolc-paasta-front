@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import {
-  SafeAreaView,
-  Text,
   StyleSheet,
   View,
-  FlatList,
-  TextInput,
-  TouchableOpacity
 } from 'react-native';
 import Constants from 'expo-constants';
 import { area0,area1 } from '../../elements/data';
 import RNPickerSelect from 'react-native-picker-select';
 import { colors } from "../../elements/theme";
 
-export default function Kinger1() {
+type Props = {
+  setArea1:React.Dispatch<React.SetStateAction<any>>;
+  setArea2:React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function Kinger1({setArea1,setArea2} :Props) {
   const [area_big,setArea_big] = useState<any>('');  
   const [area_small,setArea_small] = useState<any>('');  
 
@@ -26,7 +26,12 @@ export default function Kinger1() {
   const disabled = {
     label: '시/도부터 선택하세요',
   };
- 
+  
+  const setData1 = (v:string,i:number) => {
+    setArea_big([v,i])
+    setArea1(v)
+  }
+
   useEffect(() => {
   }, []);
 
@@ -35,7 +40,7 @@ export default function Kinger1() {
     <View style={styles.container}>
       <RNPickerSelect
         onValueChange={
-          (value,index) => setArea_big([value,index])
+          (value,key) => setData1(value,key)
         }
         placeholder={placeholder1}
         useNativeAndroidPickerStyle={false}
@@ -45,7 +50,7 @@ export default function Kinger1() {
       
       <RNPickerSelect
         onValueChange={
-          (value,key) => setArea_small([value,key])
+          (value) => setArea2(value)
         }
         placeholder={placeholder2}
         useNativeAndroidPickerStyle={false}

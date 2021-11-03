@@ -6,22 +6,24 @@ import {
   View,
   FlatList,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert 
 } from 'react-native';
 import Constants from 'expo-constants';
 import { kinger } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-type Props = {
-  
-};
+import { colors } from "../../elements/theme";
 
 type Item = {
   name:string;
   contact:number;
 }
 
-export default function Kinger2() {
+type Props = {
+  setKingerName:React.Dispatch<React.SetStateAction<any>>;
+};
+
+export default function Kinger2({setKingerName}:Props) {
   const [search, setSearch] = useState<any>('');
   const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
   const [masterDataSource, setMasterDataSource] = useState<any>([]);
@@ -81,8 +83,18 @@ export default function Kinger2() {
   };
 
   const getItem = (item:Item) => {
-    
-    alert('name : ' + item.name + ' / phone : ' + item.contact);
+    Alert.alert(
+      "유치원 찾기2",
+      item.name+'이 맞습니까?',
+      [
+        {
+          text: "아니오",
+          style: "cancel"
+        },
+        { text: "예", onPress: () => setKingerName(item.name) }
+      ]
+    );
+    //alert('name : ' + item.name + ' / phone : ' + item.contact);
   };
 
   return (
@@ -108,7 +120,7 @@ export default function Kinger2() {
             data={filteredDataSource}
             keyExtractor={(item, index) => index.toString()}
             ItemSeparatorComponent={ItemSeparatorView}
-            renderItem={ItemView}
+            renderItem={ItemView}            
           />
         </View>
       </View>
@@ -124,6 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 5,
     overflow:'hidden',
+    height:'90%'
   },
   searchBox:{
     flexDirection: 'row',
@@ -131,7 +144,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     height:50,
     borderWidth: 1,
-    borderColor:'#ffd257',
+    borderColor:colors.primary,
     marginBottom:15,
     padding:10,
   },
