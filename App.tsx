@@ -60,12 +60,7 @@ sagaMiddleware.run(rootSaga);
 // 여기서 스크린 props 정의
 export type RootStackParamList = {
    Auth: undefined;
-   Main: undefined;
-   Admin: undefined;
-};
-export type RootBottomTabParamList = {
    Home: undefined;
-   Auth: undefined;
    Search: undefined;
    NoticeBoard: undefined;
    ParentBoard: undefined;
@@ -75,6 +70,8 @@ export type RootBottomTabParamList = {
    UploadNotice: undefined;
    Shuttle: undefined;
    Talk: undefined;
+};
+export type RootBottomTabParamList = {
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -109,120 +106,75 @@ export default function App() {
                               }}
                            />
                            <Stack.Screen
-                              name="Admin"
-                              component={AdminScreen}
-                              options={{ headerShown: false }}
-                           />
-                           <Stack.Screen
-                              name="Main"
+                              name="Home"
+                              component={HomeScreen}
                               options={{
                                  headerShown: false,
-                              }}>
-                              {() => (
-                                 <Tab.Navigator initialRouteName="Home">
-                                    <Tab.Screen
-                                       name="Home"
-                                       component={HomeScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Search"
-                                       component={SearchScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="ListDetail"
-                                       component={ListDetailScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="NoticeBoard"
-                                       component={NoticeBoardScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="ParentBoard"
-                                       component={ParentBoardScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Management"
-                                       component={ManagementScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Contact"
-                                       component={ContactScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="UploadNotice"
-                                       component={UploadNoticeScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Shuttle"
-                                       component={ShuttleScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                    <Tab.Screen
-                                       name="Talk"
-                                       component={TalkScreen}
-                                       options={{
-                                          headerShown: false,
-                                          tabBarIcon: () => (
-                                             <Icon name="home" />
-                                          ),
-                                       }}
-                                    />
-                                 </Tab.Navigator>
-                              )}
-                           </Stack.Screen>
+                              }}
+                           />
+                           <Stack.Screen
+                              name="Search"
+                              component={SearchScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="ListDetail"
+                              component={ListDetailScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="NoticeBoard"
+                              component={NoticeBoardScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="ParentBoard"
+                              component={ParentBoardScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="Management"
+                              component={ManagementScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="Contact"
+                              component={ContactScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="UploadNotice"
+                              component={UploadNoticeScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="Shuttle"
+                              component={ShuttleScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="Talk"
+                              component={TalkScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
                         </Stack.Navigator>
                      </NavigationContainer>
                   </AppInit>

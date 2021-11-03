@@ -18,6 +18,17 @@ import {
   teacherLogin,
 } from "../../../lib/api/auth";
 
+const articleTopStyleConst = {
+  parent: {
+    height: 206,
+    marginBottom: 100
+  },
+  teacher: {
+    height: 256,
+    marginBottom: 150
+  }
+}
+
 type Props = {
   navigation: BottomTabNavigation;
   auth:any;
@@ -34,25 +45,29 @@ function Home({ navigation,auth }: Props) {
     <View style={styles.container}>
     {isAuth ? (
       <ScrollView>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>{temp_data.kg_name}</Text>
-          <View style={styles.headerIcon}>
-            <Icon
-               name={'person-outline'}
-               size={35}
-               color="black"
-               style={styles.icon}
-               onPress={() => navigation.navigate("Home")}
-            />
+        <View style={[styles.articleTop, {
+          height: auth.authority === 'PARENT' ? articleTopStyleConst.parent.height : articleTopStyleConst.teacher.height,
+          marginBottom: auth.authority === 'PARENT' ? articleTopStyleConst.parent.marginBottom : articleTopStyleConst.teacher.marginBottom,
+        }]}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>{temp_data.kg_name}</Text>
+            <View style={styles.headerIcon}>
+              <Icon
+                name={'person-outline'}
+                size={35}
+                color="white"
+                style={styles.icon}
+                onPress={() => navigation.navigate("Home")}
+              />
+            </View>
           </View>
+          <Text style={styles.articleTopText}>{auth.name} {auth.authority=='TEACHER' ? '선생님' : (auth.authority=='DIRECTOR' ? '원장님' : '학부모님' ) } 환영합니다.</Text>          
         </View>
-        <View style={styles.articleTop}>
-          <Text style={styles.articleTopText}>{auth.name} {auth.authority=='TEACHER' ? '선생님' : (auth.authority=='DIRECTOR' ? '원장님' : '학부모님' ) }, 안녕하세요</Text>          
-        </View>
-        <View style={styles.articleMain}>
+
+        <View style={styles.menuWithBtns}>
           <MenuWithBtns user_type={auth.authority} navigation={navigation}/>
         </View>
-        <View style={styles.articleMain}>
+        <View style={styles.menuWithList}>
           <MenuWithList/>
         </View>
 
@@ -75,9 +90,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
-    padding: 15,
+    width: '100%'
   },
   blankContainer:{
     justifyContent: 'center',
@@ -106,30 +121,53 @@ const styles = StyleSheet.create({
     height:50,
     alignItems:'center',
     flexDirection: 'row',
-    borderBottomWidth:1,
+    marginBottom: 24,
   },
   headerText:{
-    fontSize:17,
-    fontFamily:'Font'
+    fontSize:28,
+    fontFamily:'Font',
+    color: 'white'
   },
   headerIcon:{
     position:'absolute',
     right:10
   },
   icon:{
-   fontSize:25
+   fontSize:30
   },
   articleTop:{
-    height:100,
-    justifyContent: 'center',
+    backgroundColor: '#FFD257',
+    paddingHorizontal: 16,
+    paddingTop: 12,
   },
   articleTopText:{
     fontSize:20,
     width:250,
     fontFamily:'Font',
+    color: 'white',
   },
-  articleMain:{
+  menuWithBtns:{
+    width: '80%',
+    position: 'absolute',
+    top: 144,
+    marginHorizontal: '10%',
+    paddingTop: 8,
+    backgroundColor: '#FDFCF8',
+    borderRadius: 32,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 5,
+
   },
+  menuWithList:{
+    paddingHorizontal: 24
+  },
+  
 
 });
 

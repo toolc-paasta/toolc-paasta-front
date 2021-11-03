@@ -28,14 +28,14 @@ export default function MenuWithList() {
 
   return (
     <>
-      <Text style={styles.articleMainText}>즐겨찾기 메뉴</Text>
+      <Text style={styles.articleMainText}>최근 공지</Text>
       <View style={styles.listContainer}>
         {list_current.map((item, i) => (
           <View style={styles.list} key={i}>
             <Text style={styles.mainText}>{item.title}</Text>
             <Text style={styles.subText} numberOfLines={1}>{item.content}</Text>
             <Text style={styles.timeText}>{makeTime(item.time)} 전</Text>
-          </View>  
+          </View>
         ))}
       </View>
     </>
@@ -45,22 +45,22 @@ export default function MenuWithList() {
 const styles = StyleSheet.create({
     listContainer:{
     justifyContent: 'center',
-    padding:10
   },
   list:{
-    alignItems: 'center',
-    height:40,
-    flexDirection: 'row',
-    
+    paddingLeft: 4,
+    marginBottom: 8
   },
   mainText:{
     fontWeight:'bold',
-    fontSize:13,
+    fontSize:12,
     paddingRight:10,
-    textAlign:'left'
+    textAlign:'left',
+    fontFamily:'Font'
   },
   subText:{
       width:150,
+      color: '#666666',
+      fontSize: 12
   },
   timeText:{
     position:'absolute',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   articleMainText:{
     fontSize:20,
-    paddingBottom:5,
-    fontFamily:'Font'
+    fontFamily:'Font',
+    marginBottom: 8,
   },
 });

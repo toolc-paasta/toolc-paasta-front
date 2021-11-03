@@ -31,7 +31,6 @@ export default function MenuWithBtns({user_type,navigation}:Props) {
 
   return (
     <>
-      <Text style={styles.articleMainText}>바로가기 메뉴</Text>
       <View style={styles.row}>
         {authType?.map((item :any, i :any) => (
           <View style={styles.btnContainer} key={i}>
@@ -58,44 +57,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingVertical: 8,
   },
   btnContainer:{
-    width:Dimensions.get('window').width/3-10,    
+    width:Dimensions.get('window').width * 0.8 / 3 - 10,
+    height: 100,
     alignItems: 'center',
   },
   btn:{
-    width:60,
-    height:60,
-    borderRadius:10,
-    backgroundColor:'#fff',
+    width: 60,
+    height: 60,
+    borderRadius: 100,
+    backgroundColor:'#FEE9B0',
     justifyContent: 'center',
     alignItems: 'center',
-    margin:10,
-    marginBottom:0,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
+    marginBottom: 8
   },
   icon:{
     fontSize:25
   },
   textView:{
-    paddingTop:15,
-    marginBottom:10,
-    height:60
   },
   text:{
-      textAlign:'center'
-  },
-  articleMainText:{
-    fontSize:20,
-    paddingBottom:5,
-    fontFamily:'Font'
+      textAlign:'center',
+      fontSize: 10
   },
 });

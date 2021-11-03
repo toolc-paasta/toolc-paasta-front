@@ -79,7 +79,7 @@ function Landing({ goTo }: Props) {
             />
             <StyledButton
                title="회원가입"
-               color="clear"
+               color="secondary"
                wide
                margin
                onPress={() => goTo("Signin")}
