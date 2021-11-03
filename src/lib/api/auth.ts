@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { navigationRef } from "../../../RootNavigation";
 import { kinderType } from "../../components/auth/types";
 import {
    DirectorSignUpType,
@@ -230,6 +231,7 @@ export const logout = async () => {
    try {
       await AsyncStorage.removeItem("@tokens");
       await AsyncStorage.removeItem("@authorityType");
+      navigationRef.current?.navigate("Auth");
    } catch (err) {
       throw err;
    }
