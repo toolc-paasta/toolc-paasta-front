@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { RootBottomTabParamList } from "../../App";
-import NoticeContainer from "../components/notice/container/NoticeContainer"
+import NoticeContainer from "../components/notice/container/NoticeContainer";
 
 type Props = BottomTabScreenProps<RootBottomTabParamList, "Notice">;
 

@@ -73,6 +73,22 @@ export type RootStackParamList = {
    Kinger: undefined;
    Admin: undefined;
 };
+export type StackScreenList =
+   | "Auth"
+   | "Home"
+   | "Search"
+   | "NoticeBoard"
+   | "ParentBoard"
+   | "ListDetail"
+   | "Management"
+   | "Contact"
+   | "UploadNotice"
+   | "Shuttle"
+   | "Talk"
+   | "Notice"
+   | "Kinger"
+   | "Admin"
+   | undefined;
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -80,6 +96,9 @@ export default function App() {
    const [loaded] = useFonts({
       Font: require("./assets/Font.ttf"),
    });
+   const [initialRouteName, setInitialRouteName] =
+      React.useState<StackScreenList>("Auth");
+
    /*
       https://pacific-jeep-805.notion.site/DayCare-API-Specification-2ba71edd27054a42a5d9a167e46688ab
       */
@@ -92,11 +111,11 @@ export default function App() {
             }}>
             <Provider store={store}>
                <PubNubProvider client={pubnub}>
-                  <AppInit>
+                  <AppInit setInitialRouteName={setInitialRouteName}>
                      <NavigationContainer
                         ref={navigationRef}
                         documentTitle={{ enabled: false }}>
-                        <Stack.Navigator initialRouteName="Auth">
+                        <Stack.Navigator initialRouteName={initialRouteName}>
                            <Stack.Screen
                               name="Auth"
                               component={AuthScreen}

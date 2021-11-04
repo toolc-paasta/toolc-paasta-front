@@ -1,9 +1,9 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import { RootBottomTabParamList } from "../../App";
+import { RootStackParamList } from "../../App";
 import ShuttleContainer from "../components/shuttle/container/ShuttleContainer";
 
-type Props = BottomTabScreenProps<RootBottomTabParamList, "Shuttle">;
+type Props = StackScreenProps<RootStackParamList, "Shuttle">;
 
 export type BottomTabNavigation = Props["navigation"];
 

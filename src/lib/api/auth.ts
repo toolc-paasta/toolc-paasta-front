@@ -210,17 +210,17 @@ export const init = async () => {
       );
       if (tokens) {
          await setTokens(tokens);
-      }
-      const type = await AsyncStorage.getItem("@authorityType");
-      switch (type) {
-         case "PARENT":
-            return await getParentInfo();
-         case "DIRECTOR":
-            return await getDirectorInfo();
-         case "TEACHER":
-            return await getTeacherInfo();
-         default:
-            return await getAdminInfo();
+         const type = await AsyncStorage.getItem("@authorityType");
+         switch (type) {
+            case "PARENT":
+               return await getParentInfo();
+            case "DIRECTOR":
+               return await getDirectorInfo();
+            case "TEACHER":
+               return await getTeacherInfo();
+            default:
+               return await getAdminInfo();
+         }
       }
    } catch (err) {
       throw err;

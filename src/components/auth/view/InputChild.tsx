@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { Input, ListItem, Button } from "react-native-elements";
+import { Input, ListItem, Button, CheckBox } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import { childInfoType } from "../types";
 
@@ -8,9 +8,17 @@ type Props = {
    childInfo: childInfoType;
    onChangeChild: (name: string, value: string) => void;
    birthErr: string | undefined;
+   isCheckedSameChild: boolean;
+   toggleIsCheckedSameChild: () => void;
 };
 
-function InputChild({ childInfo, onChangeChild, birthErr }: Props) {
+function InputChild({
+   childInfo,
+   onChangeChild,
+   birthErr,
+   isCheckedSameChild,
+   toggleIsCheckedSameChild,
+}: Props) {
    return (
       <ScrollView style={styles.container}>
          <ListItem pad={10}>
@@ -56,7 +64,7 @@ function InputChild({ childInfo, onChangeChild, birthErr }: Props) {
                />
             </ListItem.Content>
          </ListItem>
-         <ListItem pad={20}>
+         <ListItem pad={10}>
             <Text>생년월일</Text>
             <ListItem.Content
                style={{
@@ -73,6 +81,28 @@ function InputChild({ childInfo, onChangeChild, birthErr }: Props) {
                />
             </ListItem.Content>
          </ListItem>
+         <ListItem pad={10}>
+            <CheckBox
+               title="이미 배우자분이 같은 아이로 가입하셨습니까?"
+               checked={isCheckedSameChild}
+               onPress={toggleIsCheckedSameChild}
+            />
+         </ListItem>
+         {isCheckedSameChild && (
+            <ListItem pad={10}>
+               <Text>배우자 아이디</Text>
+               <ListItem.Content>
+                  <Input
+                     value={childInfo.wifeId}
+                     placeholder="배우자분의 아이디를 입력해주세요."
+                     onChangeText={(v) => onChangeChild("wifeId", v)}
+                     containerStyle={{ width: 250 }}
+                     errorMessage={birthErr}
+                     style={{ fontSize: 12 }}
+                  />
+               </ListItem.Content>
+            </ListItem>
+         )}
       </ScrollView>
    );
 }

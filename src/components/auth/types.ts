@@ -17,6 +17,7 @@ export type childInfoType = {
    childName: string;
    childSex: sexType;
    childBirthday: string;
+   wifeId?: string;
 };
 
 type areaType = {

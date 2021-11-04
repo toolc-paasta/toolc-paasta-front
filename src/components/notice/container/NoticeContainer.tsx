@@ -7,11 +7,8 @@ type Props = {
    navigation: BottomTabNavigation;
 };
 
-function NoticeContainer({ navigation }: Props) {   
-
-   useEffect(() => {
-      
-   }, []);
+function NoticeContainer({ navigation }: Props) {
+   useEffect(() => {}, []);
 
    return <Notice navigation={navigation} />;
 }

@@ -11,12 +11,16 @@ import { navigateTo, navigationRef } from "./RootNavigation";
 import { setCustomText } from "react-native-global-props";
 import notificationInit from "./src/lib/utils/inits/notificationInit";
 
-import { init } from "./src/lib/api/auth";
+import { init, logout } from "./src/lib/api/auth";
 import { signin } from "./src/modules/auth";
 import { usePubNub } from "pubnub-react";
+import { StackScreenList } from "./App";
 
 type Props = {
    children: JSX.Element;
+   setInitialRouteName: (
+      v: StackScreenList | ((prev: StackScreenList) => StackScreenList)
+   ) => void;
 };
 
 const customTextProps = {
@@ -25,7 +29,7 @@ const customTextProps = {
    },
 };
 
-export default function AppInit({ children }: Props) {
+export default function AppInit({ children, setInitialRouteName }: Props) {
    const [preLoading, setPreloading] = useState(true);
    const loading = useSelector(({ loading }: RootState) => loading);
    const snackbarState = useSelector(({ snackbar }: RootState) => snackbar);
@@ -54,7 +58,7 @@ export default function AppInit({ children }: Props) {
                }
             }
          }
-         */
+      */
 
       const subscription_fore = Notifications.addNotificationReceivedListener(
          (notification) => {
@@ -83,9 +87,16 @@ export default function AppInit({ children }: Props) {
          }
 
          // 인증 후 정보 받아오기
+         await logout();
          const userInfo = await init();
          if (userInfo) {
             dispatch(signin(userInfo));
+
+            if (userInfo.authority === "ADMIN") {
+               setInitialRouteName("Admin");
+            } else {
+               setInitialRouteName("Home");
+            }
             pubnubState.setUUID(userInfo.loginId);
          }
       } catch (err) {

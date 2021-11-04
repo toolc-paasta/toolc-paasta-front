@@ -73,6 +73,7 @@ function Auth({
                      color="primary"
                      wide
                      onPress={onPressLogin}
+                     paddingHorizontal={24}
                   />
                   <Button
                      title="회원가입"
@@ -80,6 +81,7 @@ function Auth({
                      wide
                      margin
                      onPress={goToSignin}
+                     paddingHorizontal={24}
                   />
                </View>
             </View>

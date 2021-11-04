@@ -91,6 +91,7 @@ function SigninContainer({ navigation }: Props) {
       childName: "",
       childSex: "남성",
       childBirthday: "",
+      wifeId: "",
    });
    const [position, setPosition] = useState<number>(0);
    const [areaInfo, setAreaInfo] = useState<areaInfoType>({
@@ -103,6 +104,7 @@ function SigninContainer({ navigation }: Props) {
    );
    const [birthErr, setBirthErr] = useState<string | undefined>();
    const [foundationDateErr, setFoundationDateErr] = useState<string>("");
+   const [isCheckedSameChild, setIsCheckedSameChild] = useState(false);
 
    const pushToken = useSelector(({ pushToken }: RootState) => pushToken);
    const dispatch = useDispatch();
@@ -182,6 +184,7 @@ function SigninContainer({ navigation }: Props) {
                   {
                      ...userInfo,
                      ...childInfo,
+                     wifeId: isCheckedSameChild ? childInfo.wifeId : "",
                      childBirthday: parseToBirth(childInfo.childBirthday),
                      connectionNumber: parseToPhoneNumer(
                         userInfo.connectionNumber
@@ -231,16 +234,20 @@ function SigninContainer({ navigation }: Props) {
 
    const checkSecondPage = () => {
       if (
-         position == 1 &&
+         position === 1 &&
          userType === 0 &&
-         !(childInfo.childBirthday && childInfo.childName && childInfo.childSex)
+         !(
+            childInfo.childBirthday !== "" &&
+            childInfo.childName !== "" &&
+            ((isCheckedSameChild && childInfo.wifeId) || !isCheckedSameChild)
+         )
       ) {
-         Alert.alert("안내", "아이의 정보를 전부 입력해주세요.", [
+         Alert.alert("안내", "정보를 전부 입력해주세요.", [
             { text: "확인", onPress: () => {}, style: "default" },
          ]);
          return false;
       } else if (
-         position == 1 &&
+         position === 1 &&
          userType === 2 &&
          !(
             selectedKinder?.address &&
@@ -260,7 +267,14 @@ function SigninContainer({ navigation }: Props) {
          pagerRef.current?.setPage(position + 1);
          setPosition((prev) => prev + 1);
       }
-   }, [pagerRef, position, userType, childInfo, selectedKinder]);
+   }, [
+      pagerRef,
+      position,
+      userType,
+      childInfo,
+      selectedKinder,
+      isCheckedSameChild,
+   ]);
    const goPrev = useCallback((): void => {
       pagerRef.current?.setPage(position - 1);
       setPosition((prev) => prev - 1);
@@ -279,6 +293,9 @@ function SigninContainer({ navigation }: Props) {
 
    const onPressKinder = useCallback((kinder) => {
       setSelectedKinder((prev) => ({ ...prev, ...kinder }));
+   }, []);
+   const toggleIsCheckedSameChild = useCallback(() => {
+      setIsCheckedSameChild((prev) => !prev);
    }, []);
 
    return (
@@ -319,6 +336,8 @@ function SigninContainer({ navigation }: Props) {
                         childInfo={childInfo}
                         onChangeChild={onChangeChild}
                         birthErr={birthErr}
+                        isCheckedSameChild={isCheckedSameChild}
+                        toggleIsCheckedSameChild={toggleIsCheckedSameChild}
                      />
                   </View>
                )

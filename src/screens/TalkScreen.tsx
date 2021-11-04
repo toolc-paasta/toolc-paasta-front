@@ -1,14 +1,16 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+   createStackNavigator,
+   StackScreenProps,
+} from "@react-navigation/stack";
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootBottomTabParamList } from "../../App";
+import { RootStackParamList } from "../../App";
 import ParentListContainer from "../components/talk/container/ParentListContainer";
 import TalkContainer from "../components/talk/container/TalkContainer";
 import Constants from "../lib/utils/constants";
 import { RootState } from "../modules";
 
-type Props = BottomTabScreenProps<RootBottomTabParamList, "Talk">;
+type Props = StackScreenProps<RootStackParamList, "Talk">;
 
 export type BottomTabNavigation = Props["navigation"];
 
