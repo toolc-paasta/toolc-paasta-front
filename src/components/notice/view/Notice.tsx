@@ -48,11 +48,10 @@ export default function Notice({
             content={
                <ListItem.Content>
                   <ListItem.Title>
-                     {item.user.name}님의 {isAdmin ? "유치원 " : "반 "} 등록
-                     요청
+                     {item.user.name}님의 {isAdmin ? "유치원" : "반"} 등록 요청
                   </ListItem.Title>
                   <ListItem.Subtitle>
-                     아이디 : {item.user.id}, 전화번호 :{" "}
+                     아이디 : {item.user.loginId}, 전화번호 :{" "}
                      {item.user.connectionNumber}
                   </ListItem.Subtitle>
                </ListItem.Content>
@@ -67,16 +66,23 @@ export default function Notice({
             }}>
             <View style={styles.contentContainer}>
                <Text style={styles.contentSubtitle}>
-                  {isAdmin ? `유치원 이름 : ${item.centerName}` : ""}
+                  {isAdmin
+                     ? `유치원 이름 : ${item.centerName}`
+                     : `유치원 아이디 : ${item.centerId}`}
                </Text>
 
                <Text style={styles.contentSubtitle}>
-                  {isAdmin ? `설립일 : ${item.foundationDate}` : ""}
+                  {isAdmin
+                     ? `설립일 : ${item.foundationDate}`
+                     : `반 아이디 : ${item.classId}`}
                </Text>
-
-               <Text style={styles.contentSubtitle}>
-                  {isAdmin ? `주소 : ${item.address}` : ""}
-               </Text>
+               {isAdmin ? (
+                  <Text style={styles.contentSubtitle}>
+                     {`주소 : ${item.address}`}
+                  </Text>
+               ) : (
+                  <></>
+               )}
                <View style={styles.contentButtonContainer}>
                   <Button
                      title={"수락"}

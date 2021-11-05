@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
    admitCenterRequest,
    admitClassRequest,
@@ -9,6 +9,7 @@ import {
    getCenterRequest,
 } from "../../../lib/api/notice";
 import { RootState } from "../../../modules";
+import { loading, unloading } from "../../../modules/loading";
 import { StackScreenNavigation } from "../../../screens/NoticeScreen";
 import { RegisterCenterNoti } from "../types";
 import Notice from "../view/Notice";
@@ -52,47 +53,65 @@ function NoticeContainer({ navigation }: Props) {
    >([]);
 
    const auth = useSelector(({ auth }: RootState) => auth);
+   const dispatch = useDispatch();
+   const [refresh, setRefresh] = React.useState(0);
 
    useEffect(() => {
       const getDatas = async () => {
-         if (auth.authority === "ADMIN") {
-            const data = await getCenterRequest();
-            setRegisterCenterNotis(
-               data.map((item: any) => ({
-                  ...item,
-                  user: item.director,
-               }))
-            );
-         } else if (auth.authority === "DIRECTOR") {
-            const data = await getCenterRequest();
-            setRegisterCenterNotis(
-               data.map((item: any) => ({
-                  ...item,
-                  user: item.teacher,
-               }))
-            );
+         dispatch(loading());
+         try {
+            if (auth.authority === "ADMIN") {
+               const data = await getCenterRequest();
+               setRegisterCenterNotis(
+                  data.map((item: any) => ({
+                     ...item,
+                     user: item.director,
+                  }))
+               );
+            } else if (auth.authority === "DIRECTOR") {
+               const data = await getCenterRequest();
+               setRegisterCenterNotis(
+                  data.map((item: any) => ({
+                     ...item,
+                     user: item.teacher,
+                  }))
+               );
+            }
+         } catch (e) {
+            console.log(e.response.data);
          }
+         dispatch(unloading());
       };
       getDatas();
-   }, [auth]);
+   }, [auth, refresh]);
 
    const onPressAdmit = async (item: RegisterCenterNoti) => {
-      if (auth.authority === "ADMIN") {
-         await admitCenterRequest(item.id);
-         setRegisterCenterNotis((prev) => prev.filter((i) => i.id !== item.id));
-      } else if (auth.authority === "DIRECTOR") {
-         await admitClassRequest(item.id);
-         setRegisterCenterNotis((prev) => prev.filter((i) => i.id !== item.id));
+      dispatch(loading());
+      try {
+         if (auth.authority === "ADMIN") {
+            await admitCenterRequest(item.id);
+         } else if (auth.authority === "DIRECTOR") {
+            await admitClassRequest(item.id);
+         }
+         setRefresh((prev) => prev + 1);
+      } catch (err) {
+         console.log(err.response.data);
+         dispatch(unloading());
       }
    };
 
    const onPressDeny = async (item: RegisterCenterNoti) => {
-      if (auth.authority === "ADMIN") {
-         await denyCenterRequest(item.id);
-         setRegisterCenterNotis((prev) => prev.filter((i) => i.id !== item.id));
-      } else if (auth.authority === "DIRECTOR") {
-         await denyClassRequest(item.id);
-         setRegisterCenterNotis((prev) => prev.filter((i) => i.id !== item.id));
+      dispatch(loading());
+      try {
+         if (auth.authority === "ADMIN") {
+            await denyCenterRequest(item.id);
+         } else if (auth.authority === "DIRECTOR") {
+            await denyClassRequest(item.id);
+         }
+         setRefresh((prev) => prev + 1);
+      } catch (err) {
+         console.log(err.response.data);
+         dispatch(unloading());
       }
    };
 

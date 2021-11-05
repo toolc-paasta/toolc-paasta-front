@@ -73,6 +73,7 @@ export const parentSignUp = async (props: ParentSignup, expoToken: string) => {
 export const getDirectorInfo = async () => {
    try {
       const res = await axios.get(`${Address}/api/member/director`);
+      console.log(res.data.response);
       return res.data.response;
    } catch (err) {
       console.log(err.response.data);

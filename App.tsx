@@ -35,7 +35,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { PubNubProvider } from "pubnub-react";
 import PubNub from "pubnub";
 import { REACT_APP_PUBLISH_KEY, REACT_APP_SUBSCRIBE_KEY } from "@env";
-import AdminScreen from "./src/screens/AdminScreen";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -71,7 +70,6 @@ export type RootStackParamList = {
    Talk: undefined;
    Notice: undefined;
    Kinger: undefined;
-   Admin: undefined;
 };
 export type StackScreenList =
    | "Auth"
@@ -87,7 +85,6 @@ export type StackScreenList =
    | "Talk"
    | "Notice"
    | "Kinger"
-   | "Admin"
    | undefined;
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -203,13 +200,6 @@ export default function App() {
                            <Stack.Screen
                               name="Kinger"
                               component={KingerScreen}
-                              options={{
-                                 headerShown: false,
-                              }}
-                           />
-                           <Stack.Screen
-                              name="Admin"
-                              component={AdminScreen}
                               options={{
                                  headerShown: false,
                               }}

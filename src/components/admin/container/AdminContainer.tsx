@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { StackNavigation } from "../../../screens/AdminScreen";
+import { StackScreenNavigation } from "../../../screens/NoticeScreen";
 import { RegisterCenterNoti } from "../types";
 import Admin from "../view/Admin";
 
 type Props = {
-   navigation: StackNavigation;
+   navigation: StackScreenNavigation;
 };
 
 const tempDatas: RegisterCenterNoti[] = [
