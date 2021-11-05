@@ -9,6 +9,7 @@ import { parseToRegion } from "../../../lib/utils/parseLocation";
 import { useKeepAwake } from "expo-keep-awake";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../modules";
+import constants from "../../../lib/utils/constants";
 
 type Props = {
    navigation: BottomTabNavigation;
@@ -20,7 +21,12 @@ type watchKeyType = {
 
 function ShuttleContainer({ navigation }: Props) {
    const pubnub = usePubNub();
-   const [channels, setChannels] = useState(["map-channel"]);
+   const auth = useSelector(({ auth }: RootState) => auth);
+   const [channels, setChannels] = useState([
+      auth.authority === constants.authority_director
+         ? auth.loginId
+         : "map-channel",
+   ]);
    const [location, setLocation] = useState<Location.LocationObject | null>();
    const [region, setRegion] = useState<Region>({
       latitude: 37.564552581327064,
@@ -31,8 +37,6 @@ function ShuttleContainer({ navigation }: Props) {
    const [watchKey, setWatchKey] = useState<watchKeyType | null>();
    const mapViewRef = useRef<MapView>() as React.RefObject<MapView>;
    const [onSharing, setOnSharing] = useState<boolean>(false);
-
-   const auth = useSelector(({ auth }: RootState) => auth);
 
    useKeepAwake();
 

@@ -14,6 +14,7 @@ type Props = {
 };
 
 function ParentList({ parents, goToTalkRoom, message }: Props) {
+   console.log(parents.length);
    return (
       <View style={styles.container}>
          <Header
@@ -24,25 +25,38 @@ function ParentList({ parents, goToTalkRoom, message }: Props) {
             setModalVisible={false}
          />
          <View style={{ flex: 1 }}>
-            <FlatList
-               data={parents}
-               renderItem={({ item }) => (
-                  <ListItem onPress={() => goToTalkRoom(item.loginId)}>
-                     <ListItem.Content>
-                        <ListItem.Title>{item.name} 학부모님</ListItem.Title>
-                        <ListItem.Subtitle>
-                           최근 메세지 :{" "}
-                           {
-                              message?.filter(
-                                 (m) => m.sender === item.loginId
-                              )[0]?.text
-                           }
-                        </ListItem.Subtitle>
-                     </ListItem.Content>
-                  </ListItem>
-               )}
-               keyExtractor={(item, index) => `${item.loginId}`}
-            />
+            {parents.length === 0 ? (
+               <View
+                  style={{
+                     flex: 1,
+                     alignItems: "center",
+                     justifyContent: "center",
+                  }}>
+                  <Text style={{ fontSize: 20 }}>
+                     아직 등록된 학부모님이 없습니다.
+                  </Text>
+               </View>
+            ) : (
+               <FlatList
+                  data={parents}
+                  renderItem={({ item }) => (
+                     <ListItem onPress={() => goToTalkRoom(item.loginId)}>
+                        <ListItem.Content>
+                           <ListItem.Title>{item.name} 학부모님</ListItem.Title>
+                           <ListItem.Subtitle>
+                              최근 메세지 :{" "}
+                              {
+                                 message?.filter(
+                                    (m) => m.sender === item.loginId
+                                 )[0]?.text
+                              }
+                           </ListItem.Subtitle>
+                        </ListItem.Content>
+                     </ListItem>
+                  )}
+                  keyExtractor={(item, index) => `${item.loginId}`}
+               />
+            )}
          </View>
       </View>
    );

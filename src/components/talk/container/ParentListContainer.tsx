@@ -1,6 +1,7 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { usePubNub } from "pubnub-react";
 import React, { useEffect, useState } from "react";
+import { getParentsList } from "../../../lib/api/parentsList";
 import { authStateType } from "../../../modules/auth";
 import { TalkStackScreenParamList } from "../../../screens/TalkScreen";
 import { messageType } from "../types";
@@ -30,26 +31,35 @@ function ParentListContainer({
    const pubnub = usePubNub();
 
    useEffect(() => {
-      setParents(tempData);
-      const channels = tempData.map((item) => item.loginId);
-      pubnub.fetchMessages(
-         {
-            channels: channels,
-            end: Date.now(),
-            count: 1,
-         },
-         function (status, response) {
-            for (let list in response.channels) {
-               addMessage((prev) => [
-                  ...prev,
-                  {
-                     text: response.channels[list][0].message.text,
-                     sender: list,
-                  },
-               ]);
-            }
+      const getList = async () => {
+         try {
+            const data = await getParentsList();
+            setParents(data);
+
+            const channels = data.map((item: authStateType) => item.loginId);
+            pubnub.fetchMessages(
+               {
+                  channels: channels,
+                  end: Date.now(),
+                  count: 1,
+               },
+               function (status, response) {
+                  for (let list in response.channels) {
+                     addMessage((prev) => [
+                        ...prev,
+                        {
+                           text: response.channels[list][0].message.text,
+                           sender: list,
+                        },
+                     ]);
+                  }
+               }
+            );
+         } catch (e) {
+            console.log(e.response.data);
          }
-      );
+      };
+      getList();
    }, [pubnub]);
 
    const goToTalkRoom = (channel: string) => {
