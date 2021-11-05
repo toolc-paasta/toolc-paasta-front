@@ -93,7 +93,7 @@ export default function AppInit({ children, setInitialRouteName }: Props) {
             dispatch(signin(userInfo));
 
             if (userInfo.authority === "ADMIN") {
-               setInitialRouteName("Admin");
+               setInitialRouteName("Notice");
             } else {
                setInitialRouteName("Home");
             }

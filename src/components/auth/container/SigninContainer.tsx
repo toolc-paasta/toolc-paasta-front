@@ -207,7 +207,6 @@ function SigninContainer({ navigation }: Props) {
                      },
                      pushToken.token
                   );
-
                   await registerCenter({
                      ...selectedKinder,
                      foundationDate: parseToBirth(
@@ -221,7 +220,7 @@ function SigninContainer({ navigation }: Props) {
          navigationRef.current?.navigate("Home");
          pubnubState.setUUID(res.loginId);
       } catch (err: any) {
-         console.log(err);
+         console.log(err.response.data);
          // 중복 아이디 처리
          if (err?.response.data.message === "ID가 중복된 회원입니다.") {
             handleError<signInInfoType>("auth/id-already-in-use", setErrMsg);

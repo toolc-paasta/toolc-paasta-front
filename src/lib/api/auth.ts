@@ -75,6 +75,7 @@ export const getDirectorInfo = async () => {
       const res = await axios.get(`${Address}/api/member/director`);
       return res.data.response;
    } catch (err) {
+      console.log(err.response.data);
       throw err;
    }
 };
@@ -115,6 +116,7 @@ export const directorSignUp = async (
 
 export const registerCenter = async (props: kinderType) => {
    try {
+      console.log(props);
       const res = await axios.post(
          `${Address}/api/member/director/registerCenter`,
          {
