@@ -41,7 +41,7 @@ export default function ListDetail({data,date,setModalVisible,header_title,navig
 
   return (
     <ScrollView style={styles.container}>
-      <Header header_title={header_title} setModalVisible={setModalVisible} setIsSubmit={false} navigation={navigation} IsInsert={null} />
+      <Header header_title={header_title} setModalVisible={setModalVisible} setIsSubmit={null} navigation={navigation} IsInsert={null}/>
       <View style={[styles.box, styles.box1]}>
         <Text style={styles.input1}>{data.title}</Text>
         <Text style={styles.input1_2}>{data.time.getMonth()+1}월 {data.time.getDate()}일</Text>
@@ -49,18 +49,8 @@ export default function ListDetail({data,date,setModalVisible,header_title,navig
       <View style={[styles.box, styles.box2]}>
         <Text style={styles.input2}>{data.content}</Text>
       </View>
-      <View style={[styles.box, styles.box3]}>
-        <Text style={styles.input1}>댓글</Text>
-      </View>
-      {comment.map((item, i) => (
-        <View style={styles.list} key={i} >
-          <View>
-            <Text style={styles.mainText}>{item.nickname}</Text>
-            <Text style={styles.subText} numberOfLines={1}>{item.content}</Text>
-          </View>
-          <Text style={styles.numText}>{makeTime(item.time)}</Text>
-        </View>  
-      ))}
+      
+      
     </ScrollView>
   );
 }

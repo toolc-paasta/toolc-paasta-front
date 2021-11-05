@@ -36,7 +36,7 @@ type Props = {
 
 function Home({ navigation,auth }: Props) {
   let res;
-  const [isAuth,setIsAuth] = useState(false);
+  const [isAuth,setIsAuth] = useState(true);
 /*
 선생 qwer1106 qwer1234$
 학부모 shkim1106 qwer1234%
@@ -105,9 +105,10 @@ const styles = StyleSheet.create({
   blackBtn:{
     marginTop:10,
     borderRadius:10,
-    backgroundColor:'#FFA500',
+    backgroundColor:'#ffd257',
     width:150,
-    height:60,
+    paddingTop:5,
+    height:50,
     justifyContent: 'center',
     
   },

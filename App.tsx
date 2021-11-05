@@ -25,6 +25,7 @@ import ShuttleScreen from "./src/screens/ShuttleScreen";
 import TalkScreen from "./src/screens/TalkScreen";
 import NoticeScreen from "./src/screens/NoticeScreen";
 import KingerScreen from "./src/screens/KingerScreen";
+import ForAdminScreen from "./src/screens/ForAdminScreen";
 import { useFonts } from "expo-font";
 import AuthScreen from "./src/screens/AuthScreen";
 import { navigationRef } from "./RootNavigation";
@@ -72,6 +73,7 @@ export type RootStackParamList = {
    Notice: undefined;
    Kinger: undefined;
    Admin: undefined;
+   ForAdmin: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -191,6 +193,13 @@ export default function App() {
                            <Stack.Screen
                               name="Admin"
                               component={AdminScreen}
+                              options={{
+                                 headerShown: false,
+                              }}
+                           />
+                           <Stack.Screen
+                              name="ForAdmin"
+                              component={ForAdminScreen}
                               options={{
                                  headerShown: false,
                               }}
