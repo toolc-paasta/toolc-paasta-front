@@ -46,8 +46,8 @@ export const btns_for_ad = [
 {id: 0, title: '회원 관리', img:'book-outline', onclick:'Management'},
 {id: 1, title: '공지 모아보기', img:'mail-outline', onclick:'NoticeBoard'},
 {id: 2, title: '개인 톡', img:'call-outline', onclick:'Talk'},
-{id: 3, title: '학부모 게시판', img:'car-outline', onclick:'ParentBoard'},
-{id: 4, title: '셔틀 관리', img:'clipboard-outline', onclick:'Shuttle'},
+{id: 3, title: '반/학생 추가', img:'clipboard-outline', onclick:'ForAdmin'},
+{id: 4, title: '셔틀 관리', img:'car-outline', onclick:'Shuttle'},
 {id: 5, title: '전화번호부', img:'log-in-outline', onclick:'Contact'},
 ];
 
@@ -83,6 +83,9 @@ export const comment =[
 {time: new Date(2021, 8, 1, 14, 49, 5), nickname:'민준맘', content: 'ㅋㅋㅇㅈ4',},
 {time: new Date(2021, 8, 1, 11, 49, 5), nickname:'경훈맘', content: 'ㅋㅋㅇㅈ5',},
 ]
+
+export const classList = ['대한반','민국반','만세반','무궁반','백두반','한라반']
+export const childList = ['aaa','ss','dd','ff','gg','hh','aaa','ss','dd','ff','gg','hh','aaa','ss','dd','ff','gg','hh','aaa','ss','dd','ff','gg','hh','aaa','ss','dd','ff','gg','hh']
 
 export const area0 = [
   { label: '서울특별시', value: '서울특별시' },

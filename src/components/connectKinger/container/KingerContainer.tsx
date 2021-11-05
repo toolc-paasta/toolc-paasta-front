@@ -70,22 +70,14 @@ function KingerContainer({ navigation }: Props) {
             </ProgressStep>
             <ProgressStep label="유치원 찾기 2" {...progressStepStyle} nextBtnDisabled={kingerName ==null ? true : false}>
                <View style={styles.box} >
-                  <Kinger2 setArea1={setArea1} setKingerName={setKingerName} />
+                  <Kinger2 setKingerName={setKingerName} />
                </View>
             </ProgressStep>
-            {auth.authority=='PARENT' ? (
-               <ProgressStep label="내 아이 찾기" {...progressStepStyle}>
-                  <View style={styles.box}>
-                     <Text>2222222!</Text>
-                  </View>
-               </ProgressStep>
-            ):(
-               <ProgressStep label="내 반 찾기" {...progressStepStyle}>
-                  <View style={styles.box}>
-                     <Text>2222222!</Text>
-                  </View>
-               </ProgressStep>
-            )}
+            <ProgressStep label="반 등록" {...progressStepStyle} nextBtnDisabled={kingerName ==null ? true : false}>
+               <View style={styles.box} >
+                  <Kinger2 setKingerName={setKingerName} />
+               </View>
+            </ProgressStep>
             <ProgressStep label="가입하기"{...progressStepStyle} nextBtnStyle={{display:'none'}}>
                <View style={styles.box}>
                   <Kinger3 area1={area1} area2={area2} kingerName={kingerName} auth={auth}/>

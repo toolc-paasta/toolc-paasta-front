@@ -46,6 +46,8 @@ function Home({ navigation, auth }: Props) {
    /*
 선생 qwer1106 qwer1234$
 학부모 shkim1106 qwer1234%
+원장이 회원가입(센터 자동등록) -> 관리자가 수락 -> 원장 반생성 -> 유치원/반 리스트 필요 -> 선생들 가입 -> 학부모들 가입
+
  */
    return (
       <View style={styles.container}>
@@ -117,87 +119,93 @@ function Home({ navigation, auth }: Props) {
 }
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      justifyContent: "center",
-      // paddingTop: Constants.statusBarHeight,
-      backgroundColor: "#fff",
-      width: "100%",
-   },
-   blankContainer: {
-      justifyContent: "center",
-      alignItems: "center",
-   },
-   blankText: {
-      fontSize: 25,
-      paddingBottom: 10,
-   },
-   blackBtn: {
-      marginTop: 10,
-      borderRadius: 10,
-      backgroundColor: "#FFA500",
-      width: 150,
-      height: 60,
-      justifyContent: "center",
-   },
-   blankBtnText: {
-      fontSize: 18,
-      textAlign: "center",
-      color: "#fff",
-      fontWeight: "bold",
-   },
-   header: {
-      height: 50,
-      alignItems: "center",
-      flexDirection: "row",
-      marginBottom: 24,
-   },
-   headerText: {
-      fontSize: 28,
-      fontFamily: "Font",
-      color: "white",
-   },
-   headerIcon: {
-      position: "absolute",
-      right: 10,
-   },
-   headerIconText: {
-      color: "red",
-   },
-   icon: {
-      fontSize: 30,
-   },
-   articleTop: {
-      backgroundColor: "#FFD257",
-      paddingHorizontal: 16,
-      paddingTop: 12,
-   },
-   articleTopText: {
-      fontSize: 20,
-      width: 250,
-      fontFamily: "Font",
-      color: "white",
-   },
-   menuWithBtns: {
-      width: "80%",
-      position: "absolute",
-      top: 144,
-      marginHorizontal: "10%",
-      paddingTop: 8,
-      backgroundColor: "#FDFCF8",
-      borderRadius: 32,
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: 5,
-      },
-      shadowOpacity: 0.34,
-      shadowRadius: 6.27,
-      elevation: 5,
-   },
-   menuWithList: {
-      paddingHorizontal: 24,
-   },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    // paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#fff',
+    width: '100%'
+  },
+  blankContainer:{
+    justifyContent: 'center',
+    alignItems:'center'
+  },
+  blankText:{
+    fontSize:25,
+    paddingBottom:10
+  },
+  blackBtn:{
+    marginTop:10,
+    borderRadius:10,
+    backgroundColor:'#ffd257',
+    width:150,
+    paddingTop:5,
+    height:50,
+    justifyContent: 'center',
+    
+  },
+  blankBtnText:{
+    fontSize:18,
+    textAlign:'center',
+    color:'#fff',
+    fontWeight:'bold'
+  },
+  header:{
+    height:50,
+    alignItems:'center',
+    flexDirection: 'row',
+    marginBottom: 24,
+  },
+  headerText:{
+    fontSize:28,
+    fontFamily:'Font',
+    color: 'white'
+  },
+  headerIcon:{
+    position:'absolute',
+    right:10
+  },
+  headerIconText:{
+    color:'red',
+    
+  },
+  icon:{
+   fontSize:30
+  },
+  articleTop:{
+    backgroundColor: '#FFD257',
+    paddingHorizontal: 16,
+    paddingTop: 12,
+  },
+  articleTopText:{
+    fontSize:20,
+    width:250,
+    fontFamily:'Font',
+    color: 'white',
+  },
+  menuWithBtns:{
+    width: '80%',
+    position: 'absolute',
+    top: 144,
+    marginHorizontal: '10%',
+    paddingTop: 8,
+    backgroundColor: '#FDFCF8',
+    borderRadius: 32,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 5,
+
+  },
+  menuWithList:{
+    paddingHorizontal: 24
+  },
+  
+
 });
 
 export default Home;
