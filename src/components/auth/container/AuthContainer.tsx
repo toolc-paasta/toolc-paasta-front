@@ -89,7 +89,7 @@ function AuthContainer({ navigation }: Props) {
          if (res.authority === "ADMIN") {
             navigationRef.current?.navigate("Notice");
          } else {
-            navigationRef.current?.navigate("Talk");
+            navigationRef.current?.navigate("Home");
          }
       } catch (err: any) {
          // 비밀번호, 아이디 처리
