@@ -40,6 +40,8 @@ function Home({ navigation,auth }: Props) {
 /*
 선생 qwer1106 qwer1234$
 학부모 shkim1106 qwer1234%
+원장이 회원가입(센터 자동등록) -> 관리자가 수락 -> 원장 반생성 -> 유치원/반 리스트 필요 -> 선생들 가입 -> 학부모들 가입
+
  */
   return (
     <View style={styles.container}>
