@@ -87,7 +87,7 @@ export default function AppInit({ children, setInitialRouteName }: Props) {
          }
 
          // 인증 후 정보 받아오기
-         // await logout();
+         await logout();
          const userInfo = await init();
          if (userInfo) {
             dispatch(signin(userInfo));

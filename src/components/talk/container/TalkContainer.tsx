@@ -1,7 +1,9 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { usePubNub } from "pubnub-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { ScrollView } from "react-native";
 import { useSelector } from "react-redux";
+import { pnTimeTokenToHHMM } from "../../../lib/utils/pnTimeToken";
 import { RootState } from "../../../modules";
 import { TalkStackScreenParamList } from "../../../screens/TalkScreen";
 import { messageType } from "../types";
@@ -18,6 +20,7 @@ function TalkContainer({
    const [channels] = useState([channel]);
    const [messages, addMessage] = useState<messageType[]>([]);
    const [message, setMessage] = useState("");
+   const scrollViewRef = useRef<ScrollView>();
 
    useEffect(() => {
       pubnub.fetchMessages(
@@ -28,12 +31,23 @@ function TalkContainer({
          },
          function (status, response) {
             addMessage(
-               response?.channels[channel]?.map((item) => item.message)
+               response?.channels[channel]?.map((item) => {
+                  return {
+                     ...item.message,
+                     time: pnTimeTokenToHHMM(item.timetoken),
+                  };
+               })
             );
          }
       );
+      pubnub.hereNow(
+         {
+            channels: channels,
+            includeState: true,
+         },
+         function (status, response) {}
+      );
    }, [auth, pubnub, channels]);
-
    useEffect(() => {
       const pubnubListeners = {
          message: handleMessage,
@@ -46,12 +60,22 @@ function TalkContainer({
       };
    }, [pubnub, channels]);
 
+   useEffect(() => {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+   }, [messages, scrollViewRef.current]);
+
    const handleMessage = (event: any) => {
       const message = event.message;
       if (message.sender === auth.loginId) {
-         addMessage((messages) => [...messages, message]);
+         addMessage((messages) => [
+            ...messages,
+            { ...message, time: pnTimeTokenToHHMM(event.timetoken) },
+         ]);
       } else {
-         addMessage((messages) => [...messages, message]);
+         addMessage((messages) => [
+            ...messages,
+            { ...message, time: pnTimeTokenToHHMM(event.timetoken) },
+         ]);
       }
    };
 
@@ -77,6 +101,7 @@ function TalkContainer({
          onChange={onChange}
          sendMessage={sendMessage}
          myId={auth.loginId}
+         scrollViewRef={scrollViewRef}
       />
    );
 }

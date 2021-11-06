@@ -86,10 +86,11 @@ function AuthContainer({ navigation }: Props) {
          }
 
          dispatch(signin(res));
+         pubnubState.setUUID(res.loginId);
          if (res.authority === "ADMIN") {
             navigationRef.current?.navigate("Notice");
          } else {
-            navigationRef.current?.navigate("Home");
+            navigationRef.current?.navigate("Talk");
          }
       } catch (err: any) {
          // 비밀번호, 아이디 처리

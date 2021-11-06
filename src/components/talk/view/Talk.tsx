@@ -1,17 +1,7 @@
-import React, { useState, useEffect } from "react";
-import {
-   SafeAreaView,
-   Text,
-   StyleSheet,
-   View,
-   FlatList,
-   TextInput,
-   TouchableOpacity,
-   ScrollView,
-} from "react-native";
+import React from "react";
+import { Text, StyleSheet, View, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import Header from "../../elements/Header";
-import { BottomTabNavigation } from "../../../screens/ContactScreen";
 import { navigationRef } from "../../../../RootNavigation";
 import { Button, Input, ListItem } from "react-native-elements";
 import { messageType } from "../types";
@@ -22,6 +12,7 @@ type Props = {
    onChange: (v: string) => void;
    message: string;
    myId: string;
+   scrollViewRef: React.RefObject<ScrollView | undefined>;
 };
 
 export default function Talk({
@@ -30,6 +21,7 @@ export default function Talk({
    onChange,
    sendMessage,
    myId,
+   scrollViewRef,
 }: Props) {
    return (
       <View style={styles.container}>
@@ -42,27 +34,44 @@ export default function Talk({
          />
          <View style={{ flex: 1 }}>
             <View style={styles.chatBox}>
-               <ScrollView>
+               <ScrollView ref={scrollViewRef}>
                   {messages?.map((item, idx) => {
+                     const isMe = myId === item.sender;
                      return (
-                        <ListItem key={idx}>
-                           <ListItem.Content
-                              style={
-                                 stylesFunc({
-                                    isMe: myId === item.sender ? true : false,
-                                 }).chat
-                              }>
-                              <ListItem.Title
+                        <View key={`message_${idx}`}>
+                           <ListItem key={idx}>
+                              <ListItem.Content
                                  style={
                                     stylesFunc({
-                                       isMe:
-                                          myId === item.sender ? true : false,
-                                    }).content
+                                       isMe: isMe,
+                                    }).chat
                                  }>
-                                 {item.text}
-                              </ListItem.Title>
-                           </ListItem.Content>
-                        </ListItem>
+                                 <ListItem.Title
+                                    style={
+                                       stylesFunc({
+                                          isMe: isMe,
+                                       }).content
+                                    }>
+                                    {item.text}
+                                 </ListItem.Title>
+                              </ListItem.Content>
+                           </ListItem>
+                           <View
+                              style={[
+                                 stylesFunc({
+                                    isMe: isMe,
+                                 }).chat,
+                                 {
+                                    paddingLeft: isMe ? 0 : 25,
+                                    paddingRight: isMe ? 25 : 0,
+                                    bottom: 10,
+                                 },
+                              ]}>
+                              <Text style={{ fontSize: 10, color: "gray" }}>
+                                 {item.time}
+                              </Text>
+                           </View>
+                        </View>
                      );
                   })}
                </ScrollView>
