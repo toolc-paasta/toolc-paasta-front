@@ -30,6 +30,7 @@ function AuthScreen({ navigation }: Props) {
    const auth = useSelector(({ auth }: RootState) => auth);
 
    useEffect(() => {
+      /*
       if (auth.signined) {
          if (auth.authority === "ADMIN") {
             navigation.navigate("Notice");
@@ -37,6 +38,7 @@ function AuthScreen({ navigation }: Props) {
             navigation.navigate("Home");
          }
       }
+      */
    }, [auth.signined]);
 
    return (

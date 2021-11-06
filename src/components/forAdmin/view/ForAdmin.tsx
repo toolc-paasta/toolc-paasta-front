@@ -6,6 +6,7 @@ import { BottomTabNavigation } from "../../../screens/ForAdminScreen";
 import { classList,childList } from '../../elements/data';
 import { FAB } from "react-native-elements";
 import ModalView from '../elements/Modal'
+import ModalView2 from '../elements/Modal2'
 type Props = {
   navigation:BottomTabNavigation;
   auth:any;
@@ -15,6 +16,8 @@ type Props = {
 export default function ForAdmin({navigation,auth}:Props) {
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [centerName,setCenterName] = useState<any>()
+  const [childName,setChildName] = useState<any>()
 
   const DATA = auth.authority == 'TEACHER' ? childList : classList
 
@@ -25,7 +28,7 @@ export default function ForAdmin({navigation,auth}:Props) {
         {DATA.map((item, i) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => []}>
             <View>
-              <Text style={styles.subText} numberOfLines={1}>{item}</Text>
+              <Text style={styles.subText} numberOfLines={1}>{centerName}</Text>
             </View>
           </TouchableOpacity>  
         ))}
@@ -48,7 +51,10 @@ export default function ForAdmin({navigation,auth}:Props) {
           setModalVisible(!modalVisible);
       }}>
         <View style={styles.modalView}>
-            <ModalView setModalVisible={setModalVisible}/>
+          {auth.authority== 'TEACHER'  ? 
+            <ModalView setModalVisible={setModalVisible}/> : 
+            <ModalView2 setModalVisible={setModalVisible} />
+          }         
         </View>
       </Modal>
     </View>

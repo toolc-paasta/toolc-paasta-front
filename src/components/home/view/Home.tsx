@@ -6,6 +6,7 @@ import {
    ScrollView,
    TouchableOpacity,
 } from "react-native";
+
 import Constants from "expo-constants";
 import MenuWithBtns from "../elements/MenuWithBtns";
 import MenuWithList from "../elements/MenuWithList";
@@ -15,13 +16,7 @@ import { BottomTabNavigation } from "../../../screens/SearchScreen";
 import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
 import {
-   clearAccessToken,
-   directorLogin,
-   getDirectorInfo,
-   getParentInfo,
-   getTeacherInfo,
-   parentLogin,
-   teacherLogin,
+   logout
 } from "../../../lib/api/auth";
 
 const articleTopStyleConst = {
@@ -42,11 +37,13 @@ type Props = {
 
 function Home({ navigation, auth }: Props) {
    let res;
-   const [isAuth, setIsAuth] = useState(false);
+   const [isAuth, setIsAuth] = useState(true);
    /*
-선생 qwer1106 qwer1234$
-학부모 shkim1106 qwer1234%
-원장이 회원가입(센터 자동등록) -> 관리자가 수락 -> 원장 반생성 -> 유치원/반 리스트 필요 -> 선생들 가입 -> 학부모들 가입
+   어드민 admin 1234
+   선생 qwer1106 qwer1234$
+   학부모 shkim1106 qwer1234%
+   원장 asdf1106 qwer1106^
+   원장이 회원가입(센터 자동등록) -> 관리자가 수락 -> 원장 반생성 -> 유치원/반 리스트 필요 -> 선생들 가입 -> 학부모들 가입
 
  */
    return (
@@ -71,11 +68,18 @@ function Home({ navigation, auth }: Props) {
                      <Text style={styles.headerText}>{temp_data.kg_name}</Text>
                      <View style={styles.headerIcon}>
                         <Icon
-                           name={"person-outline"}
+                           name={"notifications-outline"}
                            size={35}
                            color="white"
                            style={styles.icon}
-                           onPress={() => navigation.navigate("Home")}
+                           onPress={() => console.log('hello')}
+                        />
+                        <Icon
+                           name={"log-out-outline"}
+                           size={35}
+                           color="white"
+                           style={styles.icon}
+                           onPress={() => [logout(),navigation.navigate("Auth")]}
                         />
                      </View>
                   </View>
@@ -163,14 +167,16 @@ const styles = StyleSheet.create({
   },
   headerIcon:{
     position:'absolute',
-    right:10
+    right:10,
+    flexDirection:'row'
   },
   headerIconText:{
     color:'red',
     
   },
   icon:{
-   fontSize:30
+   fontSize:30,
+   paddingLeft:10,
   },
   articleTop:{
     backgroundColor: '#FFD257',
