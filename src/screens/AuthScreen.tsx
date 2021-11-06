@@ -29,6 +29,7 @@ const Stack = createStackNavigator<AuthStackScreenParamList>();
 function AuthScreen({ navigation }: Props) {
    const auth = useSelector(({ auth }: RootState) => auth);
 
+   /*
    useEffect(() => {
       /*
       if (auth.signined) {
@@ -40,7 +41,7 @@ function AuthScreen({ navigation }: Props) {
       }
       */
    }, [auth.signined]);
-
+*/
    return (
       <Stack.Navigator initialRouteName={"Landing"}>
          <Stack.Screen
