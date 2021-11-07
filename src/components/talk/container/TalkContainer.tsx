@@ -76,17 +76,16 @@ function TalkContainer({
 
    const handleMessage = (event: any) => {
       const message = event.message;
-      if (message.sender === auth.loginId) {
-         addMessage((messages) => [
-            ...messages,
-            { ...message, time: pnTimeTokenToHHMM(event.timetoken) },
-         ]);
-      } else {
-         addMessage((messages) => [
-            ...messages,
-            { ...message, time: pnTimeTokenToHHMM(event.timetoken) },
-         ]);
-      }
+      addMessage((messages) => {
+         if (messages && messages.length > 0) {
+            return [
+               ...messages,
+               { ...message, time: pnTimeTokenToHHMM(event.timetoken) },
+            ];
+         } else {
+            return [{ ...message, time: pnTimeTokenToHHMM(event.timetoken) }];
+         }
+      });
    };
 
    const sendMessage = (message: string) => {

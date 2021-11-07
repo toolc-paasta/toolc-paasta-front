@@ -13,6 +13,7 @@ export type authStateType = {
    childBirthday?: string;
    childSex?: string;
    student?: string | null;
+   directorLoginId?: string | null;
 };
 
 //액션 타입
