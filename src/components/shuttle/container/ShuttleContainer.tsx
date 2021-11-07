@@ -10,6 +10,7 @@ import { useKeepAwake } from "expo-keep-awake";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../modules";
 import constants from "../../../lib/utils/constants";
+import { channel } from "redux-saga";
 
 type Props = {
    navigation: BottomTabNavigation;
@@ -22,11 +23,11 @@ type watchKeyType = {
 function ShuttleContainer({ navigation }: Props) {
    const pubnub = usePubNub();
    const auth = useSelector(({ auth }: RootState) => auth);
-   const [channels, setChannels] = useState([
+   const [channel, setChannel] = useState(
       auth.authority === constants.authority_director
          ? auth.loginId
-         : "map-channel",
-   ]);
+         : auth.directorLoginId
+   );
    const [location, setLocation] = useState<Location.LocationObject | null>();
    const [region, setRegion] = useState<Region>({
       latitude: 37.564552581327064,
@@ -45,13 +46,14 @@ function ShuttleContainer({ navigation }: Props) {
          message: handleMessage,
       };
       pubnub.addListener(pubnubListeners);
-      pubnub.subscribe({ channels });
-
+      if (channel) {
+         pubnub.subscribe({ channels: [channel] });
+      }
       return () => {
          pubnub.removeListener(pubnubListeners);
          pubnub.unsubscribeAll();
       };
-   }, [pubnub, channels]);
+   }, [pubnub, channel]);
 
    useEffect(() => {
       if (location) {
