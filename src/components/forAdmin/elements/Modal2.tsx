@@ -5,15 +5,21 @@ import { addClass } from "../../../lib/api/forAdmin"
 
 type Props = {
   setModalVisible:React.Dispatch<React.SetStateAction<boolean>>;
+  getListData:any;
+  nameList:any;
 };
 
-export default function Modal({setModalVisible} :Props) {
+export default function Modal({setModalVisible,getListData,nameList} :Props) {
 
   const [name,setName] = useState<any>()
 
   const insertClass = () => {
     if(name != null){
-      addClass({name:name})
+      if(nameList.find((x:any) => x==name) == undefined)
+        addClass({name:name})
+      else
+        alert('이미 입력된 이름입니다')
+      
     }
     else
       alert('반 이름을 입력하세요')
@@ -34,7 +40,7 @@ export default function Modal({setModalVisible} :Props) {
         <TouchableOpacity onPress={() => [setModalVisible(false)]} style={styles.btn}>
             <Text>닫기</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => [setModalVisible(false),insertClass()]} style={styles.btn}>
+        <TouchableOpacity onPress={() => [setModalVisible(false),insertClass(),getListData()]} style={styles.btn}>
             <Text>추가</Text>
         </TouchableOpacity>
       </View>

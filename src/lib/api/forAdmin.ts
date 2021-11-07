@@ -12,6 +12,16 @@ export const clearAccessToken = () => {
    axios.defaults.headers.common["Authorization"] = null;
 };
 
+export const getClass = async () => {
+   try {
+      const res = await axios.get(`${Address}/api/center`);      
+      return res.data.response;
+   } catch (err) {
+      console.log(err);
+      throw err;
+   }
+};
+
 export const addClass = async (props: addClassType) => {
     try {
        const res = await axios.post(

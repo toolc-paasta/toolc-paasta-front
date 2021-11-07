@@ -7,30 +7,36 @@ import { classList,childList } from '../../elements/data';
 import { FAB } from "react-native-elements";
 import ModalView from '../elements/Modal'
 import ModalView2 from '../elements/Modal2'
+
+
 type Props = {
   navigation:BottomTabNavigation;
   auth:any;
+  list:any;
+  nameList:any;
+  getListData:any;
 };
 
 
-export default function ForAdmin({navigation,auth}:Props) {
+export default function ForAdmin({navigation,auth,list,getListData,nameList}:Props) {
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [centerName,setCenterName] = useState<any>()
-  const [childName,setChildName] = useState<any>()
+ 
 
-  const DATA = auth.authority == 'TEACHER' ? childList : classList
+  const DATA = auth.authority == 'TEACHER' ? childList : list
+
 
   return (
     <View style={[styles.container,modalVisible==true?{backgroundColor:'#bdbdbd'}:{backgroundColor:'#fff'}]}>
         <Header header_title={'반/학생 추가'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
         <ScrollView style={styles.listContainer}>
-        {DATA.map((item, i) => (
+        {DATA?.map((item:any, i:number) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => []}>
             <View>
-              <Text style={styles.subText} numberOfLines={1}>{centerName}</Text>
+              <Text style={styles.subText} numberOfLines={1}>{item.className}</Text>
             </View>
           </TouchableOpacity>  
+          
         ))}
       </ScrollView>
       <FAB
@@ -53,7 +59,7 @@ export default function ForAdmin({navigation,auth}:Props) {
         <View style={styles.modalView}>
           {auth.authority== 'TEACHER'  ? 
             <ModalView setModalVisible={setModalVisible}/> : 
-            <ModalView2 setModalVisible={setModalVisible} />
+            <ModalView2 setModalVisible={setModalVisible} getListData={getListData} nameList={nameList}/>
           }         
         </View>
       </Modal>

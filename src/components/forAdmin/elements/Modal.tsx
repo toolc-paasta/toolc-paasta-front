@@ -10,9 +10,9 @@ type Props = {
 export default function Modal({setModalVisible} :Props) {
 
   const [name,setName] = useState<any>()
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
+  const [date, setDate] = useState<any>(new Date());
+  const [mode, setMode] = useState<any>('date');
+  const [show, setShow] = useState<boolean>(false);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
