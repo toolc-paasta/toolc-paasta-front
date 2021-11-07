@@ -1,7 +1,7 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { usePubNub } from "pubnub-react";
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView } from "react-native";
+import { Keyboard, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import { pnTimeTokenToHHMM } from "../../../lib/utils/pnTimeToken";
 import { RootState } from "../../../modules";
@@ -20,7 +20,7 @@ function TalkContainer({
    const [channels] = useState([channel]);
    const [messages, addMessage] = useState<messageType[]>([]);
    const [message, setMessage] = useState("");
-   const scrollViewRef = useRef<ScrollView>();
+   const scrollViewRef = useRef<ScrollView | null>(null);
 
    useEffect(() => {
       pubnub.fetchMessages(
@@ -63,6 +63,16 @@ function TalkContainer({
    useEffect(() => {
       scrollViewRef.current?.scrollToEnd({ animated: true });
    }, [messages, scrollViewRef.current]);
+
+   useEffect(() => {
+      const keyboardShowCallback = () => {
+         scrollViewRef.current?.scrollToEnd({ animated: true });
+      };
+      Keyboard.addListener("keyboardDidShow", keyboardShowCallback);
+      return () => {
+         Keyboard.removeAllListeners("keyboardDidShow");
+      };
+   }, [scrollViewRef]);
 
    const handleMessage = (event: any) => {
       const message = event.message;

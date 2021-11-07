@@ -12,7 +12,7 @@ type Props = {
    onChange: (v: string) => void;
    message: string;
    myId: string;
-   scrollViewRef: React.RefObject<ScrollView | undefined>;
+   scrollViewRef: React.RefObject<ScrollView>;
 };
 
 export default function Talk({
