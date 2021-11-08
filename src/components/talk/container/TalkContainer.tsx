@@ -3,6 +3,7 @@ import { usePubNub } from "pubnub-react";
 import React, { useEffect, useRef, useState } from "react";
 import { Keyboard, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
+import constants from "../../../lib/utils/constants";
 import { pnTimeTokenToHHMM } from "../../../lib/utils/pnTimeToken";
 import { RootState } from "../../../modules";
 import { TalkStackScreenParamList } from "../../../screens/TalkScreen";
@@ -20,6 +21,7 @@ function TalkContainer({
    const [channels] = useState([channel]);
    const [messages, addMessage] = useState<messageType[]>([]);
    const [message, setMessage] = useState("");
+   const [isOtherPresence, setIsOtherPresence] = useState(false);
    const scrollViewRef = useRef<ScrollView | null>(null);
 
    useEffect(() => {
@@ -40,14 +42,8 @@ function TalkContainer({
             );
          }
       );
-      pubnub.hereNow(
-         {
-            channels: channels,
-            includeState: true,
-         },
-         function (status, response) {}
-      );
    }, [auth, pubnub, channels]);
+
    useEffect(() => {
       const pubnubListeners = {
          message: handleMessage,
@@ -88,6 +84,39 @@ function TalkContainer({
       });
    };
 
+   const checkPresence = () => {
+      // 상대 있는지 체크
+      if (!isOtherPresence) {
+         pubnub.hereNow(
+            {
+               channels: channels,
+               includeState: true,
+            },
+            function (status, response) {
+               let check = false;
+               response?.channels?.[channel]?.occupants.forEach((item) => {
+                  if (auth.authority === constants.authority_parent) {
+                     if (item.uuid !== auth.loginId) {
+                        // 학부모일때 나 아닌 존재는 선생님
+                        setIsOtherPresence(true);
+                        check = true;
+                     }
+                  } else {
+                     if (item.uuid === channel) {
+                        // 선생님일때는 채널명이 학부모 아이디
+                        setIsOtherPresence(true);
+                        check = true;
+                     }
+                  }
+               });
+               if (!check) {
+                  // check = false면, 아직 아무도 없는 것 -> 1:1 메세지 보내기
+               }
+            }
+         );
+      }
+   };
+
    const sendMessage = (message: string) => {
       if (message) {
          pubnub
@@ -95,7 +124,11 @@ function TalkContainer({
                channel: channels[0],
                message: { text: message, sender: auth.loginId },
             })
-            .then(() => setMessage(""));
+            .then(() => {
+               // 상대 있는지 체크
+               checkPresence();
+               setMessage("");
+            });
       }
    };
 

@@ -2,6 +2,7 @@ import { StackScreenProps } from "@react-navigation/stack";
 import { usePubNub } from "pubnub-react";
 import React, { useEffect, useState } from "react";
 import { getParentsList } from "../../../lib/api/parentsList";
+import { pnTimeTokenToHHMM } from "../../../lib/utils/pnTimeToken";
 import { authStateType } from "../../../modules/auth";
 import { TalkStackScreenParamList } from "../../../screens/TalkScreen";
 import { messageType } from "../types";
