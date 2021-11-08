@@ -8,7 +8,7 @@ type Props = {
   color?: string; // 버튼 색 (primary, secondary, clear)
   wide?: boolean; // wide 사이즈
   margin?: boolean; // true면 wide일 시 top, 아닐 시 left 마진 생성
-  paddingHorizontal: number; // 좌우패딩
+  paddingHorizontal?: number; // 좌우패딩
   onPress: () => void;
 }
 

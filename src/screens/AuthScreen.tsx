@@ -54,7 +54,7 @@ function AuthScreen({ navigation }: Props) {
          <Stack.Screen
             name="Signin"
             component={SigninContainer}
-            options={{ title: "회원가입" }}
+            options={{ headerShown: false }}
          />
          <Stack.Screen
             name="Profile"

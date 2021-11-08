@@ -42,7 +42,7 @@ type Props = {
 
 function Home({ navigation, auth }: Props) {
    let res;
-   const [isAuth, setIsAuth] = useState(false);
+   const [isAuth, setIsAuth] = useState(true);
    /*
 선생 qwer1106 qwer1234$
 학부모 shkim1106 qwer1234%
@@ -71,11 +71,11 @@ function Home({ navigation, auth }: Props) {
                      <Text style={styles.headerText}>{temp_data.kg_name}</Text>
                      <View style={styles.headerIcon}>
                         <Icon
-                           name={"person-outline"}
+                           name={"notifications-outline"}
                            size={35}
                            color="white"
                            style={styles.icon}
-                           onPress={() => navigation.navigate("Home")}
+                           onPress={() => navigation.navigate("Notice")}
                         />
                      </View>
                   </View>
