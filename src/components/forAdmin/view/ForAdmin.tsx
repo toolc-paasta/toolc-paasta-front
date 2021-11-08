@@ -7,7 +7,7 @@ import { classList,childList } from '../../elements/data';
 import { FAB } from "react-native-elements";
 import ModalView from '../elements/Modal'
 import ModalView2 from '../elements/Modal2'
-
+import { colors } from "../../elements/theme";
 
 type Props = {
   navigation:BottomTabNavigation;
@@ -22,9 +22,7 @@ export default function ForAdmin({navigation,auth,list,getListData,nameList}:Pro
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
  
-
   const DATA = auth.authority == 'TEACHER' ? childList : list
-
 
   return (
     <View style={[styles.container,modalVisible==true?{backgroundColor:'#bdbdbd'}:{backgroundColor:'#fff'}]}>
@@ -33,22 +31,25 @@ export default function ForAdmin({navigation,auth,list,getListData,nameList}:Pro
         {DATA?.map((item:any, i:number) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => []}>
             <View>
-              <Text style={styles.subText} numberOfLines={1}>{item.className}</Text>
+              <Text style={styles.subText} numberOfLines={1}>{item.className} 반</Text>
             </View>
           </TouchableOpacity>  
           
         ))}
       </ScrollView>
-      <FAB
-        visible={true}
-        raised
-        icon={{
-            name: "plus",
-            type: "font-awesome",
-        }}
-        buttonStyle={styles.fabButton}
-        onPress={() => setModalVisible(true)}
-      />
+      <View style={styles.fabButtonWrap}>
+        <FAB
+          visible={true}
+          raised
+          icon={{
+              name: "plus",
+              type: "font-awesome",
+              color: "white"
+          }}
+          buttonStyle={styles.fabButton}
+          onPress={() => setModalVisible(true)}
+        />
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -80,7 +81,8 @@ const styles = StyleSheet.create({
   },
   list:{
     alignItems: 'center',
-    height:70,
+    height:60,
+    paddingLeft:10,
     flexDirection: 'row',
     borderBottomWidth:1,
     borderBottomColor:'#bdbdbd'
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
   },
   subText:{
     width:250,
-    fontSize:13,
+    fontSize:15,
   },
   numText:{
     position:'absolute',
@@ -103,19 +105,28 @@ const styles = StyleSheet.create({
     paddingTop:1,
     width:50,
     height:20
+
+  },
+  fabButtonWrap:{
+    position:'absolute',
+    bottom:25,
+    right:25,
   },
   fabButton: {
     width: 60,
     height: 60,
+    borderColor:colors.secondary,
+    borderWidth:1,
     borderRadius: 30,
-    backgroundColor: "white",
+    backgroundColor: colors.primary,
+    
  },
  modalView: {
-  height: Dimensions.get('window').height/10*5,
+  height: Dimensions.get('window').height/10*3,
   width: Dimensions.get('window').width/10*8,
   position:'relative',
   left:Dimensions.get('window').width/2-Dimensions.get('window').width/10*4,
-  top:Dimensions.get('window').height/2-Dimensions.get('window').height/10*2.5,
+  top:Dimensions.get('window').height/2-Dimensions.get('window').height/10*1.5,
   paddingLeft:15,
   paddingRight:15,
   backgroundColor:'#ffffff',
@@ -124,6 +135,7 @@ const styles = StyleSheet.create({
     width: 0,
     height: 2,
   },
+  borderRadius:30,
   shadowOpacity: 0.25,
   shadowRadius: 3.84,
   elevation: 5,
