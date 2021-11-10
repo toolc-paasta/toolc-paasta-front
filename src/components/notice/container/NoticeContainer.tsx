@@ -50,8 +50,7 @@ const tempDatas: RegisterCenterNoti[] = [
 function NoticeContainer({ navigation }: Props) {
    const [registerCenterNotis, setRegisterCenterNotis] = React.useState<
       RegisterCenterNoti[]
-   // >([]);
-   >(tempDatas)
+   >([]);
 
    const auth = useSelector(({ auth }: RootState) => auth);
    const dispatch = useDispatch();
@@ -116,13 +115,14 @@ function NoticeContainer({ navigation }: Props) {
       }
    };
 
-   return (
+   return (<>
       <Notice
          navigation={navigation}
          registerCenterNotis={registerCenterNotis}
          onPressAdmit={onPressAdmit}
          onPressDeny={onPressDeny}
       />
+      </>
    );
 }
 

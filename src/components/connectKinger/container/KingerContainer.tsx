@@ -61,16 +61,11 @@ function KingerContainer({ navigation }: Props) {
 
    return (
       <View style={{flex: 1,backgroundColor:'#ffffff'}}>
-         <Header header_title={'내 유치원 등록'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
-         <ProgressSteps {...progressStepsStyle} >
-            <ProgressStep label="유치원 찾기 1" {...progressStepStyle} nextBtnDisabled={area2 ==null ? true : false}>
-               <View style={styles.box}>
-                  <Kinger1 setArea1={setArea1} setArea2={setArea2} />
-               </View>
-            </ProgressStep>
-            <ProgressStep label="유치원 찾기 2" {...progressStepStyle} nextBtnDisabled={kingerName ==null ? true : false}>
+         <Header header_title={'유치원/어린이집 등록'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
+         <ProgressSteps {...progressStepsStyle}>
+            <ProgressStep label="유치원/어린이집 선택" {...progressStepStyle} nextBtnDisabled={kingerName ==null ? true : false}>
                <View style={styles.box} >
-                  <Kinger2 setKingerName={setKingerName} />
+                  <Kinger1 setKingerName={setKingerName}/>
                </View>
             </ProgressStep>
             <ProgressStep label="반 등록" {...progressStepStyle} nextBtnDisabled={kingerName ==null ? true : false}>

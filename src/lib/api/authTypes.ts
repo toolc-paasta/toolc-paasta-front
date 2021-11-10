@@ -23,3 +23,7 @@ export type LoginType = {
 };
 
 export type authorityType = "TEACHER" | "DIRECTOR" | "ADMIN" | "PARENT";
+
+export type addClassType ={
+   name: string;
+}

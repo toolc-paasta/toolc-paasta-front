@@ -42,7 +42,7 @@ type Props = {
 
 function Home({ navigation, auth }: Props) {
    let res;
-   const [isAuth, setIsAuth] = useState(true);
+   const [isAuth, setIsAuth] = useState(false);
    /*
 선생 qwer1106 qwer1234$
 학부모 shkim1106 qwer1234%
