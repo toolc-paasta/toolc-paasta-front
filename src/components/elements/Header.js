@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Dimensions, Text, View, StyleSheet, Alert, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { colors } from './theme'
 
 
 
@@ -35,8 +36,8 @@ export default function Header({header_title,setIsSubmit,IsInsert,navigation,set
       <View style={styles.header}>
         <Icon 
           style={styles.headerBtn}
-          name={'arrow-back-outline'}
-          size={30}
+          name={'arrow-back'}
+          size={25}
           color="black"
           onPress={() => back()}
         />
@@ -57,10 +58,12 @@ export default function Header({header_title,setIsSubmit,IsInsert,navigation,set
 
 const styles = StyleSheet.create({
   header:{
-    height:40,
-    alignItems:'center',    
-    borderBottomWidth:1,
+    height:56,
+    alignItems:'center',
     flexDirection: 'row',
+    paddingLeft: 14,
+    backgroundColor: colors.secondary
+
   },
   headerText:{
     fontSize:17,

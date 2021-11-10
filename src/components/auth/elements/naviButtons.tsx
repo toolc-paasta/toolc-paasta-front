@@ -23,6 +23,7 @@ function NaviButtons({ goNext, goPrev, position, last }: Props) {
                onPress={goPrev}
                type="clear"
                containerStyle={{ position: "absolute", left: 20 }}
+               titleStyle={{ fontFamily: 'Font' }}
             />
          )}
          {!last && (
@@ -31,6 +32,7 @@ function NaviButtons({ goNext, goPrev, position, last }: Props) {
                onPress={goNext}
                type="clear"
                containerStyle={{ position: "absolute", right: 20 }}
+               titleStyle={{ fontFamily: 'Font' }}
             />
          )}
       </View>

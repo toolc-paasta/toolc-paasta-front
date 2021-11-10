@@ -40,6 +40,7 @@ import parseToPhoneNumer from "../../../lib/utils/parseToPhoneNumer";
 import { signin } from "../../../modules/auth";
 import { navigationRef } from "../../../../RootNavigation";
 import { usePubNub } from "pubnub-react";
+import Header from '../../elements/Header'
 
 type Props = StackScreenProps<AuthStackScreenParamList, "Signin">;
 
@@ -299,6 +300,13 @@ function SigninContainer({ navigation }: Props) {
 
    return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
+         <Header
+            header_title={"회원가입"}
+            navigation={navigation}
+            setIsSubmit={null}
+            IsInsert={null}
+            setModalVisible={false}
+         />
          <View style={{ height: 100, paddingTop: 30, paddingBottom: 10 }}>
             <StepIndicator
                customStyles={customStyles}

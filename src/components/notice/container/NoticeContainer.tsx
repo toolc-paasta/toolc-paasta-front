@@ -115,13 +115,14 @@ function NoticeContainer({ navigation }: Props) {
       }
    };
 
-   return (
+   return (<>
       <Notice
          navigation={navigation}
          registerCenterNotis={registerCenterNotis}
          onPressAdmit={onPressAdmit}
          onPressDeny={onPressDeny}
       />
+      </>
    );
 }
 
