@@ -9,12 +9,11 @@ import { messageType } from "../types";
 
 type Props = {
    parents: authStateType[];
-   goToTalkRoom: (channel: string) => void;
+   goToTalkRoom: (channel: authStateType) => void;
    message: messageType[];
 };
 
 function ParentList({ parents, goToTalkRoom, message }: Props) {
-   console.log(parents.length);
    return (
       <View style={styles.container}>
          <Header
@@ -40,7 +39,7 @@ function ParentList({ parents, goToTalkRoom, message }: Props) {
                <FlatList
                   data={parents}
                   renderItem={({ item }) => (
-                     <ListItem onPress={() => goToTalkRoom(item.loginId)}>
+                     <ListItem onPress={() => goToTalkRoom(item)}>
                         <ListItem.Content>
                            <ListItem.Title>{item.name} 학부모님</ListItem.Title>
                            <ListItem.Subtitle>

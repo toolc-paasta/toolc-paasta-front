@@ -15,7 +15,7 @@ type Props = {};
 function TalkContainer({
    route,
 }: StackScreenProps<TalkStackScreenParamList, "TalkRoom">) {
-   const { channel } = route?.params;
+   const { channel, title } = route?.params;
    const auth = useSelector(({ auth }: RootState) => auth);
    const pubnub = usePubNub();
    const [channels] = useState([channel]);
@@ -138,6 +138,7 @@ function TalkContainer({
 
    return (
       <Talk
+         title={title}
          messages={messages}
          message={message}
          onChange={onChange}

@@ -18,6 +18,7 @@ export type TalkStackScreenParamList = {
    ParentList: undefined;
    TalkRoom: {
       channel: string;
+      title?: string;
    };
 };
 

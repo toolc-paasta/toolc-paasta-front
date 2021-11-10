@@ -13,6 +13,7 @@ type Props = {
    message: string;
    myId: string;
    scrollViewRef: React.RefObject<ScrollView>;
+   title: string | undefined;
 };
 
 export default function Talk({
@@ -22,11 +23,12 @@ export default function Talk({
    sendMessage,
    myId,
    scrollViewRef,
+   title,
 }: Props) {
    return (
       <View style={styles.container}>
          <Header
-            header_title={"개인톡"}
+            header_title={title ? `${title} 학부모 님` : "담임선생님"}
             navigation={navigationRef.current}
             setIsSubmit={null}
             IsInsert={null}

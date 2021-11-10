@@ -63,8 +63,11 @@ function ParentListContainer({
       getList();
    }, [pubnub]);
 
-   const goToTalkRoom = (channel: string) => {
-      navigation.navigate("TalkRoom", { channel: channel });
+   const goToTalkRoom = (item: authStateType) => {
+      navigation.navigate("TalkRoom", {
+         channel: item.loginId,
+         title: item.name,
+      });
    };
 
    return (
