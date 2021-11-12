@@ -7,7 +7,7 @@ import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
-import rootReducer, { rootSaga } from "./src/modules";
+import rootReducer from "./src/modules";
 import logger from "redux-logger";
 
 import AppInit from "./AppInit";
@@ -49,12 +49,10 @@ const pubnub = new PubNub({
 
 // redux
 
-const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
    rootReducer,
-   composeWithDevTools(applyMiddleware(sagaMiddleware, logger))
+   composeWithDevTools(applyMiddleware(logger))
 );
-sagaMiddleware.run(rootSaga);
 
 // 여기서 스크린 props 정의
 export type RootStackParamList = {

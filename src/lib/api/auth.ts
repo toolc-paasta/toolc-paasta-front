@@ -244,7 +244,10 @@ export const logout = async () => {
    try {
       await AsyncStorage.removeItem("@tokens");
       await AsyncStorage.removeItem("@authorityType");
-      navigationRef.current?.navigate("Auth");
+      navigationRef.current?.resetRoot({
+         index: 0,
+         routes: [{ name: "Auth" }],
+      });
    } catch (err) {
       throw err;
    }

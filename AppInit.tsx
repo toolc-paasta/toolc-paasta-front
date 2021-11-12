@@ -15,6 +15,7 @@ import { init, logout } from "./src/lib/api/auth";
 import { signin } from "./src/modules/auth";
 import { usePubNub } from "pubnub-react";
 import { StackScreenList } from "./App";
+import { colors } from "./src/components/elements/theme";
 
 type Props = {
    children: JSX.Element;
@@ -134,11 +135,16 @@ export default function AppInit({ children, setInitialRouteName }: Props) {
             duration={3000}
             containerStyle={{
                position: "absolute",
-               bottom: 50,
+               bottom: 20,
                left: 10,
                width: "80%",
-               zIndex: 200,
+               zIndex: 100,
+               backgroundColor: colors.primary,
+               borderRadius: 20,
+               borderColor: colors.primary,
+               borderWidth: 3,
             }}
+            textStyle={{ color: colors.black }}
          />
       </>
    );

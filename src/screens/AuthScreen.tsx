@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { RootStackParamList } from "../../App";
 import AuthContainer from "../components/auth/container/AuthContainer";
 import {
@@ -9,8 +9,6 @@ import SigninContainer from "../components/auth/container/SigninContainer";
 import ProfileContainer from "../components/profile/container/ProfileContainer";
 import FcmContainer from "../components/fcm/container/FcmContainer";
 import LandingContainer from "../components/landing/container/LandingContainer";
-import { RootState } from "../modules";
-import { useSelector } from "react-redux";
 
 type Props = StackScreenProps<RootStackParamList, "Auth">;
 
@@ -27,21 +25,6 @@ export type AuthStackScreenParamList = {
 const Stack = createStackNavigator<AuthStackScreenParamList>();
 
 function AuthScreen({ navigation }: Props) {
-   const auth = useSelector(({ auth }: RootState) => auth);
-
-   /*
-   useEffect(() => {
-      
-      if (auth.signined) {
-         if (auth.authority === "ADMIN") {
-            navigation.navigate("Notice");
-         } else {
-            navigation.navigate("Home");
-         }
-      }
-      
-   }, [auth.signined]);
-*/
    return (
       <Stack.Navigator initialRouteName={"Landing"}>
          <Stack.Screen

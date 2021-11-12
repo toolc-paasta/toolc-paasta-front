@@ -17,6 +17,7 @@ const tempData: authStateType[] = [
       childName: "신성일",
       childSex: "여성",
       connectionNumber: null,
+      hasCenter: true,
       id: 18,
       loginId: "testp11",
       name: "신성일",
@@ -34,12 +35,10 @@ function ParentListContainer({
    useEffect(() => {
       const getList = async () => {
          try {
-            // const data = await getParentsList();
-            setParents(tempData);
+            const data = await getParentsList();
+            setParents(data);
 
-            const channels = tempData.map(
-               (item: authStateType) => item.loginId
-            );
+            const channels = data.map((item: authStateType) => item.loginId);
             pubnub.fetchMessages(
                {
                   channels: channels,

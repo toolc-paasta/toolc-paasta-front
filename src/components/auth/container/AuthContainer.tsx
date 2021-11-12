@@ -90,11 +90,13 @@ function AuthContainer({ navigation }: Props) {
          if (res.authority === "ADMIN") {
             navigationRef.current?.navigate("Notice");
          } else {
-            navigationRef.current?.navigate("Home");
+            navigationRef.current?.navigate("Home", {
+               refresh: Math.ceil(Math.random() * 1000000).toString(),
+            });
          }
       } catch (err: any) {
          // 비밀번호, 아이디 처리
-         if (err.response.data?.message === "비밀번호가 일치하지 않습니다.") {
+         if (err.response.data?.message === "비밀번호가 틀렸습니다.") {
             handleError<userInfoType>("auth/wrong-password", setErrMsg);
             setWrongPW(true);
          } else if (err.response.data?.message === "없는 사용자 입니다.") {

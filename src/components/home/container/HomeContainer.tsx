@@ -5,29 +5,24 @@ import { BottomTabNavigation } from "../../../screens/HomeScreen";
 import Home from "../view/Home";
 import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getParentInfo,
-} from "../../../lib/api/auth";
+import { getParentInfo } from "../../../lib/api/auth";
 
 type Props = {
    navigation: BottomTabNavigation;
-   
 };
 
 function HomeContainer({ navigation }: Props) {
    let res;
-   
-   const auth =  useSelector(({auth} :RootState) => auth)
-   
 
-   const getInfo = async() => {
-   }
-  
-    useEffect(() => {
-      getInfo()
-    }, []);
+   const auth = useSelector(({ auth }: RootState) => auth);
 
-   return <Home navigation={navigation} auth={auth}/>;
+   const getInfo = async () => {};
+
+   useEffect(() => {
+      getInfo();
+   }, []);
+
+   return <Home navigation={navigation} auth={auth} />;
 }
 
 export default HomeContainer;
