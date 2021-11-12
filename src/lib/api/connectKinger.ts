@@ -1,11 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { navigationRef } from "../../../RootNavigation";
-import { kinderType } from "../../components/auth/types";
-import {
-    addClassType
- } from "./authTypes";
 
+type LoginType = {
+   loginId: string;
+   password: string;
+   expoToken: string;
+};
 const Address = "http://www.stmap.kro.kr:8080";
 
 export const clearAccessToken = () => {
