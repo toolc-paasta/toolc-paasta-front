@@ -51,7 +51,6 @@ function Signin({
                   <ListItem.Content
                      style={{
                         flexDirection: "row",
-                        justifyContent: "space-around",
                      }}>
                      <Button
                         title="남자"

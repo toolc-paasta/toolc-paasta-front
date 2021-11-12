@@ -45,7 +45,7 @@ function Auth({
                         color={userType === idx ? "primary" : "secondary"}
                         onPress={() => settingUserType(idx)}
                         margin={idx !== 0}
-                        paddingHorizontal={24}
+                        paddingHorizontal={12}
                      />
                   );
                })}

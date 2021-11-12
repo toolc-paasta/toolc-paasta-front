@@ -28,6 +28,7 @@ function InputChild({
                   value={childInfo.childName}
                   onChangeText={(v) => onChangeChild("childName", v)}
                   containerStyle={{ width: 200 }}
+                  inputStyle={{ fontFamily: 'Font' }}
                   renderErrorMessage={false}
                />
             </ListItem.Content>
@@ -37,7 +38,6 @@ function InputChild({
             <ListItem.Content
                style={{
                   flexDirection: "row",
-                  justifyContent: "space-around",
                }}>
                <Button
                   title="남자"
@@ -70,13 +70,13 @@ function InputChild({
                style={{
                   flexDirection: "row",
                   justifyContent: "flex-start",
-                  alignItems: "center",
                }}>
                <Input
                   placeholder="20180429"
                   value={childInfo.childBirthday}
                   onChangeText={(v) => onChangeChild("childBirthday", v)}
                   containerStyle={{ width: 200 }}
+                  inputStyle={{ fontFamily: 'Font' }}
                   errorMessage={birthErr}
                />
             </ListItem.Content>

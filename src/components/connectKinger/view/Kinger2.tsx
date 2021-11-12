@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { loading, unloading } from "../../../modules/loading";
 import {
   SafeAreaView,
   Text,
@@ -10,9 +12,9 @@ import {
   Alert 
 } from 'react-native';
 import Constants from 'expo-constants';
-import { kinger } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from "../../elements/theme";
+import { getCenter } from '../../../lib/api/connectKinger'
 
 type Item = {
   name:string;
@@ -28,12 +30,23 @@ export default function Kinger2({setKingerName}:Props) {
   const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
   const [masterDataSource, setMasterDataSource] = useState<any>([]);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    
-    setFilteredDataSource(kinger);
-    setMasterDataSource(kinger);
-      
-  }, []);
+    const getData = async () => {
+      dispatch(loading())
+      try {
+        const data = await getCenter()
+        console.log(data)
+        setMasterDataSource(data)
+        setFilteredDataSource(data)
+      } catch (e) {
+        console.log(e.response.data);
+      }
+      dispatch(unloading())
+    }
+    getData()
+  }, [])
 
   const searchFilterFunction = (text:string) => {
     // Check if searched text is not blank
@@ -44,15 +57,15 @@ export default function Kinger2({setKingerName}:Props) {
         // Applying filter for the inserted text in search bar
         const itemData = item.name ? item.name : ''
         const textData = text
-        return itemData.indexOf(textData) > -1;
+        return itemData.indexOf(textData) > -1
       });
-      setFilteredDataSource(newData);
-      setSearch(text);
+      setFilteredDataSource(newData)
+      setSearch(text)
     } else {
       // Inserted text is blank
       // Update FilteredDataSource with masterDataSource
-      setFilteredDataSource(masterDataSource);
-      setSearch(text);
+      setFilteredDataSource(masterDataSource)
+      setSearch(text)
     }
   };
 
@@ -63,11 +76,11 @@ export default function Kinger2({setKingerName}:Props) {
           {item.name}
         </Text>
         <Text style={[styles.itemStyle,styles.itemStyle2]}>
-          {item.adrr}
+          {item.address}
         </Text>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   const ItemSeparatorView = () => {
     return (
@@ -84,7 +97,7 @@ export default function Kinger2({setKingerName}:Props) {
 
   const getItem = (item:Item) => {
     Alert.alert(
-      "유치원 찾기2",
+      "확인",
       item.name+'이 맞습니까?',
       [
         {
@@ -111,22 +124,20 @@ export default function Kinger2({setKingerName}:Props) {
           onChangeText={(text) => searchFilterFunction(text)}
           value={search}
           underlineColorAndroid="transparent"
-          placeholder="유치원 명으로 검색"
+          placeholder="유치원/어린이집 명으로 검색"
         />
       </View>
-      <View style={{ flex: 1 }}>
-        <View>
+        <View style={{ flex: 1 }}>
           <FlatList
             data={filteredDataSource}
             keyExtractor={(item, index) => index.toString()}
             ItemSeparatorComponent={ItemSeparatorView}
-            renderItem={ItemView}            
+            renderItem={ItemView}
           />
         </View>
-      </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

@@ -1,126 +1,189 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { loading, unloading } from "../../../modules/loading";
 import {
+  SafeAreaView,
+  Text,
   StyleSheet,
   View,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  Alert 
 } from 'react-native';
 import Constants from 'expo-constants';
-import { area0,area1 } from '../../elements/data';
-import RNPickerSelect from 'react-native-picker-select';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from "../../elements/theme";
+import { getCenter } from '../../../lib/api/connectKinger'
+
+type Item = {
+  name:string;
+  contact:number;
+}
 
 type Props = {
-  setArea1:React.Dispatch<React.SetStateAction<any>>;
-  setArea2:React.Dispatch<React.SetStateAction<any>>;
+  setKingerName:React.Dispatch<React.SetStateAction<any>>;
 };
 
-export default function Kinger1({setArea1,setArea2} :Props) {
-  const [area_big,setArea_big] = useState<any>('');  
-  const [area_small,setArea_small] = useState<any>('');  
+export default function Kinger1({setKingerName}:Props) {
+  const [search, setSearch] = useState<any>('');
+  const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
+  const [masterDataSource, setMasterDataSource] = useState<any>([]);
 
-  const placeholder1 = {
-    label: '시/도 선택',
-  };
-  const placeholder2 = {
-    label: '시/군/구 선택',
-  };
-  const disabled = {
-    label: '시/도부터 선택하세요',
-  };
-  
-  const setData1 = (v:string,i:number) => {
-    setArea_big([v,i])
-    setArea1(v)
-  }
+  const dispatch = useDispatch();
 
   useEffect(() => {
-  }, []);
+    const getData = async () => {
+      dispatch(loading())
+      try {
+        const data = await getCenter()
+        console.log(data)
+        setMasterDataSource(data)
+        setFilteredDataSource(data)
+      } catch (e) {
+        console.log(e.response.data);
+      }
+      dispatch(unloading())
+    }
+    getData()
+  }, [])
+
+  const searchFilterFunction = (text:string) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the masterDataSource and update FilteredDataSource
+      const newData = masterDataSource.filter(function (item:Item) {
+        // Applying filter for the inserted text in search bar
+        const itemData = item.name ? item.name : ''
+        const textData = text
+        return itemData.indexOf(textData) > -1
+      });
+      setFilteredDataSource(newData)
+      setSearch(text)
+    } else {
+      // Inserted text is blank
+      // Update FilteredDataSource with masterDataSource
+      setFilteredDataSource(masterDataSource)
+      setSearch(text)
+    }
+  };
+
+  const ItemView = ({ item }:any) => {
+    return (
+      <TouchableOpacity style={styles.list} onPress={() => getItem(item)}>
+        <Text style={[styles.itemStyle,styles.itemStyle1]}>
+          {item.name}
+        </Text>
+        <Text style={[styles.itemStyle,styles.itemStyle2]}>
+          {item.address}
+        </Text>
+      </TouchableOpacity>
+    )
+  }
+
+  const ItemSeparatorView = () => {
+    return (
+      // Flat List Item Separator
+      <View
+        style={{
+          height: 0.6,
+          width: '100%',
+          backgroundColor: '#ffd257',
+        }}
+      />
+    );
+  };
+
+  const getItem = (item:Item) => { //TODO
+    Alert.alert(
+      "확인",
+      item.name+'이 맞습니까?',
+      [
+        {
+          text: "아니오",
+          style: "cancel"
+        },
+        { text: "예", onPress: () => setKingerName(item.name) }
+      ]
+    );
+    //alert('name : ' + item.name + ' / phone : ' + item.contact);
+  };
 
   return (
-    
     <View style={styles.container}>
-      <RNPickerSelect
-        onValueChange={
-          (value,key) => setData1(value,key)
-        }
-        placeholder={placeholder1}
-        useNativeAndroidPickerStyle={false}
-        style={pickerSelectStyles}
-        items={[...area0]}
-      />
-      
-      <RNPickerSelect
-        onValueChange={
-          (value) => setArea2(value)
-        }
-        placeholder={placeholder2}
-        useNativeAndroidPickerStyle={false}
-        style={area_big != '' ? pickerSelectStyles : pickerSelectStyles2}
-        items={[...area1.filter(area1 => area1.key==area_big[1])]} 
-      />
-      
+      <View style={styles.searchBox}>
+        <Icon
+          name={'search-outline'}
+          size={30}
+          color="black"
+          style={styles.icon}
+        />
+        <TextInput
+          style={styles.textInputStyle}
+          onChangeText={(text) => searchFilterFunction(text)}
+          value={search}
+          underlineColorAndroid="transparent"
+          placeholder="유치원/어린이집 명으로 검색"
+        />
+      </View>
+        <View style={{ flex: 1 }}>
+          <FlatList
+            data={filteredDataSource}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={ItemSeparatorView}
+            renderItem={ItemView}
+          />
+        </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    padding: 15,
+    backgroundColor: '#fff',
+    padding: 5,
+    overflow:'hidden',
+    height:'90%'
   },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: colors.primary,
-    backgroundColor:'#ffffff',
+  searchBox:{
+    flexDirection: 'row',
+    alignItems:'center',
+    borderRadius:10,
+    height:50,
+    borderWidth: 1,
+    borderColor:colors.primary,
+    marginBottom:15,
     padding:10,
-    borderRadius: 8,
-    color: '#000000',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    marginTop:40,
-    marginBottom:40,
   },
-  inputAndroid: {
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: colors.primary,
-    backgroundColor:'#ffffff',
-    padding:10,
-    borderRadius: 8,
-    color: '#000000',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    marginTop:40,
-    marginBottom:40,
+  list:{
+    flexDirection: 'row',
+    alignItems:'center',
+    backgroundColor:'#fff'
   },
-});
-const pickerSelectStyles2 = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: '#bdbdbd',
-    backgroundColor:'#ffffff',
-    padding:10,
-    borderRadius: 8,
-    color: '#000000',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    marginTop:40,
-    marginBottom:40,
+  itemStyle: {
+    padding: 5,
+    height:60,
+    textAlignVertical:'center',
+    justifyContent: 'center',
+    fontSize:15,
   },
-  inputAndroid: {
-    fontSize: 16,
-    borderWidth: 2,
-    borderColor: '#bdbdbd',
-    backgroundColor:'#ffffff',
-    padding:10,
-    borderRadius: 8,
-    color: '#000000',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    marginTop:40,
-    marginBottom:40,
+  itemStyle1: {
+    position:'relative',
+    left:5,
+  },
+  itemStyle2: {
+    position:'absolute',
+    right:5,
+  },
+  iconBox:{
+  },
+  icon:{
+  },
+  textInputStyle: {
+    paddingLeft:10,
   },
 });
