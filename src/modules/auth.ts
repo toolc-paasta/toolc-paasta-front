@@ -14,6 +14,7 @@ export type authStateType = {
    childSex?: string;
    student?: string | null;
    directorLoginId?: string | null;
+   teacherLoginId?: string | null;
 };
 
 //액션 타입
