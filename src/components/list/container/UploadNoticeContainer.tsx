@@ -7,13 +7,10 @@ type Props = {
    navigation: BottomTabNavigation;
 };
 
-function noticeBoardContainer({ navigation }: Props) {   
+function noticeBoardContainer({ navigation }: Props) {
+   useEffect(() => {}, []);
 
-   useEffect(() => {
-      
-   }, []);
-
-   return <UploadNotice navigation={navigation}/>;
+   return <UploadNotice navigation={navigation} />;
 }
 
 export default noticeBoardContainer;
