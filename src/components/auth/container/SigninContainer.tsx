@@ -40,7 +40,7 @@ import parseToPhoneNumer from "../../../lib/utils/parseToPhoneNumer";
 import { signin } from "../../../modules/auth";
 import { navigationRef } from "../../../../RootNavigation";
 import { usePubNub } from "pubnub-react";
-import Header from '../../elements/Header'
+import Header from "../../elements/Header";
 
 type Props = StackScreenProps<AuthStackScreenParamList, "Signin">;
 
@@ -185,7 +185,7 @@ function SigninContainer({ navigation }: Props) {
                   {
                      ...userInfo,
                      ...childInfo,
-                     wifeId: isCheckedSameChild ? childInfo.wifeId : "",
+                     spouseLoginId: isCheckedSameChild ? childInfo.wifeId : "",
                      childBirthday: parseToBirth(childInfo.childBirthday),
                      connectionNumber: parseToPhoneNumer(
                         userInfo.connectionNumber
@@ -225,6 +225,16 @@ function SigninContainer({ navigation }: Props) {
          // 중복 아이디 처리
          if (err?.response.data.message === "ID가 중복된 회원입니다.") {
             handleError<signInInfoType>("auth/id-already-in-use", setErrMsg);
+         } else if (
+            userType === 0 &&
+            err?.response.data.message === "없는 사용자 입니다."
+         ) {
+            dispatch(
+               setSnackbar({
+                  visible: true,
+                  snackbar: "배우자분의 아이디를 제대로 입력해주세요.",
+               })
+            );
          } else {
             dispatch(setSnackbar({ visible: true, snackbar: SERVER_ERROR }));
          }

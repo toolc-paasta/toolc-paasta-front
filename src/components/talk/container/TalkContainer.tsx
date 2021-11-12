@@ -9,6 +9,7 @@ import { RootState } from "../../../modules";
 import { TalkStackScreenParamList } from "../../../screens/TalkScreen";
 import { messageType } from "../types";
 import Talk from "../view/Talk";
+import { sendFCMMessage } from "../../../lib/api/fcm";
 
 type Props = {};
 
@@ -21,7 +22,6 @@ function TalkContainer({
    const [channels] = useState([channel]);
    const [messages, addMessage] = useState<messageType[]>([]);
    const [message, setMessage] = useState("");
-   const [isOtherPresence, setIsOtherPresence] = useState(false);
    const scrollViewRef = useRef<ScrollView | null>(null);
 
    useEffect(() => {
@@ -84,37 +84,48 @@ function TalkContainer({
       });
    };
 
-   const checkPresence = () => {
+   const checkPresence = (message: string) => {
       // 상대 있는지 체크
-      if (!isOtherPresence) {
-         pubnub.hereNow(
-            {
-               channels: channels,
-               includeState: true,
-            },
-            function (status, response) {
-               let check = false;
-               response?.channels?.[channel]?.occupants.forEach((item) => {
-                  if (auth.authority === constants.authority_parent) {
-                     if (item.uuid !== auth.loginId) {
-                        // 학부모일때 나 아닌 존재는 선생님
-                        setIsOtherPresence(true);
-                        check = true;
-                     }
-                  } else {
-                     if (item.uuid === channel) {
-                        // 선생님일때는 채널명이 학부모 아이디
-                        setIsOtherPresence(true);
-                        check = true;
-                     }
+      pubnub.hereNow(
+         {
+            channels: channels,
+            includeState: true,
+         },
+         function (status, response) {
+            let check = false;
+            response?.channels?.[channel]?.occupants.forEach((item) => {
+               if (auth.authority === constants.authority_parent) {
+                  if (
+                     item.uuid !== auth.loginId &&
+                     item.uuid !== "Console_Admin"
+                  ) {
+                     // 학부모일때 나 아닌 존재는 선생님
+                     check = true;
                   }
-               });
-               if (!check) {
-                  // check = false면, 아직 아무도 없는 것 -> 1:1 메세지 보내기
+               } else {
+                  if (item.uuid === channel) {
+                     // 선생님일때는 채널명이 학부모 아이디
+                     check = true;
+                  }
+               }
+            });
+            if (!check) {
+               // check = false면, 아직 아무도 없는 것 -> 1:1 메세지 보내기
+               if (
+                  auth.authority === constants.authority_parent &&
+                  auth.teacherLoginId
+               ) {
+                  sendFCMMessage(
+                     `${auth.name} 님의 메세지`,
+                     message,
+                     auth.teacherLoginId
+                  );
+               } else {
+                  sendFCMMessage(`담임선생님의 메세지`, message, channel);
                }
             }
-         );
-      }
+         }
+      );
    };
 
    const sendMessage = (message: string) => {
@@ -126,7 +137,7 @@ function TalkContainer({
             })
             .then(() => {
                // 상대 있는지 체크
-               checkPresence();
+               checkPresence(message);
                setMessage("");
             });
       }

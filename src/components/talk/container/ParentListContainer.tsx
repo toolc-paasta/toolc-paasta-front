@@ -34,10 +34,12 @@ function ParentListContainer({
    useEffect(() => {
       const getList = async () => {
          try {
-            const data = await getParentsList();
-            setParents(data);
+            // const data = await getParentsList();
+            setParents(tempData);
 
-            const channels = data.map((item: authStateType) => item.loginId);
+            const channels = tempData.map(
+               (item: authStateType) => item.loginId
+            );
             pubnub.fetchMessages(
                {
                   channels: channels,

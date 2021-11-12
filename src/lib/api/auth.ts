@@ -29,7 +29,10 @@ const setTokens = async (tokens: { accessToken: string }) => {
 export const getParentInfo = async () => {
    try {
       const res = await axios.get(`${Address}/api/member/parents`);
-      return res.data.response;
+      return {
+         ...res.data.response,
+         hasCenter: res.data.response.directorLoginId !== null,
+      };
    } catch (err) {
       throw err;
    }
@@ -57,6 +60,7 @@ export const parentSignUp = async (props: ParentSignup, expoToken: string) => {
             withCredentials: true,
          }
       );
+
       // 성공시 로그인
       await parentLogin({
          loginId: props.loginId,
@@ -73,8 +77,10 @@ export const parentSignUp = async (props: ParentSignup, expoToken: string) => {
 export const getDirectorInfo = async () => {
    try {
       const res = await axios.get(`${Address}/api/member/director`);
-      console.log(res.data.response);
-      return res.data.response;
+      return {
+         ...res.data.response,
+         hasCenter: res.data.response.centerId !== null,
+      };
    } catch (err) {
       console.log(err.response.data);
       throw err;
@@ -137,7 +143,10 @@ export const registerCenter = async (props: kinderType) => {
 export const getTeacherInfo = async () => {
    try {
       const res = await axios.get(`${Address}/api/member/teacher`);
-      return res.data.response;
+      return {
+         ...res.data.response,
+         hasCenter: res.data.response.directorLoginId !== null,
+      };
    } catch (err) {
       throw err;
    }

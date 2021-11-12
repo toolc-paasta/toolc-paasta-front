@@ -9,7 +9,7 @@ export type ParentSignup = SignupInfo & {
    childName: string;
    childBirthday: string;
    childSex: "남성" | "여성";
-   wifeId?: string;
+   spouseLoginId?: string;
 };
 
 export type DirectorSignUpType = SignupInfo;
@@ -24,6 +24,6 @@ export type LoginType = {
 
 export type authorityType = "TEACHER" | "DIRECTOR" | "ADMIN" | "PARENT";
 
-export type addClassType ={
+export type addClassType = {
    name: string;
-}
+};

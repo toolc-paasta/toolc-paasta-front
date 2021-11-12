@@ -28,7 +28,7 @@ function InputChild({
                   value={childInfo.childName}
                   onChangeText={(v) => onChangeChild("childName", v)}
                   containerStyle={{ width: 200 }}
-                  inputStyle={{ fontFamily: 'Font' }}
+                  inputStyle={{ fontFamily: "Font" }}
                   renderErrorMessage={false}
                />
             </ListItem.Content>
@@ -76,7 +76,7 @@ function InputChild({
                   value={childInfo.childBirthday}
                   onChangeText={(v) => onChangeChild("childBirthday", v)}
                   containerStyle={{ width: 200 }}
-                  inputStyle={{ fontFamily: 'Font' }}
+                  inputStyle={{ fontFamily: "Font" }}
                   errorMessage={birthErr}
                />
             </ListItem.Content>
@@ -98,7 +98,6 @@ function InputChild({
                      onChangeText={(v) => onChangeChild("wifeId", v)}
                      containerStyle={{ width: 250 }}
                      errorMessage={birthErr}
-                     style={{ fontSize: 12 }}
                   />
                </ListItem.Content>
             </ListItem>

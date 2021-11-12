@@ -5,6 +5,7 @@ export type authStateType = {
    name: string;
    connectionNumber: string | null;
    sex: string;
+   hasCenter: boolean;
    authority: string;
    center?: string;
    role?: string | null;
@@ -33,6 +34,7 @@ type AuthAction = ReturnType<typeof signin> | ReturnType<typeof signout>;
 const initialState: authStateType & { signined: boolean } = {
    signined: false,
    id: 123123412,
+   hasCenter: false,
    loginId: "",
    name: "",
    connectionNumber: "",
@@ -51,15 +53,7 @@ export default function auth(
             ...action.payload,
          };
       case SIGNOUT:
-         return {
-            signined: false,
-            id: 41231421312,
-            loginId: "",
-            name: "",
-            connectionNumber: "",
-            sex: "",
-            authority: "",
-         };
+         return initialState;
       default:
          return state;
    }

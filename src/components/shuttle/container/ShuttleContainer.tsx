@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../modules";
 import constants from "../../../lib/utils/constants";
 import { channel } from "redux-saga";
+import { sendShuttleFCMMessage } from "../../../lib/api/fcm";
 
 type Props = {
    navigation: BottomTabNavigation;
@@ -73,7 +74,7 @@ function ShuttleContainer({ navigation }: Props) {
          return;
       }
       setOnSharing(true);
-
+      sendShuttleFCMMessage();
       Location.watchPositionAsync(
          {
             accuracy: Location.Accuracy.Highest,
