@@ -18,7 +18,7 @@ const tempData: authStateType[] = [
       childBirthday: "2020-12-12",
       childName: "신성일",
       childSex: "여성",
-      connectionNumber: null,
+      connectionNumber: "010-2222-1111",
       hasCenter: true,
       id: 18,
       loginId: "testp11",
@@ -62,7 +62,6 @@ function ParentListContainer({
                   }
                }
             );
-
             dispatch(unloading());
          } catch (e) {
             console.log(e.response.data);

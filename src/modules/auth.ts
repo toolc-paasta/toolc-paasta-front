@@ -3,19 +3,21 @@ export type authStateType = {
    profileImg?: string;
    loginId: string;
    name: string;
-   connectionNumber: string | null;
+   connectionNumber: string;
    sex: string;
    hasCenter: boolean;
    authority: string;
    center?: string;
-   role?: string | null;
-   aclass?: string | null;
+   childId?: number;
    childName?: string;
    childBirthday?: string;
    childSex?: string;
-   student?: string | null;
    directorLoginId?: string | null;
    teacherLoginId?: string | null;
+   centerName?: string | null;
+   centerId?: string | null;
+   classId?: string | null;
+   className?: string | null;
 };
 
 //액션 타입
