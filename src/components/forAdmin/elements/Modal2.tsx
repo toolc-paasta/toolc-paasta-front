@@ -25,6 +25,11 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
       alert('반 이름을 입력하세요')
   }
 
+  const insertMethod = async() =>{
+    setModalVisible(false);
+    insertClass()
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.boxes}>
@@ -40,7 +45,7 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
         <TouchableOpacity onPress={() => [setModalVisible(false)]} style={styles.btn}>
             <Text>닫기</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => [setModalVisible(false),insertClass(),getListData()]} style={styles.btn}>
+        <TouchableOpacity onPress={() => insertMethod().then(getListData())} style={styles.btn}>
             <Text>추가</Text>
         </TouchableOpacity>
       </View>

@@ -122,11 +122,11 @@ const styles = StyleSheet.create({
     
  },
  modalView: {
-  height: Dimensions.get('window').height/10*3,
+  height: Dimensions.get('window').height/10*5,
   width: Dimensions.get('window').width/10*8,
   position:'relative',
   left:Dimensions.get('window').width/2-Dimensions.get('window').width/10*4,
-  top:Dimensions.get('window').height/2-Dimensions.get('window').height/10*1.5,
+  top:Dimensions.get('window').height/2-Dimensions.get('window').height/10*2.5,
   paddingLeft:15,
   paddingRight:15,
   backgroundColor:'#ffffff',

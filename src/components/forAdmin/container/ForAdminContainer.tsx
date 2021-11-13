@@ -18,6 +18,7 @@ function ForAdminContainer({ navigation }: Props) {
       const data = await getClass();
       const newData = data.filter((x:any)=>x.directorLoginId==auth.loginId).map((x:any)=>x.classVOList)[0]
       setList(newData)
+      console.log(newData)
       newData.map((item:any, i:number) => {
          setNameList((nameList:any)=>[...nameList,item.className])
       })

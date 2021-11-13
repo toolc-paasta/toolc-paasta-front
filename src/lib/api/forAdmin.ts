@@ -22,6 +22,26 @@ export const getClass = async () => {
    }
 };
 
+export const getParent = async () => {
+   try {
+      const res = await axios.get(`${Address}/api/center`);      
+      return res.data.response;
+   } catch (err) {
+      console.log(err);
+      throw err;
+   }
+};
+
+export const findParent = async (name:string,number:string) => {
+   try {
+      const res = await axios.get(`${Address}/api/member/parents/search?name=${name}&connectionNumber=${number}`);      
+      return res.data.response;
+   } catch (err) {
+      console.log(err);
+      throw err;
+   }
+};
+
 export const addClass = async (props: addClassType) => {
     try {
        const res = await axios.post(

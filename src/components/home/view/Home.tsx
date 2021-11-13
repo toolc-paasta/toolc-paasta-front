@@ -37,14 +37,13 @@ type Props = {
 
 function Home({ navigation, auth }: Props) {
    let res;
-   const [isAuth, setIsAuth] = useState(true);
+   const [isAuth, setIsAuth] = useState(true); //auth.hasCenter
    /*
-   어드민 admin 1234
-   선생 qwer1106 qwer1234$
-   학부모 shkim1106 qwer1234%
+   어드민 admin qwer1234!
+   선생 qwer1106 qwer1106^
+   학부모 shkim1106 qwer1234% 01012344321
    원장 asdf1106 qwer1106^
-   원장이 회원가입(센터 자동등록) -> 관리자가 수락 -> 원장 반생성 -> 유치원/반 리스트 필요 -> 선생들 가입 -> 학부모들 가입
-
+   
  */
    return (
       <View style={styles.container}>
