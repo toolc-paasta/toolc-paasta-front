@@ -19,6 +19,9 @@ import { BottomTabNavigation } from "../../../screens/ManagementScreen";
 
 type Props = {
   navigation:BottomTabNavigation;
+  setFilteredDataSource:React.Dispatch<React.SetStateAction<any>>;
+  filteredDataSource:any;
+  masterDataSource:any;
 };
 
 type Item = {
@@ -26,16 +29,14 @@ type Item = {
   contact:number;
 }
 
-export default function Manage({navigation}:Props) {
+export default function Manage({navigation,setFilteredDataSource,filteredDataSource,masterDataSource}:Props) {
   const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
-  const [masterDataSource, setMasterDataSource] = useState<any>([]);
+  
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [data,setData] = useState<any>();
 
   useEffect(() => {
-    setFilteredDataSource(users);
-    setMasterDataSource(users);
+    
   }, []);
 
   const searchFilterFunction = (text:string) => {
@@ -71,7 +72,7 @@ export default function Manage({navigation}:Props) {
           />
         </View>
         <Text style={[styles.itemStyle,styles.itemStyle1]}>
-          {item.name}
+          {item.name} 학부모님
         </Text>
       </TouchableOpacity>
     );
@@ -118,7 +119,7 @@ export default function Manage({navigation}:Props) {
           </View>
           <FlatList
             data={filteredDataSource}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(list, index) => index.toString()}
             ItemSeparatorComponent={ItemSeparatorView}
             renderItem={ItemView}
           />

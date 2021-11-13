@@ -51,7 +51,7 @@ export const postParent = async (props: postParentType) => {
       );
       console.log(props.id)
    } catch (err) {
-      console.log(err.resonse.data);
+      console.log(err);
       throw err;
    }
 };

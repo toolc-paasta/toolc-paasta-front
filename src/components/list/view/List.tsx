@@ -10,9 +10,10 @@ import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
 type Props = {
   headerTitle:string;
   navigation:BottomTabNavigation;
+  auth:any;
 };
 
-export default function List({navigation, headerTitle}:Props) {
+export default function List({navigation, headerTitle,auth}:Props) {
 
   const [date,setDate] = useState<any>(new Date());
   const [data,setData] = useState<any>();
@@ -41,7 +42,7 @@ export default function List({navigation, headerTitle}:Props) {
 
   return (
     <View style={styles.container}>
-      <Header header_title={headerTitle} navigation={navigation} IsInsert={true} setIsSubmit={null} setModalVisible={false}/>
+      <Header header_title={headerTitle} navigation={navigation} IsInsert={auth.authority == 'PARENT' ? null : true} setIsSubmit={null} setModalVisible={false}/>
       <ScrollView style={styles.listContainer}>
         {DATA.map((item, i) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>

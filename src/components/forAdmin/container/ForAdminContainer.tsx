@@ -31,13 +31,9 @@ function ForAdminContainer({ navigation }: Props) {
       }
    }
 
-   const getListData2 = async() => {
-      
-   }
 
    useEffect(() => {
       getListData()
-      getListData2()
    }, []);
 
    return <ForAdmin navigation={navigation} auth={auth} list={list} getListData={getListData} nameList={nameList}/>;

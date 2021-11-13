@@ -37,7 +37,7 @@ type Props = {
 
 function Home({ navigation, auth }: Props) {
    let res;
-   const [isAuth, setIsAuth] = useState(true); //auth.hasCenter
+   const [isAuth, setIsAuth] = useState(auth.hasCenter); //auth.hasCenter
    /*
    어드민 admin qwer1234!
    선생 qwer1106 qwer1106^
