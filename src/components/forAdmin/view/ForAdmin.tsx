@@ -22,7 +22,7 @@ export default function ForAdmin({navigation,auth,list,getListData,nameList}:Pro
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
  
-  const DATA = auth.authority == 'TEACHER' ? childList : list
+  const DATA = list
 
   return (
     <View style={[styles.container,modalVisible==true?{backgroundColor:'#bdbdbd'}:{backgroundColor:'#fff'}]}>
@@ -31,7 +31,12 @@ export default function ForAdmin({navigation,auth,list,getListData,nameList}:Pro
         {DATA?.map((item:any, i:number) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => []}>
             <View>
-              <Text style={styles.subText} numberOfLines={1}>{item.className} 반</Text>
+              {auth.authority == 'ADMIN' ? (
+                <Text style={styles.subText} numberOfLines={1}>{item.className} 반</Text>
+              ) : (
+                <Text style={styles.subText} numberOfLines={1}>{item.childName} 어린이</Text>                
+              )}
+              
             </View>
           </TouchableOpacity>  
           
@@ -59,7 +64,7 @@ export default function ForAdmin({navigation,auth,list,getListData,nameList}:Pro
       }}>
         <View style={styles.modalView}>
           {auth.authority== 'TEACHER'  ? 
-            <ModalView setModalVisible={setModalVisible}/> : 
+            <ModalView setModalVisible={setModalVisible} getListData={getListData} nameList={nameList}/> : 
             <ModalView2 setModalVisible={setModalVisible} getListData={getListData} nameList={nameList}/>
           }         
         </View>

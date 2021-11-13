@@ -27,3 +27,7 @@ export type authorityType = "TEACHER" | "DIRECTOR" | "ADMIN" | "PARENT";
 export type addClassType = {
    name: string;
 };
+
+export type postParentType = {
+   id: string;
+};

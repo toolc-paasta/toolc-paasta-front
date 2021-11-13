@@ -41,7 +41,8 @@ function Home({ navigation, auth }: Props) {
    /*
    어드민 admin qwer1234!
    선생 qwer1106 qwer1106^
-   학부모 shkim1106 qwer1234% 01012344321
+   학부모 shkim1106 qwer1106^ p1/01012344321
+   학부모 shkim1107 qwer1106^ p2/01012344322
    원장 asdf1106 qwer1106^
    
  */
@@ -108,13 +109,17 @@ function Home({ navigation, auth }: Props) {
                <Text style={styles.blankText}>등록된 유치원이 없습니다. </Text>
                <Text style={styles.blankText}>먼저 등록을 해야 서비스를 </Text>
                <Text style={styles.blankText}>이용할 수 있습니다. </Text>
-               <TouchableOpacity
-                  style={styles.blackBtn}
-                  onPress={() => navigation.navigate("Kinger")}>
-                  <Text style={[styles.blankText, styles.blankBtnText]}>
-                     유치원 인증하기
-                  </Text>
-               </TouchableOpacity>
+               {auth.authority == "TEACHER" && (
+                  <TouchableOpacity
+                     style={styles.blackBtn}
+                     onPress={() => navigation.navigate("Kinger")}>
+                     <Text style={[styles.blankText, styles.blankBtnText]}>
+                        유치원 인증하기
+                     </Text>
+                  </TouchableOpacity>
+               )}
+                     
+               
             </View>
          )}
       </View>

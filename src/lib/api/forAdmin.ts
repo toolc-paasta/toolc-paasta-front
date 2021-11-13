@@ -3,7 +3,8 @@ import axios from "axios";
 import { navigationRef } from "../../../RootNavigation";
 import { kinderType } from "../../components/auth/types";
 import {
-    addClassType
+    addClassType,
+    postParentType
  } from "./authTypes";
 
 const Address = "http://www.stmap.kro.kr:8080";
@@ -24,7 +25,7 @@ export const getClass = async () => {
 
 export const getParent = async () => {
    try {
-      const res = await axios.get(`${Address}/api/center`);      
+      const res = await axios.get(`${Address}/api/member/teacher/read`);      
       return res.data.response;
    } catch (err) {
       console.log(err);
@@ -38,6 +39,19 @@ export const findParent = async (name:string,number:string) => {
       return res.data.response;
    } catch (err) {
       console.log(err);
+      throw err;
+   }
+};
+
+export const postParent = async (props: postParentType) => {
+   try {
+      const res = await axios.post(
+         `${Address}/api/member/teacher/enter/child/${props.id}`,
+         props
+      );
+      console.log(props.id)
+   } catch (err) {
+      console.log(err.resonse.data);
       throw err;
    }
 };

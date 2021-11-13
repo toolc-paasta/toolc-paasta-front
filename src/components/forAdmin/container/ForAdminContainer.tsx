@@ -3,7 +3,7 @@ import { BottomTabNavigation } from "../../../screens/ShuttleScreen";
 import ForAdmin from "../view/ForAdmin";
 import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
-import { getClass } from "../../../lib/api/forAdmin"
+import { getClass,getParent } from "../../../lib/api/forAdmin"
 type Props = {
    navigation: BottomTabNavigation;
 };
@@ -16,18 +16,28 @@ function ForAdminContainer({ navigation }: Props) {
 
    const getListData = async() => {
       const data = await getClass();
-      const newData = data.filter((x:any)=>x.directorLoginId==auth.loginId).map((x:any)=>x.classVOList)[0]
-      setList(newData)
-      console.log(newData)
-      newData.map((item:any, i:number) => {
-         setNameList((nameList:any)=>[...nameList,item.className])
-      })
+      if(auth.authority =='ADMIN'){
+         const newData = data.filter((x:any)=>x.directorLoginId==auth.loginId).map((x:any)=>x.classVOList)[0]
+         console.log(newData)
+         newData.map((item:any, i:number) => {
+            setNameList((nameList:any)=>[...nameList,item.className])
+         }) 
+      } else{
+         const data = await getParent();
+         setList(data)
+         data.map((item:any, i:number) => {
+            setNameList((nameList:any)=>[...nameList,item.connectionNumber])
+         }) 
+      }
+   }
+
+   const getListData2 = async() => {
       
    }
 
    useEffect(() => {
-      
       getListData()
+      getListData2()
    }, []);
 
    return <ForAdmin navigation={navigation} auth={auth} list={list} getListData={getListData} nameList={nameList}/>;
