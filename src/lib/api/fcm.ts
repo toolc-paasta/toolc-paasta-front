@@ -30,3 +30,30 @@ export const sendShuttleFCMMessage = async () => {
       console.log(err.response.data);
    }
 };
+export const sendShuttleFCMMessageTeacher = async () => {
+   try {
+      console.log("asdasd");
+      const res = await axios.post(
+         `${Address}/api/member/teacher/send/shuttle`,
+         {}
+      );
+      console.log(res.data.response);
+   } catch (err) {
+      console.log(err.response.data);
+   }
+};
+export const sendFCMToMyClass = async (
+   centerName: string,
+   className: string,
+   title: string,
+   body: string
+) => {
+   try {
+      const res = await axios.post(
+         `${Address}/api/member/teacher/message/sendClass`,
+         { centerName, className, title, body }
+      );
+   } catch (err) {
+      console.log(err.response.data);
+   }
+};

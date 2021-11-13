@@ -1,9 +1,11 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import { usePubNub } from "pubnub-react";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { getParentsList } from "../../../lib/api/parentsList";
 import { pnTimeTokenToHHMM } from "../../../lib/utils/pnTimeToken";
 import { authStateType } from "../../../modules/auth";
+import { loading, unloading } from "../../../modules/loading";
 import { TalkStackScreenParamList } from "../../../screens/TalkScreen";
 import { messageType } from "../types";
 import ParentList from "../view/ParentList";
@@ -32,9 +34,12 @@ function ParentListContainer({
    const [message, addMessage] = useState<messageType[]>([]);
    const pubnub = usePubNub();
 
+   const dispatch = useDispatch();
+
    useEffect(() => {
       const getList = async () => {
          try {
+            dispatch(loading());
             const data = await getParentsList();
             setParents(data);
 
@@ -57,6 +62,8 @@ function ParentListContainer({
                   }
                }
             );
+
+            dispatch(unloading());
          } catch (e) {
             console.log(e.response.data);
          }

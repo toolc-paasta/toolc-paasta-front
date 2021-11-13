@@ -11,7 +11,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../modules";
 import constants from "../../../lib/utils/constants";
 import { channel } from "redux-saga";
-import { sendShuttleFCMMessage } from "../../../lib/api/fcm";
+import {
+   sendShuttleFCMMessage,
+   sendShuttleFCMMessageTeacher,
+} from "../../../lib/api/fcm";
 
 type Props = {
    navigation: BottomTabNavigation;
@@ -74,17 +77,23 @@ function ShuttleContainer({ navigation }: Props) {
          return;
       }
       setOnSharing(true);
-      sendShuttleFCMMessage();
+      if (auth.authority === constants.authority_director) {
+         sendShuttleFCMMessage();
+      } else if (auth.authority === constants.authority_teacher) {
+         sendShuttleFCMMessageTeacher();
+      }
       Location.watchPositionAsync(
          {
             accuracy: Location.Accuracy.Highest,
             distanceInterval: 25,
          },
          (position) => {
-            pubnub.publish({
-               message: position,
-               channel: "map-channel", // 여기서 채널을 설정해야 한다.
-            });
+            if (channel !== null && channel !== undefined) {
+               pubnub.publish({
+                  message: position,
+                  channel: channel, // 여기서 채널을 설정해야 한다.
+               });
+            }
          }
       ).then((res) => setWatchKey(res));
    };
