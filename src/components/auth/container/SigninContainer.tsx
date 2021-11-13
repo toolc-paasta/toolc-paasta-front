@@ -185,7 +185,9 @@ function SigninContainer({ navigation }: Props) {
                   {
                      ...userInfo,
                      ...childInfo,
-                     spouseLoginId: isCheckedSameChild ? childInfo.wifeId : "",
+                     spouseLoginId: isCheckedSameChild
+                        ? childInfo.wifeId
+                        : null,
                      childBirthday: parseToBirth(childInfo.childBirthday),
                      connectionNumber: parseToPhoneNumer(
                         userInfo.connectionNumber
@@ -224,6 +226,7 @@ function SigninContainer({ navigation }: Props) {
          console.log(err.response.data);
          // 중복 아이디 처리
          if (err?.response.data.message === "ID가 중복된 회원입니다.") {
+            console.log("asdasd");
             handleError<signInInfoType>("auth/id-already-in-use", setErrMsg);
          } else if (
             userType === 0 &&

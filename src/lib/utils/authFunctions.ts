@@ -7,7 +7,7 @@ export default function handleError<T>(code: string, setErrMsg: setErrMsg<T>) {
       case "blank_id":
          setErrMsg((prev) => ({
             ...prev,
-            id: "아이디를 입력해주세요.",
+            loginId: "아이디를 입력해주세요.",
          }));
          return true;
       case "blank_password":
@@ -25,13 +25,13 @@ export default function handleError<T>(code: string, setErrMsg: setErrMsg<T>) {
       case "auth/user-not-found":
          setErrMsg((prev) => ({
             ...prev,
-            id: "존재하지 않는 회원입니다.",
+            loginId: "존재하지 않는 회원입니다.",
          }));
          return true;
       case "auth/id-already-in-use":
          setErrMsg((prev) => ({
             ...prev,
-            id: "이미 사용중인 아이디입니다.",
+            loginId: "이미 사용중인 아이디입니다.",
          }));
          return true;
       case "not_match_password_and_check":
