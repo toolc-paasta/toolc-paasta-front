@@ -12,7 +12,7 @@ import MenuWithBtns from "../elements/MenuWithBtns";
 import MenuWithList from "../elements/MenuWithList";
 import { temp_data } from "../../elements/data";
 import Icon from "react-native-vector-icons/Ionicons";
-import { BottomTabNavigation } from "../../../screens/SearchScreen";
+import { BottomTabNavigation } from "../../../screens/HomeScreen";
 import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -33,9 +33,10 @@ const articleTopStyleConst = {
 type Props = {
    navigation: BottomTabNavigation;
    auth: any;
+   list:any;
 };
 
-function Home({ navigation, auth }: Props) {
+function Home({ navigation, auth, list }: Props) {
    let res;
    const [isAuth, setIsAuth] = useState(auth.hasCenter); //auth.hasCenter
    /*
@@ -101,7 +102,7 @@ function Home({ navigation, auth }: Props) {
                   />
                </View>
                <View style={styles.menuWithList}>
-                  <MenuWithList />
+                  <MenuWithList list={list} navigation={navigation}/>
                </View>
             </ScrollView>
          ) : (
