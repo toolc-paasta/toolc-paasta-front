@@ -30,13 +30,13 @@ export default function Talk({
    return (
       <View style={styles.container}>
          <Header
-            header_title={title ? `${title} 학부모 님` : "담임선생님"}
+            header_title={title ? `${title} 학부모님` : "담임선생님"}
             navigation={navigationRef.current}
             setIsSubmit={null}
             IsInsert={null}
             setModalVisible={false}
          />
-         <View style={{ flex: 1, paddingHorizontal: 16 }}>
+         <View style={{ flex: 1, paddingHorizontal: 4 }}>
             <View style={styles.chatBox}>
                <ScrollView ref={scrollViewRef}>
                   {messages?.map((item, idx) => {
@@ -71,7 +71,7 @@ export default function Talk({
                                     bottom: 10,
                                  },
                               ]}>
-                              <Text style={{ fontSize: 10, color: "gray" }}>
+                              <Text style={{ fontSize: 10, color: "gray", fontFamily: 'Font' }}>
                                  {item.time}
                               </Text>
                            </View>
@@ -108,9 +108,10 @@ const stylesFunc = ({ isMe }: { isMe: boolean }) =>
       },
       content: {
          padding: 10,
-         borderWidth: 1,
-         borderRadius: 20,
-         borderColor: "rgba(0,0,0,0.5)",
+         paddingHorizontal: 14,
+         borderRadius: 32,
+         backgroundColor: isMe ? colors.primary : colors.secondary,
+         fontFamily: 'Font'
       },
    });
 
