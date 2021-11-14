@@ -43,7 +43,7 @@ export default function Kinger1({ kingerName, setKingerName, kingerClasses, setK
         console.log(data)
         setMasterDataSource(data)
         setFilteredDataSource(data)
-      } catch (e) {
+      } catch (e: any) {
         console.log(e.response.data);
       }
       dispatch(unloading())
