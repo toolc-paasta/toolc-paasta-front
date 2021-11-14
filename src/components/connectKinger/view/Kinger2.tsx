@@ -22,61 +22,28 @@ type Item = {
 }
 
 type Props = {
-  setKingerName:React.Dispatch<React.SetStateAction<any>>;
+  kingerClasses: any;
+  kingerClass: string;
+  setKingerClass:React.Dispatch<React.SetStateAction<any>>;
 };
 
-export default function Kinger2({setKingerName}:Props) {
-  const [search, setSearch] = useState<any>('');
-  const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
-  const [masterDataSource, setMasterDataSource] = useState<any>([]);
+export default function Kinger2({ kingerClasses, kingerClass, setKingerClass }:Props) {
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getData = async () => {
-      dispatch(loading())
-      try {
-        const data = await getCenter()
-        console.log(data)
-        setMasterDataSource(data)
-        setFilteredDataSource(data)
-      } catch (e) {
-        console.log(e.response.data);
-      }
-      dispatch(unloading())
-    }
-    getData()
+
+    
   }, [])
 
-  const searchFilterFunction = (text:string) => {
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource and update FilteredDataSource
-      const newData = masterDataSource.filter(function (item:Item) {
-        // Applying filter for the inserted text in search bar
-        const itemData = item.name ? item.name : ''
-        const textData = text
-        return itemData.indexOf(textData) > -1
-      });
-      setFilteredDataSource(newData)
-      setSearch(text)
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
-      setFilteredDataSource(masterDataSource)
-      setSearch(text)
-    }
-  };
-
-  const ItemView = ({ item }:any) => {
+  const ItemView = ({ item }: any) => {
     return (
-      <TouchableOpacity style={styles.list} onPress={() => getItem(item)}>
+      <TouchableOpacity style={[
+        styles.list,
+        kingerClass === item.className ? styles.selectedList : styles.defaultList
+      ]} onPress={() => setKingerClass(item.className)}>
         <Text style={[styles.itemStyle,styles.itemStyle1]}>
-          {item.name}
-        </Text>
-        <Text style={[styles.itemStyle,styles.itemStyle2]}>
-          {item.address}
+          {item.className}
         </Text>
       </TouchableOpacity>
     )
@@ -95,46 +62,16 @@ export default function Kinger2({setKingerName}:Props) {
     );
   };
 
-  const getItem = (item:Item) => {
-    Alert.alert(
-      "확인",
-      item.name+'이 맞습니까?',
-      [
-        {
-          text: "아니오",
-          style: "cancel"
-        },
-        { text: "예", onPress: () => setKingerName(item.name) }
-      ]
-    );
-    //alert('name : ' + item.name + ' / phone : ' + item.contact);
-  };
-
   return (
     <View style={styles.container}>
-      <View style={styles.searchBox}>
-        <Icon
-          name={'search-outline'}
-          size={30}
-          color="black"
-          style={styles.icon}
-        />
-        <TextInput
-          style={styles.textInputStyle}
-          onChangeText={(text) => searchFilterFunction(text)}
-          value={search}
-          underlineColorAndroid="transparent"
-          placeholder="유치원/어린이집 명으로 검색"
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={kingerClasses}
+          keyExtractor={(item, index) => index.toString()}
+          ItemSeparatorComponent={ItemSeparatorView}
+          renderItem={ItemView}
         />
       </View>
-        <View style={{ flex: 1 }}>
-          <FlatList
-            data={filteredDataSource}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={ItemSeparatorView}
-            renderItem={ItemView}
-          />
-        </View>
     </View>
   )
 }
@@ -162,6 +99,12 @@ const styles = StyleSheet.create({
   list:{
     flexDirection: 'row',
     alignItems:'center',
+    backgroundColor:'#fff'
+  },
+  selectedList: {
+    backgroundColor: '#fee9b0'
+  },
+  defaultList: {
     backgroundColor:'#fff'
   },
   itemStyle: {

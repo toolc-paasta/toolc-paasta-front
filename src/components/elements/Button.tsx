@@ -29,12 +29,12 @@ const StyledButton = ({
       paddingHorizontal: paddingHorizontal,
       paddingVertical: 12,
       marginTop: (margin && wide) ? 16 : 0,
-      marginLeft: (margin && !wide) ? 16 : 0
+      marginLeft: (margin && !wide) ? 16 : 0,
     },
     title: {
       color: color === 'clear' ? colors.black : colors.background,
       fontSize: 18,
-      fontFamily: 'Font'
+      fontFamily: 'Font',
     }
   });
 

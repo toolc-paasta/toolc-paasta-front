@@ -22,10 +22,13 @@ type Item = {
 }
 
 type Props = {
-  setKingerName:React.Dispatch<React.SetStateAction<any>>;
+  kingerName: string;
+  setKingerName: React.Dispatch<React.SetStateAction<any>>;
+  kingerClasses: any;
+  setKingerClasses: React.Dispatch<React.SetStateAction<any>>;
 };
 
-export default function Kinger1({setKingerName}:Props) {
+export default function Kinger1({ kingerName, setKingerName, kingerClasses, setKingerClasses }:Props) {
   const [search, setSearch] = useState<any>('');
   const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
   const [masterDataSource, setMasterDataSource] = useState<any>([]);
@@ -71,7 +74,10 @@ export default function Kinger1({setKingerName}:Props) {
 
   const ItemView = ({ item }:any) => {
     return (
-      <TouchableOpacity style={styles.list} onPress={() => getItem(item)}>
+      <TouchableOpacity style={[
+        styles.list, 
+        kingerName === item.name ? styles.selectedList : styles.defaultList
+      ]} onPress={() => setKinger(item)}>
         <Text style={[styles.itemStyle,styles.itemStyle1]}>
           {item.name}
         </Text>
@@ -95,20 +101,10 @@ export default function Kinger1({setKingerName}:Props) {
     );
   };
 
-  const getItem = (item:Item) => { //TODO
-    Alert.alert(
-      "확인",
-      item.name+'이 맞습니까?',
-      [
-        {
-          text: "아니오",
-          style: "cancel"
-        },
-        { text: "예", onPress: () => setKingerName(item.name) }
-      ]
-    );
-    //alert('name : ' + item.name + ' / phone : ' + item.contact);
-  };
+  const setKinger = (item: any) => {
+    setKingerName(item.name)
+    setKingerClasses(item.classVOList)
+  }
 
   return (
     <View style={styles.container}>
@@ -125,6 +121,7 @@ export default function Kinger1({setKingerName}:Props) {
           value={search}
           underlineColorAndroid="transparent"
           placeholder="유치원/어린이집 명으로 검색"
+          // placeholder={kingerClasses.toString()}
         />
       </View>
         <View style={{ flex: 1 }}>
@@ -162,6 +159,11 @@ const styles = StyleSheet.create({
   list:{
     flexDirection: 'row',
     alignItems:'center',
+  },
+  selectedList: {
+    backgroundColor: '#fee9b0'
+  },
+  defaultList: {
     backgroundColor:'#fff'
   },
   itemStyle: {
@@ -178,6 +180,7 @@ const styles = StyleSheet.create({
   itemStyle2: {
     position:'absolute',
     right:5,
+    fontSize: 11,
   },
   iconBox:{
   },

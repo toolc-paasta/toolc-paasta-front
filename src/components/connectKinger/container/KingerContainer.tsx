@@ -54,10 +54,9 @@ function KingerContainer({ navigation }: Props) {
 
    const [area1,setArea1] = useState<any>();  
    const [area2,setArea2] = useState<any>();  
-   const [kingerName,setKingerName] = useState<any>();  
-
-   useEffect(() => {
-   }, []);
+   const [kingerName,setKingerName] = useState<any>('');
+   const [kingerClasses, setKingerClasses] = useState<any>([])
+   const [kingerClass, setKingerClass] = useState<any>('')
 
    return (
       <View style={{flex: 1,backgroundColor:'#ffffff'}}>
@@ -65,17 +64,17 @@ function KingerContainer({ navigation }: Props) {
          <ProgressSteps {...progressStepsStyle}>
             <ProgressStep label="유치원/어린이집 선택" {...progressStepStyle} nextBtnDisabled={kingerName ==null ? true : false}>
                <View style={styles.box} >
-                  <Kinger1 setKingerName={setKingerName}/>
+                  <Kinger1 kingerName={kingerName} setKingerName={setKingerName} kingerClasses={kingerClasses} setKingerClasses={setKingerClasses}/>
                </View>
             </ProgressStep>
             <ProgressStep label="반 등록" {...progressStepStyle} nextBtnDisabled={kingerName ==null ? true : false}>
                <View style={styles.box} >
-                  <Kinger2 setKingerName={setKingerName} />
+                  <Kinger2 kingerClasses={kingerClasses} kingerClass={kingerClass} setKingerClass={setKingerClass} />
                </View>
             </ProgressStep>
             <ProgressStep label="가입하기"{...progressStepStyle} nextBtnStyle={{display:'none'}}>
                <View style={styles.box}>
-                  <Kinger3 area1={area1} area2={area2} kingerName={kingerName} auth={auth}/>
+                  <Kinger3 kingerName={kingerName} kingerClass={kingerClass} auth={auth}/>
                </View>
             </ProgressStep>
          </ProgressSteps>
