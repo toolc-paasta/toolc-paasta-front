@@ -18,8 +18,7 @@ export default function MenuWithList({navigation,list}:Props) {
     const Time2string = String(t).split('-')
     const Time2string2 = Time2string[2].split(':')
     const newTime = new Date(Number(Time2string[0]), Number(Time2string[1])-1, Number(Time2string2[0].substring(0,2)), Number(Time2string2[0].substring(3,5)), Number(Time2string2[1]), Number(Time2string2[2]))
-    console.log(Number(Time2string2[0].substring(3,5)))
-    const sec = Math.floor((date.getTime()-newTime.getTime())/1000)
+    const sec = Math.floor((date.getTime()-(newTime.getTime()+1000*60*60*9))/1000)
     let temp = sec
     let count = 0
     const unit = ['초','분','시간','일']
