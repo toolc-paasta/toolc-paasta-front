@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../modules";
 import { logout } from "../../../lib/api/auth";
 import Icon from "react-native-vector-icons/Ionicons";
+import constants from "../../../lib/utils/constants";
 
 type Props = {
    navigation: StackScreenNavigation;
@@ -37,7 +38,6 @@ export default function Notice({
       }
    }, [registerCenterNotis, auth]);
 
-   console.log(registerCenterNotis);
    const renderItem = ({
       item,
       index,
@@ -115,20 +115,24 @@ export default function Notice({
             IsInsert={null}
             setModalVisible={false}
          />
-         <View
-            style={{
-               position: "absolute",
-               top: 10,
-               left: Dimensions.get("window").width - 50,
-            }}>
-            <Icon
-               name={"log-out-outline"}
-               size={35}
-               color="black"
-               style={styles.icon}
-               onPress={() => [logout(), navigation.navigate("Auth")]}
-            />
-         </View>
+         {auth.authority !== constants.authority_director ? (
+            <View
+               style={{
+                  position: "absolute",
+                  top: 10,
+                  left: Dimensions.get("window").width - 50,
+               }}>
+               <Icon
+                  name={"log-out-outline"}
+                  size={35}
+                  color="black"
+                  style={styles.icon}
+                  onPress={() => [logout(), navigation.navigate("Auth")]}
+               />
+            </View>
+         ) : (
+            <></>
+         )}
          <View style={styles.container}>
             <FlatList
                data={registerCenterNotis}

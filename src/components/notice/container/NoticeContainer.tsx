@@ -7,6 +7,7 @@ import {
    denyCenterRequest,
    denyClassRequest,
    getCenterRequest,
+   getClassRequest,
 } from "../../../lib/api/notice";
 import { RootState } from "../../../modules";
 import { loading, unloading } from "../../../modules/loading";
@@ -69,7 +70,7 @@ function NoticeContainer({ navigation }: Props) {
                   }))
                );
             } else if (auth.authority === "DIRECTOR") {
-               const data = await getCenterRequest();
+               const data = await getClassRequest();
                setRegisterCenterNotis(
                   data.map((item: any) => ({
                      ...item,
@@ -115,13 +116,14 @@ function NoticeContainer({ navigation }: Props) {
       }
    };
 
-   return (<>
-      <Notice
-         navigation={navigation}
-         registerCenterNotis={registerCenterNotis}
-         onPressAdmit={onPressAdmit}
-         onPressDeny={onPressDeny}
-      />
+   return (
+      <>
+         <Notice
+            navigation={navigation}
+            registerCenterNotis={registerCenterNotis}
+            onPressAdmit={onPressAdmit}
+            onPressDeny={onPressDeny}
+         />
       </>
    );
 }
