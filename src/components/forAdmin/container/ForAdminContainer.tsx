@@ -15,10 +15,11 @@ function ForAdminContainer({ navigation }: Props) {
    const [nameList,setNameList] = useState<any>([])
 
    const getListData = async() => {
-      const data = await getClass();
-      if(auth.authority =='ADMIN'){
+      
+      if(auth.authority =='DIRECTOR'){
+         const data = await getClass();
          const newData = data.filter((x:any)=>x.directorLoginId==auth.loginId).map((x:any)=>x.classVOList)[0]
-         console.log(newData)
+         setList(newData)
          newData.map((item:any, i:number) => {
             setNameList((nameList:any)=>[...nameList,item.className])
          }) 

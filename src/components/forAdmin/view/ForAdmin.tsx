@@ -31,7 +31,7 @@ export default function ForAdmin({navigation,auth,list,getListData,nameList}:Pro
         {DATA?.map((item:any, i:number) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => []}>
             <View>
-              {auth.authority == 'ADMIN' ? (
+              {auth.authority == 'DIRECTOR' ? (
                 <Text style={styles.subText} numberOfLines={1}>{item.className} 반</Text>
               ) : (
                 <Text style={styles.subText} numberOfLines={1}>{item.childName} 어린이</Text>                

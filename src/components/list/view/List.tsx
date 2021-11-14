@@ -11,19 +11,23 @@ type Props = {
   headerTitle:string;
   navigation:BottomTabNavigation;
   auth:any;
+  list:any;
 };
 
-export default function List({navigation, headerTitle,auth}:Props) {
+export default function List({navigation, headerTitle,auth,list}:Props) {
 
   const [date,setDate] = useState<any>(new Date());
   const [data,setData] = useState<any>();
-  const [isSubmit,setIsSubmit] = useState<boolean>(false)
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const DATA  = headerTitle==='공지 모아보기' ? list_notice : list_parent
 
   const makeTime = (t: Date) => {
-    const sec = Math.floor((date.getTime()-t.getTime())/1000)
+    const Time2string = String(t).split('-')
+    const Time2string2 = Time2string[2].split(':')
+    const newTime = new Date(Number(Time2string[0]), Number(Time2string[1])-1, Number(Time2string2[0].substring(0,2)), Number(Time2string2[0].substring(3,5)), Number(Time2string2[1]), Number(Time2string2[2]))
+    console.log(Number(Time2string2[0].substring(3,5)))
+    const sec = Math.floor((date.getTime()-newTime.getTime())/1000)
     let temp = sec
     let count = 0
     const unit = ['초','분','시간','일']
@@ -44,13 +48,13 @@ export default function List({navigation, headerTitle,auth}:Props) {
     <View style={styles.container}>
       <Header header_title={headerTitle} navigation={navigation} IsInsert={auth.authority == 'PARENT' ? null : true} setIsSubmit={null} setModalVisible={false}/>
       <ScrollView style={styles.listContainer}>
-        {DATA.map((item, i) => (
+        {list?.map((item:any, i:number) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
             <View>
-              <Text style={styles.mainText}>{item.title}</Text>
+              <Text style={styles.mainText}>[ {item.author == item.center.director.name ? '전체 공지' : '반 공지'} ]  {item.title}</Text>
               <Text style={styles.subText} numberOfLines={1}>{item.content}</Text>
             </View>
-            <Text style={styles.numText}>{makeTime(item.time)}</Text>
+            <Text style={styles.numText}>{makeTime(item.updatedAt)}</Text>
           </TouchableOpacity>  
         ))}
       </ScrollView>
@@ -63,7 +67,7 @@ export default function List({navigation, headerTitle,auth}:Props) {
       }}>
         <View style={styles.modalView}>
           <View>
-            <ListDetail data={data} date={date} setModalVisible={setModalVisible} navigation={navigation} header_title={headerTitle}/>
+            <ListDetail data={data} setModalVisible={setModalVisible} navigation={navigation} header_title={headerTitle}/>
           </View>
         </View>
       </Modal>
