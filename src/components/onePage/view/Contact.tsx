@@ -16,6 +16,9 @@ import { BottomTabNavigation } from "../../../screens/ContactScreen";
 
 type Props = {
   navigation:BottomTabNavigation;
+  setFilteredDataSource:React.Dispatch<React.SetStateAction<any>>;
+  filteredDataSource:any;
+  masterDataSource:any;
 };
 
 type Item = {
@@ -23,15 +26,11 @@ type Item = {
   contact:number;
 }
 
-export default function Contact({navigation}:Props) {
+export default function Contact({navigation,setFilteredDataSource,filteredDataSource,masterDataSource}:Props) {
   const [search, setSearch] = useState<any>('');
-  const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
-  const [masterDataSource, setMasterDataSource] = useState<any>([]);
 
   useEffect(() => {
     
-    setFilteredDataSource(users);
-    setMasterDataSource(users);
       
   }, []);
 
@@ -68,10 +67,10 @@ export default function Contact({navigation}:Props) {
           />
         </View>
         <Text style={[styles.itemStyle,styles.itemStyle1]}>
-          {item.name}
+          {item?.name}
         </Text>
         <Text style={[styles.itemStyle,styles.itemStyle2]}>
-          {item.contact.substring(0,3)+'-'+item.contact.substring(3,7)+'-'+item.contact.substring(7,11)}
+          {item?.connectionNumber}
         </Text>
       </TouchableOpacity>
     );

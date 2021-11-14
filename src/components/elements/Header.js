@@ -3,11 +3,8 @@ import { Dimensions, Text, View, StyleSheet, Alert, TouchableOpacity} from 'reac
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { colors } from './theme'
 
-
-
 export default function Header({header_title,setIsSubmit,IsInsert,navigation,setModalVisible,}) {
  
-
   const onSubmit = () => {
     Alert.alert(
       "가정통신문",

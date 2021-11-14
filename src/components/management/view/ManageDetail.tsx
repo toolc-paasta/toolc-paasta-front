@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
-import Header from '../../elements/Header'
-import { comment } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { colors } from "../../elements/theme";
+
 type Users = {
   id: number; 
-  name: string; 
-  contact:string;
+  name:string;
+  connectionNumber: string; 
+  childName:string;
+  childBirthday:string;
 }
 type Props = {
   data:Users;
@@ -19,7 +21,7 @@ export default function ManageDetail({data,setModalVisible}:Props) {
   return (
     <ScrollView>
       <LinearGradient style={styles.top} 
-        colors={['#ffffff','#ffffff', '#e3e3e3']}
+        colors={['#ffffff','#ffffff', colors.primary]}
         start={{x: 1, y: 1}} end={{x: 1, y: 0}}
         locations={[0,0.5,0.5]}
       >
@@ -32,30 +34,19 @@ export default function ManageDetail({data,setModalVisible}:Props) {
           />
         </View>
       </LinearGradient>
-      <Icon
-          name={'pencil-outline'}
-          size={25}
-          color="black"
-          style={styles.input1_2}
-      />
       <View style={[styles.box, styles.box1]}>
-        <Text style={styles.input1}>{data.name}</Text>
+        <Text style={styles.input1}>{data.name} 학부모님</Text>
       </View>
       <View style={[styles.box]}>
-        <Text style={styles.input2}>{data.contact}</Text>
+        <Text style={styles.input2}>연락처 : {data.connectionNumber}</Text>
       </View>
       <View style={[styles.box]}>
-        <Text style={styles.input2}>{data.contact}</Text>
+        <Text style={styles.input2}>아이 이름 : {data.childName}</Text>
       </View>
       <View style={[styles.box]}>
-        <Text style={styles.input2}>{data.contact}</Text>
+        <Text style={styles.input2}>아이 생일 : {data.childBirthday}</Text>
       </View>
-      <View style={[styles.box]}>
-        <Text style={styles.input2}>{data.contact}</Text>
-      </View>
-      <View style={[styles.box]}>
-        <Text style={styles.input2}>{data.contact}</Text>
-      </View>
+
       <View style={styles.btnContainer}>
         <TouchableOpacity style={styles.btn} onPress={()=>setModalVisible(false)}>
           <Text>확인</Text>
@@ -108,9 +99,9 @@ const styles = StyleSheet.create({
     padding:5,
   },
   btnContainer:{
-    height:100,
+    height:200,
     alignItems:'center',
-    justifyContent: 'center', 
+    justifyContent: 'flex-end', 
   },
   btn:{
     width:100,
