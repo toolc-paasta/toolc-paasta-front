@@ -111,7 +111,7 @@ export default function Kinger1({ kingerName, setKingerName, kingerClasses, setK
       <View style={styles.searchBox}>
         <Icon
           name={'search-outline'}
-          size={30}
+          size={25}
           color="black"
           style={styles.icon}
         />
@@ -121,7 +121,6 @@ export default function Kinger1({ kingerName, setKingerName, kingerClasses, setK
           value={search}
           underlineColorAndroid="transparent"
           placeholder="유치원/어린이집 명으로 검색"
-          // placeholder={kingerClasses.toString()}
         />
       </View>
         <View style={{ flex: 1 }}>
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
-    padding: 5,
+    padding: 16,
     overflow:'hidden',
     height:'90%'
   },
@@ -188,5 +187,6 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     paddingLeft:10,
+    fontFamily: 'Font'
   },
 });

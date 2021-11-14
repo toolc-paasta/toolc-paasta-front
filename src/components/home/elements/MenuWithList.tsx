@@ -8,6 +8,12 @@ type Props = {
   list:any;
 };
 
+const processText = (limit: number, text: string) => (
+  text.length > limit ?
+    text.slice(0, limit) + '...' :
+    text
+)
+
 export default function MenuWithList({navigation,list}:Props) {
 
   const [date,setDate] = useState<any>(new Date());
@@ -37,14 +43,16 @@ export default function MenuWithList({navigation,list}:Props) {
   }
 
   return (
-    <View style={styles.container}>      
+    <View style={styles.container}>
+      <Text style={styles.articleMainText}>최근 공지</Text>
       <ScrollView style={styles.listContainer}>
-        {list?.reverse().slice(0,5).map((item:any, i:number) => (
+        {list && [...list].reverse().slice(0,5).map((item:any, i:number) => (
           <View key={i}>
             {i<5 && (
               <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
                 <View>
-                  <Text style={styles.mainText}>[ {item.author == item.center.director.name ? '전체 공지' : '반 공지'} ]  {item.title}</Text>
+                  <Text style={styles.mainText}>[ {item.author === item.center.director.name ? '전체 공지' : '반 공지'} ] {processText(15, item.title)}</Text>
+                  <Text style={styles.subText}>{processText(20, item.content)}</Text>
                 </View>
                 <Text style={styles.numText}>{makeTime(item.updatedAt)}</Text>
               </TouchableOpacity>  
@@ -75,7 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
-    padding: 15,
+    padding: 8,
   },
   listContainer:{
     
@@ -84,20 +92,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height:50,
     flexDirection: 'row',
-    borderBottomWidth:1,
-    borderBottomColor:'#bdbdbd'
   },
   mainText:{
-    fontWeight:'bold',
     fontSize:12,
     paddingRight:10,
     textAlign:'left',
     fontFamily:'Font'
   },
   subText:{
-    width:150,
+    width:250,
+    height: 14,
     color: '#666666',
-    fontSize: 12
+    fontSize: 12,
+    overflow: 'hidden',
   },
   numText:{
     position:'absolute',

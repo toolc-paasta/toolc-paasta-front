@@ -39,39 +39,39 @@ export const btns_for_pr = [
    {
       id: 0,
       title: "공지 모아보기",
-      img: "book-outline",
+      img: "list-outline",
       onclick: "NoticeBoard",
    },
-   { id: 1, title: "개인 톡", img: "clipboard-outline", onclick: "Talk" },
-   { id: 2, title: "셔틀 위치 확인", img: "logo-youtube", onclick: "Shuttle" },
+   { id: 1, title: "개인 톡", img: "chatbubble-ellipses-outline", onclick: "Talk" },
+   { id: 2, title: "셔틀 위치 확인", img: "bus-outline", onclick: "Shuttle" },
 ];
 
 export const btns_for_ad = [
-   { id: 0, title: "회원 관리", img: "book-outline", onclick: "Management" },
+   { id: 0, title: "회원 관리", img: "clipboard-outline", onclick: "Management" },
    {
       id: 1,
       title: "공지 모아보기",
-      img: "mail-outline",
+      img: "list-outline",
       onclick: "NoticeBoard",
    },
-   { id: 2, title: "개인 톡", img: "call-outline", onclick: "Talk" },
-   { id: 3, title: "학생 추가", img: "clipboard-outline", onclick: "ForAdmin" },
-   { id: 4, title: "셔틀 관리", img: "car-outline", onclick: "Shuttle" },
-   { id: 5, title: "전화번호부", img: "log-in-outline", onclick: "Contact" },
+   { id: 2, title: "개인 톡", img: "chatbubble-ellipses-outline", onclick: "Talk" },
+   { id: 3, title: "학생 추가", img: "person-add-outline", onclick: "ForAdmin" },
+   { id: 4, title: "셔틀 관리", img: "bus-outline", onclick: "Shuttle" },
+   { id: 5, title: "전화번호부", img: "call-outline", onclick: "Contact" },
 ];
 
 export const btns_for_di = [
-   { id: 0, title: "회원 관리", img: "book-outline", onclick: "Management" },
+   { id: 0, title: "회원 관리", img: "clipboard-outline", onclick: "Management" },
    {
       id: 1,
       title: "공지 모아보기",
-      img: "mail-outline",
+      img: "list-outline",
       onclick: "NoticeBoard",
    },
-   { id: 2, title: "반등록 요청", img: "call-outline", onclick: "Notice" },
-   { id: 3, title: "반 추가", img: "clipboard-outline", onclick: "ForAdmin" },
-   { id: 4, title: "셔틀 관리", img: "car-outline", onclick: "Shuttle" },
-   { id: 5, title: "전화번호부", img: "log-in-outline", onclick: "Contact" },
+   { id: 2, title: "반 가입 요청", img: "checkmark-circle-outline", onclick: "Notice" },
+   { id: 3, title: "반 추가", img: "person-add-outline", onclick: "ForAdmin" },
+   { id: 4, title: "셔틀 관리", img: "bus-outline", onclick: "Shuttle" },
+   { id: 5, title: "전화번호부", img: "call-outline", onclick: "Contact" },
 ];
 
 export const list_current = [
