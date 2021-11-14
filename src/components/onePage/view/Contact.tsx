@@ -67,7 +67,7 @@ export default function Contact({navigation,setFilteredDataSource,filteredDataSo
           />
         </View>
         <Text style={[styles.itemStyle,styles.itemStyle1]}>
-          {item?.name}
+          {item?.name} 학부모님
         </Text>
         <Text style={[styles.itemStyle,styles.itemStyle2]}>
           {item?.connectionNumber}
@@ -90,8 +90,6 @@ export default function Contact({navigation,setFilteredDataSource,filteredDataSo
   };
 
   const getItem = (item:Item) => {
-    
-    alert('name : ' + item.name + ' / phone : ' + item.contact);
   };
 
   return (

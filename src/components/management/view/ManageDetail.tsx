@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions} from 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors } from "../../elements/theme";
+import { RootState } from "../../../modules";
+import { useDispatch, useSelector } from "react-redux";
 
 type Users = {
   id: number; 
@@ -10,6 +12,7 @@ type Users = {
   connectionNumber: string; 
   childName:string;
   childBirthday:string;
+  className:string;
 }
 type Props = {
   data:Users;
@@ -18,6 +21,11 @@ type Props = {
 
 export default function ManageDetail({data,setModalVisible}:Props) {
 
+  const auth =  useSelector(({auth} :RootState) => auth)
+
+  useEffect(() => {
+    console.log(data)
+ }, []);
   return (
     <ScrollView>
       <LinearGradient style={styles.top} 
@@ -37,6 +45,12 @@ export default function ManageDetail({data,setModalVisible}:Props) {
       <View style={[styles.box, styles.box1]}>
         <Text style={styles.input1}>{data.name} 학부모님</Text>
       </View>
+      {auth.authority=='DIRECTOR' && (
+        <View style={[styles.box]}>
+          <Text style={styles.input2}>소속 반 : {data.className} 반</Text>
+        </View>
+      )}
+      
       <View style={[styles.box]}>
         <Text style={styles.input2}>연락처 : {data.connectionNumber}</Text>
       </View>

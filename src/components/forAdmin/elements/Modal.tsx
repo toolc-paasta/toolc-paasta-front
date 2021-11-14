@@ -23,14 +23,17 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
         alert('가입되지않은 사용자입니다') 
       else if(nameList.find((x:any) => x==number) == undefined){
         postParent({id:res.childId})
+        alert('등록되었습니다') 
       }
       else
         alert('이미 입력된 이름입니다') 
     }
     else
-      alert('양식을 완성해주세요')
-    
-      
+      alert('양식을 완성해주세요') 
+  }
+  const insertMethod = async() =>{
+    setModalVisible(false);
+    findParents()
   }
 
   return (
@@ -52,10 +55,10 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
         </View>
       </View>
       <View style={styles.btns}>
-        <TouchableOpacity onPress={() => [setModalVisible(false)]} style={styles.btn}>
+        <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.btn}>
             <Text>닫기</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => [setModalVisible(false),findParents().then(getListData())]} style={styles.btn}>
+        <TouchableOpacity onPress={() => insertMethod().then(getListData())} style={styles.btn}>
             <Text>추가</Text>
         </TouchableOpacity>
       </View>
