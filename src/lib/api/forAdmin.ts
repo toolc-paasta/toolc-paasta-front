@@ -33,6 +33,16 @@ export const getParent = async () => {
    }
 };
 
+export const getNotice = async () => {
+   try {
+      const res = await axios.get(`${Address}/api/member/parents/notice`);      
+      return res.data.response;
+   } catch (err) {
+      console.log(err);
+      throw err;
+   }
+};
+
 export const findParent = async (name:string,number:string) => {
    try {
       const res = await axios.get(`${Address}/api/member/parents/search?name=${name}&connectionNumber=${number}`);      

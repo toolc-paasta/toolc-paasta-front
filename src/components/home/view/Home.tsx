@@ -65,7 +65,7 @@ function Home({ navigation, auth }: Props) {
                      },
                   ]}>
                   <View style={styles.header}>
-                     <Text style={styles.headerText}>{temp_data.kg_name}</Text>
+                     <Text style={styles.headerText}>{auth?.centerName}</Text>
                      <View style={styles.headerIcon}>
                         <Icon
                            name={"notifications-outline"}
