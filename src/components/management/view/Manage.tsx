@@ -100,7 +100,7 @@ export default function Manage({navigation,setFilteredDataSource,filteredDataSou
   return (
     <View style={styles.container}>
       <Header header_title={'회원관리'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, padding: 16 }}>
         <View>
           <View style={styles.searchBox}>
             <Icon
@@ -148,9 +148,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
-    padding: 15,
   },
   searchBox:{
     flexDirection: 'row',

@@ -79,12 +79,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
-    padding: 15,
   },
   listContainer:{
-    
+    padding: 16
   },
   list:{
     alignItems: 'center',

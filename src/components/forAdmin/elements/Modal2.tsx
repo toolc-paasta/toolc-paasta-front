@@ -18,11 +18,11 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
       if(nameList.find((x:any) => x==name) == undefined)
         addClass({name:name})
       else
-        alert('이미 입력된 이름입니다')
+        alert('이미 입력된 이름입니다.')
       
     }
     else
-      alert('반 이름을 입력하세요')
+      alert('반 이름을 입력하세요.')
   }
 
   const insertMethod = async() =>{

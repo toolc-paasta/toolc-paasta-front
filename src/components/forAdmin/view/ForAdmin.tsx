@@ -77,12 +77,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
-    padding: 15,
   },
   listContainer:{
-    
+    padding: 15,
   },
   list:{
     alignItems: 'center',
@@ -120,27 +119,24 @@ const styles = StyleSheet.create({
   fabButton: {
     width: 60,
     height: 60,
-    borderColor:colors.secondary,
-    borderWidth:1,
-    borderRadius: 30,
     backgroundColor: colors.primary,
     
  },
  modalView: {
-  height: Dimensions.get('window').height/10*5,
+  height: Dimensions.get('window').height/10 * 3,
   width: Dimensions.get('window').width/10*8,
   position:'relative',
   left:Dimensions.get('window').width/2-Dimensions.get('window').width/10*4,
-  top:Dimensions.get('window').height/2-Dimensions.get('window').height/10*2.5,
-  paddingLeft:15,
-  paddingRight:15,
+  top:Dimensions.get('window').height/2-Dimensions.get('window').height/10*2,
+  paddingLeft:16,
+  paddingRight:16,
   backgroundColor:'#ffffff',
   shadowColor: "#000",
   shadowOffset: {
     width: 0,
     height: 2,
   },
-  borderRadius:30,
+  borderRadius:16,
   shadowOpacity: 0.25,
   shadowRadius: 3.84,
   elevation: 5,

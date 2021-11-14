@@ -1,9 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, Input, ListItem, Icon } from "react-native-elements";
+import { Input, ListItem, Icon } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
-import StyledButton from "../../elements/Button";
+import Button from "../../elements/Button";
 import { sexType, signInInfoType } from "../types";
+import { colors } from '../../elements/theme'
 
 type AuthProps = {
    userInfo: signInInfoType;
@@ -24,101 +25,106 @@ function Signin({
 }: AuthProps) {
    return (
       <ScrollView style={styles.container} enabled>
-         <View style={styles.insideContainer}>
-            <View style={styles.inputContainer}>
+         <ListItem containerStyle={styles.listItem}>
+            <Text style={{ paddingBottom: 28 }}>아이디   </Text>
+            <ListItem.Content>
                <Input
-                  placeholder={"아이디"}
-                  leftIcon={
-                     <Icon name="id-card" type="font-awesome" size={24} />
-                  }
                   value={userInfo.loginId}
-                  style={styles.input}
-                  errorMessage={errMsg.loginId}
                   onChangeText={(value) => onChange("loginId", value)}
+                  containerStyle={{ width: 240 }}
+                  inputContainerStyle={styles.inputContainer}
+                  inputStyle={{ fontFamily: "Font" }}
+                  errorMessage={errMsg.loginId}
                   errorStyle={styles.err}
                />
+            </ListItem.Content>
+         </ListItem>
+         <ListItem containerStyle={styles.listItem}>
+            <Text style={{ paddingBottom: 28 }}>성함      </Text>
+            <ListItem.Content>
                <Input
-                  placeholder={"성함"}
-                  leftIcon={<Icon name="perm-identity" size={24} />}
                   value={userInfo.name}
-                  style={styles.input}
-                  errorMessage={errMsg.name}
                   onChangeText={(value) => onChange("name", value)}
+                  containerStyle={{ width: 240 }}
+                  inputContainerStyle={styles.inputContainer}
+                  inputStyle={{ fontFamily: "Font" }}
+                  errorMessage={errMsg.name}
                   errorStyle={styles.err}
                />
-               <ListItem containerStyle={{ padding: 10, paddingBottom: 20 }}>
-                  <Icon name="wc" size={24} />
-                  <ListItem.Content
-                     style={{
-                        flexDirection: "row",
-                     }}>
-                     <Button
-                        title="남자"
-                        type="outline"
-                        onPress={() => selectGender("남성")}
-                        containerStyle={styles.buttonContainer}
-                        buttonStyle={{
-                           borderColor:
-                              userInfo.sex === "남성" ? "#2196f3" : "gray",
-                        }}
-                        titleStyle={{
-                           color: userInfo.sex === "남성" ? "#2196f3" : "gray",
-                        }}
-                     />
-                     <Button
-                        title="여자"
-                        type="outline"
-                        onPress={() => selectGender("여성")}
-                        containerStyle={styles.buttonContainer}
-                        buttonStyle={{
-                           borderColor:
-                              userInfo.sex === "여성" ? "#2196f3" : "gray",
-                        }}
-                        titleStyle={{
-                           color: userInfo.sex === "여성" ? "#2196f3" : "gray",
-                        }}
-                     />
-                  </ListItem.Content>
-               </ListItem>
-
+            </ListItem.Content>
+         </ListItem>
+         <ListItem containerStyle={styles.listItem}>
+            <Text>성별</Text>
+            <ListItem.Content
+               style={{
+                  flexDirection: "row",
+               }}>
+               <Button
+                  title="남자"
+                  color={userInfo.sex === '남성' ? 'primary' : 'secondary'}
+                  paddingHorizontal={24}
+                  onPress={() => selectGender("남성")}
+               />
+               <Button
+                  title="여자"
+                  color={userInfo.sex === '여성' ? 'primary' : 'secondary'}
+                  paddingHorizontal={24}
+                  margin
+                  onPress={() => selectGender("여성")}
+               />
+            </ListItem.Content>
+         </ListItem>
+         <ListItem containerStyle={styles.listItem}>
+            <Text style={{ paddingBottom: 28 }}>전화번호</Text>
+            <ListItem.Content>
                <Input
-                  placeholder={"전화번호"}
-                  leftIcon={<Icon name="phone" size={24} />}
-                  style={styles.input}
                   value={userInfo.connectionNumber}
-                  errorMessage={errMsg.connectionNumber}
                   onChangeText={(value) => onChange("connectionNumber", value)}
+                  containerStyle={{ width: 240 }}
+                  inputContainerStyle={styles.inputContainer}
+                  inputStyle={{ fontFamily: "Font" }}
+                  errorMessage={errMsg.connectionNumber}
                   errorStyle={styles.err}
                />
+            </ListItem.Content>
+         </ListItem>
+         <ListItem containerStyle={styles.listItem}>
+            <Text style={{ paddingBottom: 28 }}>비밀번호</Text>
+            <ListItem.Content>
                <Input
-                  placeholder={"비밀번호"}
-                  leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
-                  secureTextEntry={true}
-                  style={styles.input}
                   value={userInfo.password}
+                  secureTextEntry={true}
                   onChangeText={(value) => onChange("password", value)}
+                  containerStyle={{ width: 240 }}
+                  inputContainerStyle={styles.inputContainer}
+                  inputStyle={{ fontFamily: "Font" }}
                   errorMessage={errMsg.password}
                   errorStyle={styles.err}
                />
+            </ListItem.Content>
+         </ListItem>
+         <ListItem>
+            <Text style={{ paddingBottom: 28 }}>PW확인</Text>
+            <ListItem.Content>
                <Input
-                  placeholder={"비밀번호 확인"}
-                  leftIcon={<Icon name="lock" type="font-awesome" size={24} />}
-                  secureTextEntry={true}
-                  style={styles.input}
                   value={userInfo.passwordCheck}
-                  errorMessage={errMsg.passwordCheck}
+                  secureTextEntry={true}
                   onChangeText={(value) => onChange("passwordCheck", value)}
+                  containerStyle={{ width: 240 }}
+                  inputContainerStyle={styles.inputContainer}
+                  inputStyle={{ fontFamily: "Font" }}
+                  errorMessage={errMsg.passwordCheck}
                   errorStyle={styles.err}
                />
-               <StyledButton
-                  title="회원가입"
-                  color="primary"
-                  wide
-                  onPress={onPressLogin}
-                  paddingHorizontal={20}
-               />
-            </View>
-         </View>
+            </ListItem.Content>
+         </ListItem>
+         <Button
+            title="회원가입"
+            color="primary"
+            wide
+            onPress={onPressLogin}
+            paddingHorizontal={24}
+         />
       </ScrollView>
    );
 }
@@ -128,16 +134,16 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       backgroundColor: "white",
+      paddingHorizontal: 20,
    },
-   insideContainer: {
-      padding: 30,
-      paddingTop: 50,
+   listItem: {
+      paddingBottom: 0
+   },
+   inputContainer: {
+      borderBottomColor: colors.primary
    },
    err: {
       color: "red",
-   },
-   inputContainer: {
-      width: "100%",
    },
    input: {
       paddingLeft: 10,

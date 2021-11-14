@@ -10,6 +10,12 @@ type Props = {
    goTo: (v: keyof AuthStackScreenParamList) => void;
 };
 
+const desc = [
+   '똑똑한 유치원/어린이집 관리 시스템, ㅁㅁㅁ',
+   '내 아이 유치원/어린이집 정보를 한눈에!',
+   '내 아이 등하원 정보를 편리하게 받아보세요.'
+]
+
 function Landing({ goTo }: Props) {
    const [lottie, setLottie] = useState(new Array(3).fill(""));
 
@@ -38,6 +44,7 @@ function Landing({ goTo }: Props) {
    const renderItem = (source: string, idx: number) => {
       return (
          <View key={idx} style={styles.pageView} collapsable={false}>
+            <Text style={styles.desc}>{desc[idx]}</Text>
             {source ? (
                <View style={styles.lottieContainer}>
                   <LottieView source={source} autoPlay loop />
@@ -99,6 +106,12 @@ const styles = StyleSheet.create({
       height: "100%",
       justifyContent: "center",
       alignItems: "center",
+   },
+   desc: {
+      fontSize: 20,
+      paddingTop: 64,
+      color: '#ffd257',
+      textAlign: 'center'
    },
    lottieContainer: {
       width: "80%",
