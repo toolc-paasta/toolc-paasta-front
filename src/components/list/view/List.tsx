@@ -7,6 +7,7 @@ import Header from '../../elements/Header'
 import ListDetail from './ListDetail'
 import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
 import { colors } from '../../elements/theme'
+import { FAB } from "react-native-elements";
 
 type Props = {
   headerTitle:string;
@@ -64,6 +65,19 @@ export default function List({navigation, headerTitle,auth,list}:Props) {
           </TouchableOpacity>  
         ))}
       </ScrollView>
+      <View style={styles.fabButtonWrap}>
+        {auth.authority !== 'PARENT' && <FAB
+          visible={true}
+          raised
+          icon={{
+              name: "plus",
+              type: "font-awesome",
+              color: "white"
+          }}
+          buttonStyle={styles.fabButton}
+          onPress={() => navigation.navigate('UploadNotice')}
+        />}
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -124,6 +138,17 @@ const styles = StyleSheet.create({
     paddingBottom:5,
     fontFamily:'Font'
   },
+  fabButtonWrap:{
+    position:'absolute',
+    bottom:25,
+    right:25,
+  },
+  fabButton: {
+    width: 60,
+    height: 60,
+    backgroundColor: colors.primary,
+    
+  }, 
   modalView: {
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width,

@@ -16,6 +16,8 @@ import { users } from '../../elements/data';
 import ManageDetail from './ManageDetail'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomTabNavigation } from "../../../screens/ManagementScreen";
+import { colors } from '../../elements/theme'
+import { color } from 'react-native-elements/dist/helpers';
 
 type Props = {
   navigation:BottomTabNavigation;
@@ -65,8 +67,8 @@ export default function Manage({navigation,setFilteredDataSource,filteredDataSou
       <TouchableOpacity style={styles.list} onPress={() => getItem(item)}>
         <View style={[styles.itemStyle,styles.iconBox]}>
           <Icon
-            name={'person-circle-outline'}
-            size={35}
+            name={'person-outline'}
+            size={30}
             color="black"
             style={styles.icon}
           />
@@ -85,7 +87,7 @@ export default function Manage({navigation,setFilteredDataSource,filteredDataSou
         style={{
           height: 0.5,
           width: '100%',
-          backgroundColor: '#C8C8C8',
+          backgroundColor: colors.secondary,
         }}
       />
     );
@@ -105,7 +107,7 @@ export default function Manage({navigation,setFilteredDataSource,filteredDataSou
           <View style={styles.searchBox}>
             <Icon
               name={'search-outline'}
-              size={35}
+              size={30}
               color="black"
               style={styles.icon}
             />
@@ -156,7 +158,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     height:50,
     borderWidth: 1,
-    borderColor:'#c8c8c8',
+    borderColor: colors.secondary,
     marginTop:15,
     marginBottom:15,
     padding:10,
@@ -178,6 +180,7 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     paddingLeft:10,
+    fontFamily: 'Font'
   },
   iconBox:{
   },
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
   modalView: {
     height: Dimensions.get('window').height/10*9,
     width: Dimensions.get('window').width/10*9,
-    
+    borderRadius: 16,
     backgroundColor:'#ffffff',
     zIndex:2,
     marginLeft:Dimensions.get('window').width/20,

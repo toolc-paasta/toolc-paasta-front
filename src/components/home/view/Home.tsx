@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
       fontSize: 18,
       textAlign: "center",
       color: "#fff",
-      fontWeight: "bold",
    },
    header: {
       height: 50,

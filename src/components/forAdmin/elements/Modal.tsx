@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet,TouchableOpacity, TextInput,Button} from 'react-native';
+import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { colors } from "../../elements/theme";
 import { findParent } from "../../../lib/api/forAdmin"
 import { postParent } from "../../../lib/api/forAdmin"
+import { useDispatch } from 'react-redux'
+import { setSnackbar } from "../../../modules/snackbar";
+import Button from '../../elements/Button'
 
 type Props = {
   setModalVisible:React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,25 +15,25 @@ type Props = {
 
 export default function Modal({setModalVisible,getListData,nameList} :Props) {
 
+  const dispatch = useDispatch()
+
   const [name,setName] = useState<any>()
   const [number,setNumber] = useState<any>()
   
-  const findParents = async () =>{
+  const findParents = async () => {
     
     if(name != null && number != null){
       const res = await findParent(name,number);
       if(res == null)
-        alert('가입되지않은 사용자입니다') 
+        dispatch(setSnackbar({ visible: true, snackbar: '가입되지 않은 사용자입니다.' }))
       else if(nameList.find((x:any) => x==number) == undefined){
         postParent({id:res.childId})
       }
       else
-        alert('이미 입력된 이름입니다') 
+        dispatch(setSnackbar({ visible: true, snackbar: '이미 추가된 어린이입니다.' }))
     }
     else
-      alert('양식을 완성해주세요')
-    
-      
+      dispatch(setSnackbar({ visible: true, snackbar: '모두 작성해주세요.' }))
   }
 
   return (
@@ -52,12 +55,19 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
         </View>
       </View>
       <View style={styles.btns}>
-        <TouchableOpacity onPress={() => [setModalVisible(false)]} style={styles.btn}>
-            <Text>닫기</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => [setModalVisible(false),findParents().then(getListData())]} style={styles.btn}>
-            <Text>추가</Text>
-        </TouchableOpacity>
+        <Button
+          title='취소'
+          color='secondary'
+          onPress={() => [setModalVisible(false)]}
+          paddingHorizontal={50}
+        />
+        <Button
+          title='추가'
+          color='primary'
+          margin
+          onPress={() => [setModalVisible(false),findParents().then(getListData())]}
+          paddingHorizontal={50}
+        />
       </View>
       
     </View>
@@ -75,8 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',   
   },
   box: {
-    paddingTop:40,
-    paddingBottom:40,
+    marginVertical: 8,
     width: '100%',
   },
   box1:{
@@ -84,23 +93,15 @@ const styles = StyleSheet.create({
   },
   btns:{
     position:'absolute',
-    bottom:10,
-    flexDirection:'row'
-  },
-  btn:{
-    flex:1,
-    margin:15,
-    width:100,
-    height:30,
-    borderRadius:5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor:colors.secondary
+    bottom:16,
+    flexDirection:'row',
+    justifyContent: 'center'
   },
   input1:{
     padding:10,
     borderWidth:1,
-    borderColor:'#bdbdbd',
+    borderColor: colors.secondary,
     borderRadius:10,
+    fontFamily: 'Font'
   },
 });

@@ -7,8 +7,8 @@ export default function Header({header_title,setIsSubmit,IsInsert,navigation,set
  
   const onSubmit = () => {
     Alert.alert(
-      "가정통신문",
-      "전송하시겠습니까?",
+      "공지 작성",
+      "공지를 등록하시겠습니까?",
       [
         {
           text: "취소",
@@ -41,12 +41,7 @@ export default function Header({header_title,setIsSubmit,IsInsert,navigation,set
         <Text style={styles.headerText}>{header_title}</Text>
         {setIsSubmit!=null && (
           <TouchableOpacity style={styles.btn} onPress={()=>onSubmit()}>
-            <Text style={styles.btnText}>전송</Text>
-          </TouchableOpacity>
-        )}
-        {IsInsert!=null && (
-          <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('UploadNotice')}>
-            <Text style={styles.btnText}>글쓰기</Text>
+            <Text style={styles.btnText}>등록</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -67,16 +62,18 @@ const styles = StyleSheet.create({
     paddingLeft:20,  
   },
   btn:{
-    width:50,
-    height:30,
+    width:80,
+    height:36,
+    marginRight: 8,
     borderRadius:10,
-    backgroundColor:'#e2e2e2',
+    backgroundColor: colors.primary,
     justifyContent: 'center',
     position: 'absolute', 
     right: 5
   },
   btnText:{
     textAlign:'center',
-    fontSize:15
+    fontSize:15,
+    color: colors.background
   },  
 });

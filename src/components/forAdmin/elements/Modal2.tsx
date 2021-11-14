@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet,TouchableOpacity, TextInput,Button} from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity, TextInput } from 'react-native';
 import { colors } from "../../elements/theme";
 import { addClass } from "../../../lib/api/forAdmin"
+import { useDispatch } from 'react-redux'
+import { setSnackbar } from "../../../modules/snackbar";
+import Button from '../../elements/Button'
 
 type Props = {
   setModalVisible:React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,6 +14,7 @@ type Props = {
 
 export default function Modal({setModalVisible,getListData,nameList} :Props) {
 
+  const dispatch = useDispatch()
   const [name,setName] = useState<any>()
 
   const insertClass = () => {
@@ -18,11 +22,11 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
       if(nameList.find((x:any) => x==name) == undefined)
         addClass({name:name})
       else
-        alert('이미 입력된 이름입니다.')
+        dispatch(setSnackbar({ visible: true, snackbar: '이미 추가된 반입니다.' }))
       
     }
     else
-      alert('반 이름을 입력하세요.')
+      dispatch(setSnackbar({ visible: true, snackbar: '반 이름을 입력해주세요.' }))
   }
 
   const insertMethod = async() =>{
@@ -42,12 +46,19 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
         </View>
       </View>
       <View style={styles.btns}>
-        <TouchableOpacity onPress={() => [setModalVisible(false)]} style={styles.btn}>
-            <Text>닫기</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => insertMethod().then(getListData())} style={styles.btn}>
-            <Text>추가</Text>
-        </TouchableOpacity>
+        <Button
+          title='취소'
+          color='secondary'
+          onPress={() => [setModalVisible(false)]}
+          paddingHorizontal={50}
+        />
+        <Button
+          title='추가'
+          color='primary'
+          margin
+          onPress={() => insertMethod().then(getListData())}
+          paddingHorizontal={50}
+        />
       </View>
       
     </View>
@@ -65,8 +76,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',   
   },
   box: {
-    paddingTop:40,
-    paddingBottom:40,
+    marginVertical: 8,
     width: '100%',
   },
   box1:{
@@ -74,8 +84,9 @@ const styles = StyleSheet.create({
   },
   btns:{
     position:'absolute',
-    bottom:10,
-    flexDirection:'row'
+    bottom:16,
+    flexDirection:'row',
+    justifyContent: 'center'
   },
   btn:{
     flex:1,
@@ -90,11 +101,8 @@ const styles = StyleSheet.create({
   input1:{
     padding:10,
     borderWidth:1,
-    borderColor:'#bdbdbd',
+    borderColor: colors.secondary,
     borderRadius:10,
-  },
-  input2:{
-    textAlignVertical:'top',
-    padding:5,
+    fontFamily: 'Font'
   },
 });

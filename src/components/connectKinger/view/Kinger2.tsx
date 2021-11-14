@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
   list:{
     flexDirection: 'row',
     alignItems:'center',
-    backgroundColor:'#fff'
+    backgroundColor:'#fff',
+    marginHorizontal: 8
   },
   selectedList: {
     backgroundColor: '#fee9b0'

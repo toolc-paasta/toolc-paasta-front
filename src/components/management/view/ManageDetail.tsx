@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
+import Button from '../../elements/Button'
 import { colors } from "../../elements/theme";
 
 type Users = {
@@ -28,7 +29,7 @@ export default function ManageDetail({data,setModalVisible}:Props) {
         <View style={styles.topIcon}>
           <Icon
             name={'person-outline'}
-            size={25}
+            size={35}
             color="black"
             style={styles.icon}
           />
@@ -48,9 +49,12 @@ export default function ManageDetail({data,setModalVisible}:Props) {
       </View>
 
       <View style={styles.btnContainer}>
-        <TouchableOpacity style={styles.btn} onPress={()=>setModalVisible(false)}>
-          <Text>확인</Text>
-        </TouchableOpacity>
+      <Button 
+        title='확인'
+        color='primary'
+        paddingHorizontal={48}
+        onPress={() => setModalVisible(false)}
+      />
       </View>
     </ScrollView>
   );
@@ -61,12 +65,15 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent: 'center',
     height:150,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16
   },
   topIcon:{
     alignItems:'center',
     justifyContent: 'center',
     borderRadius:50,
-    borderWidth:1,
+    borderWidth:2,
+    borderColor: colors.primary,
     width:80,
     height:80,
     backgroundColor:'#ffffff'
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
     paddingBottom:10,
     width: Dimensions.get('window').width-30,
     borderBottomWidth:1,
-    borderBottomColor:'#bdbdbd',
+    borderBottomColor: colors.secondary,
     paddingLeft:15,
     paddingRight:15,
   },
@@ -87,7 +94,8 @@ const styles = StyleSheet.create({
   input1:{
     padding:5,
     fontSize:30,
-    textAlign:'center'
+    textAlign:'center',
+    marginBottom: 64
   },
   input1_2:{
     position:'absolute',
