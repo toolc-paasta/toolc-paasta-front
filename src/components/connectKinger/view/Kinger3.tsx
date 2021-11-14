@@ -4,45 +4,40 @@ import {
   Text,
   StyleSheet,
   View,
-
   TouchableOpacity
 } from 'react-native';
+import Button from '../../elements/Button'
+import { registerClass } from '../../../lib/api/connectKinger'
 
 type Props = {
-    area1:string;
-    area2:string;
-    kingerName:string;
-    auth:any;
+    kingerName: string;
+    kingerClass: string;
+    auth: any;
   };
 
-export default function Kinger3({area1,area2,kingerName,auth}:Props) {
+export default function Kinger3({kingerName, kingerClass, auth}:Props) {
 
   return (
     
-    <View style={styles.container}>      
+    <View style={styles.container}>
+      <Text style={styles.notice}>
+        해당 정보로 가입 요청하시겠습니까?
+      </Text>
       <View style={[styles.graph]}>
         <View style={styles.row}>
-          <View style={[styles.left,styles.left0]}>
-            <Text style={[styles.confirmText,styles.leftText]}>소속 시/도</Text>  
-          </View>
-          <View style={styles.right}>
-            <Text style={[styles.confirmText,styles.rightText]}>{area1}</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={[styles.left]}>
-            <Text style={[styles.confirmText,styles.leftText]}>소속 시/군/구</Text>
-          </View>
-          <View style={styles.right}>
-            <Text style={[styles.confirmText,styles.rightText]}>{area2}</Text>
-          </View>
-        </View>
-        <View style={styles.row}>
-          <View style={[styles.left]}>
+          <View style={[styles.left, styles.left0]}>
             <Text style={[styles.confirmText,styles.leftText]}>가입 유치원</Text>
           </View>
           <View style={styles.right}>
             <Text style={[styles.confirmText,styles.rightText]}>{kingerName}</Text>
+          </View>
+        </View>
+        <View style={styles.row}>
+          <View style={[styles.left]}>
+            <Text style={[styles.confirmText,styles.leftText]}>가입 반</Text>
+          </View>
+          <View style={styles.right}>
+            <Text style={[styles.confirmText,styles.rightText]}>{kingerClass}</Text>
           </View>
         </View>
         <View style={[styles.row,styles.row0]}>
@@ -54,9 +49,13 @@ export default function Kinger3({area1,area2,kingerName,auth}:Props) {
           </View>
         </View>
       </View>
-      <TouchableOpacity style={[styles.confirmBtn]} onPress={() => console.log()}>
-        <Text style={[styles.confirmText,styles.confirmBtnText]}>등록하기</Text>
-      </TouchableOpacity>
+      <Button
+        title='요청하기                  '
+        color='primary'
+        wide
+        onPress={() => registerClass({centerName: kingerName, className: kingerClass})}
+        paddingHorizontal={24}
+      />
     </View>
   );
 };
@@ -64,9 +63,12 @@ export default function Kinger3({area1,area2,kingerName,auth}:Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems:'center',
     height:'100%'
+  },
+  notice: {
+    fontSize: 24,
+    marginVertical: 32
   },
   questionText:{
     fontSize:25,
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     borderColor:'#ffd257',
     borderRadius:10,
     flexDirection:'column',
+    marginBottom: 32
   },
   row:{
     flexDirection:'row',
