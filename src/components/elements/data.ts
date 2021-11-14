@@ -68,8 +68,9 @@ export const btns_for_di = [
       img: "mail-outline",
       onclick: "NoticeBoard",
    },
-   { id: 2, title: "반 추가", img: "clipboard-outline", onclick: "ForAdmin" },
-   { id: 3, title: "셔틀 관리", img: "car-outline", onclick: "Shuttle" },
+   { id: 2, title: "반등록 요청", img: "call-outline", onclick: "Notice" },
+   { id: 3, title: "반 추가", img: "clipboard-outline", onclick: "ForAdmin" },
+   { id: 4, title: "셔틀 관리", img: "car-outline", onclick: "Shuttle" },
    { id: 5, title: "전화번호부", img: "log-in-outline", onclick: "Contact" },
 ];
 

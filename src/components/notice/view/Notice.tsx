@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
-import { Text, StyleSheet, View, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList, Dimensions } from "react-native";
 import Constants from "expo-constants";
 import Header from "../../elements/Header";
 import { RegisterCenterNoti } from "../types";
 import { StackScreenNavigation } from "../../../screens/NoticeScreen";
 import { ListItem } from "react-native-elements";
-import Button from '../../elements/Button'
+import Button from "../../elements/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../modules";
+import { logout } from "../../../lib/api/auth";
+import Icon from "react-native-vector-icons/Ionicons";
 
 type Props = {
    navigation: StackScreenNavigation;
@@ -49,10 +51,12 @@ export default function Notice({
             content={
                <ListItem.Content>
                   <ListItem.Title style={styles.listItemTitle}>
-                     {item.user.name}님이 {isAdmin ? "유치원" : "반"} 등록을 요청했습니다.
+                     {item.user.name}님이 {isAdmin ? "유치원" : "반"} 등록을
+                     요청했습니다.
                   </ListItem.Title>
                   <ListItem.Subtitle style={styles.listItemSubTitle}>
-                     아이디 : {item.user.loginId}&nbsp;&nbsp;&nbsp;&nbsp;전화번호 :{" "}
+                     아이디 : {item.user.loginId}
+                     &nbsp;&nbsp;&nbsp;&nbsp;전화번호 :{" "}
                      {item.user.connectionNumber}
                   </ListItem.Subtitle>
                </ListItem.Content>
@@ -111,6 +115,20 @@ export default function Notice({
             IsInsert={null}
             setModalVisible={false}
          />
+         <View
+            style={{
+               position: "absolute",
+               top: 10,
+               left: Dimensions.get("window").width - 50,
+            }}>
+            <Icon
+               name={"log-out-outline"}
+               size={35}
+               color="black"
+               style={styles.icon}
+               onPress={() => [logout(), navigation.navigate("Auth")]}
+            />
+         </View>
          <View style={styles.container}>
             <FlatList
                data={registerCenterNotis}
@@ -150,9 +168,13 @@ const styles = StyleSheet.create({
       justifyContent: "space-around",
    },
    listItemTitle: {
-      fontFamily: 'Font',
+      fontFamily: "Font",
    },
    listItemSubTitle: {
-      fontFamily: 'Font',
-   }
+      fontFamily: "Font",
+   },
+   icon: {
+      fontSize: 30,
+      paddingLeft: 10,
+   },
 });
