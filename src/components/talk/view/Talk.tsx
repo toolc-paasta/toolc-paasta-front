@@ -3,8 +3,10 @@ import { Text, StyleSheet, View, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import Header from "../../elements/Header";
 import { navigationRef } from "../../../../RootNavigation";
-import { Button, Input, ListItem } from "react-native-elements";
+import { Input, ListItem } from "react-native-elements";
+import Button from '../../elements/Button'
 import { messageType } from "../types";
+import { colors } from '../../elements/theme'
 
 type Props = {
    messages: messageType[];
@@ -34,7 +36,7 @@ export default function Talk({
             IsInsert={null}
             setModalVisible={false}
          />
-         <View style={{ flex: 1 }}>
+         <View style={{ flex: 1, paddingHorizontal: 16 }}>
             <View style={styles.chatBox}>
                <ScrollView ref={scrollViewRef}>
                   {messages?.map((item, idx) => {
@@ -82,13 +84,15 @@ export default function Talk({
                <Input
                   value={message}
                   onChangeText={onChange}
-                  containerStyle={{ width: "85%" }}
+                  containerStyle={{ width: "80%" }}
+                  inputContainerStyle={styles.inputContainer}
+                  inputStyle={styles.input}
                />
                <Button
-                  title="send"
-                  type="clear"
+                  title="전송"
+                  color="primary"
                   onPress={() => sendMessage(message)}
-                  containerStyle={{ width: "13%" }}
+                  paddingHorizontal={16}
                />
             </View>
          </View>
@@ -114,9 +118,18 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       justifyContent: "center",
-      paddingTop: Constants.statusBarHeight,
+      // paddingTop: Constants.statusBarHeight,
       backgroundColor: "#fff",
-      padding: 15,
+   },
+   inputContainer: {
+      borderWidth: 1,
+      borderColor: colors.primary,
+      borderRadius: 12,
+      height: 50,
+      paddingHorizontal: 8,
+   },
+   input: {
+      fontFamily: 'Font'
    },
    chatBox: {
       flex: 9,

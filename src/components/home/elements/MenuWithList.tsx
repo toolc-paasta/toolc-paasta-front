@@ -69,7 +69,7 @@ export default function MenuWithList({navigation,list}:Props) {
       }}>
         <View style={styles.modalView}>
           <View>
-            <ListDetail data={data} setModalVisible={setModalVisible} navigation={navigation} header_title='공지 상세'/>
+            <ListDetail data={data} setModalVisible={setModalVisible} navigation={navigation} header_title='공지 모아보기'/>
           </View>
         </View>
       </Modal>
@@ -123,8 +123,6 @@ const styles = StyleSheet.create({
   modalView: {
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width,
-    paddingLeft:15,
-    paddingRight:15,
     backgroundColor:'#ffffff'
   },
 });
