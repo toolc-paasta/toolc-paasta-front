@@ -9,7 +9,7 @@ import {
 import { btns_for_di, btns_for_pr } from "../../elements/data";
 import { btns_for_ad } from "../../elements/data";
 import Icon from "react-native-vector-icons/Ionicons";
-import { BottomTabNavigation } from "../../../screens/SearchScreen";
+import { BottomTabNavigation } from "../../../screens/HomeScreen";
 
 type Btn = {
    id: number;

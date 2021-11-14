@@ -1,28 +1,31 @@
-import React from "react";
-import { useEffect } from "react";
-import { loading } from "../../../modules/loading";
+import React, { useState, useEffect } from "react";
 import { BottomTabNavigation } from "../../../screens/HomeScreen";
 import Home from "../view/Home";
 import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
-import { getParentInfo } from "../../../lib/api/auth";
+import { getNotice } from "../../../lib/api/forAdmin"
 
 type Props = {
    navigation: BottomTabNavigation;
-};
-
+}
 function HomeContainer({ navigation }: Props) {
-   let res;
 
    const auth = useSelector(({ auth }: RootState) => auth);
+   const [list, setList] = useState<any>();
 
-   const getInfo = async () => {};
-
-   useEffect(() => {
-      getInfo();
+   const getData = async() => {
+      const data = await getNotice();
+      data.map((item:any, i:number) => (
+         console.log(item)
+      ))
+      
+      setList(data)
+   }
+   useEffect(() => {      
+      getData();
    }, []);
 
-   return <Home navigation={navigation} auth={auth} />;
+   return <Home navigation={navigation} auth={auth} list={list} />;
 }
 
 export default HomeContainer;

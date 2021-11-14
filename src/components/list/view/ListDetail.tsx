@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, ScrollView, Dimensions} from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Dimensions,Image} from 'react-native';
 import Constants from 'expo-constants';
 import { comment } from '../../elements/data';
 import Header from '../../elements/Header'
 import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
 
 type List = {
-  time: Date; 
+  dateTime: string; 
   title: string; 
   content:string;
 }
@@ -20,7 +20,6 @@ type Props = {
 
 export default function ListDetail({data,setModalVisible,header_title,navigation,} :Props) {
 
-
   return (
     <ScrollView style={styles.container}>
       <Header header_title={header_title} setModalVisible={setModalVisible} setIsSubmit={null} navigation={navigation} IsInsert={null}/>
@@ -29,8 +28,16 @@ export default function ListDetail({data,setModalVisible,header_title,navigation
         <Text style={styles.input1_2}>{data.dateTime.split('-')[1]}월 {data.dateTime.split('-')[2]}일</Text>
       </View>
       <View style={[styles.box, styles.box2]}>
-        <Text style={styles.input2}>{data.content}</Text>
+        <Text style={styles.input2} >{data.content}</Text>
       </View>
+      {data?.img != '' &&(
+        <View style={[styles.box, styles.box2]}>
+          <Image
+            style={{height:200,width:'100%'}}
+            source={{uri:data.img}}
+          />
+        </View>
+      )}
       
       
     </ScrollView>

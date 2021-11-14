@@ -25,8 +25,7 @@ export default function List({navigation, headerTitle,auth,list}:Props) {
   const makeTime = (t: Date) => {
     const Time2string = String(t).split('-')
     const Time2string2 = Time2string[2].split(':')
-    const newTime = new Date(Number(Time2string[0]), Number(Time2string[1])-1, Number(Time2string2[0].substring(0,2)), Number(Time2string2[0].substring(3,5)), Number(Time2string2[1]), Number(Time2string2[2]))
-    console.log(Number(Time2string2[0].substring(3,5)))
+    const newTime = new Date(Number(Time2string[0]), Number(Time2string[1])-1, Number(Time2string2[0].substring(0,2)), Number(Time2string2[0].substring(3,5)), Number(Time2string2[1]), Number(Time2string2[2]))    
     const sec = Math.floor((date.getTime()-newTime.getTime())/1000)
     let temp = sec
     let count = 0
@@ -48,7 +47,7 @@ export default function List({navigation, headerTitle,auth,list}:Props) {
     <View style={styles.container}>
       <Header header_title={headerTitle} navigation={navigation} IsInsert={auth.authority == 'PARENT' ? null : true} setIsSubmit={null} setModalVisible={false}/>
       <ScrollView style={styles.listContainer}>
-        {list?.map((item:any, i:number) => (
+        {list?.reverse().map((item:any, i:number) => (
           <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
             <View>
               <Text style={styles.mainText}>[ {item.author == item.center.director.name ? '전체 공지' : '반 공지'} ]  {item.title}</Text>
