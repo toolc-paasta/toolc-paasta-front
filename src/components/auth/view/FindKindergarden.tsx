@@ -1,10 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, FlatList, TouchableOpacity } from "react-native";
 import code from "../sigungu.json";
 import ModalSelector from "react-native-modal-selector";
 import { Button, Input, ListItem } from "react-native-elements";
 import { areaInfoType, kinderListType, kinderType } from "../types";
 import { ScrollView } from "react-native-gesture-handler";
+import { colors } from '../../elements/theme'
 
 type Props = {
    areaInfo: areaInfoType;
@@ -38,26 +39,55 @@ function FindKindergarden({
    foundationDateErr,
    onChangeFoundationDate,
 }: Props) {
+
+   const ItemView = ({ item }: any) => {
+      return (
+        <TouchableOpacity style={[
+          styles.list,
+          selectedKinder?.centerName === item.centerName ? styles.selectedList : styles.defaultList
+        ]} onPress={() => onPressKinder(item)}>
+          <Text style={[styles.itemStyle, styles.itemStyle1]}>
+            {item.centerName}
+          </Text>
+          <Text style={[styles.itemStyle, styles.itemStyle2]}>
+            {item.address}
+            {"\n"}
+            {item.tel}
+          </Text>
+        </TouchableOpacity>
+      )
+   }
+
+   const ItemSeparatorView = () => {
+      return (
+        // Flat List Item Separator
+        <View
+          style={{
+            height: 0.6,
+            width: '100%',
+            backgroundColor: '#ffd257',
+          }}
+        />
+      );
+   };
+
    return (
       <View style={styles.container}>
          <ListItem>
-            <Text>설립일</Text>
-            <ListItem.Content
-               style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-               }}>
+            <Text style={{ paddingBottom: 28 }}>설립일</Text>
+            <ListItem.Content>
                <Input
                   placeholder="20180429"
                   value={selectedKinder?.foundationDate}
                   onChangeText={(v) => onChangeFoundationDate(v)}
-                  containerStyle={{ width: 200 }}
+                  containerStyle={{ width: 250 }}
+                  inputContainerStyle={styles.inputContainer}
+                  inputStyle={{ fontFamily: "Font" }}
                   errorMessage={foundationDateErr}
                />
             </ListItem.Content>
          </ListItem>
-         <View style={styles.selectContaienr}>
+         <View style={styles.selectContainer}>
             <ModalSelector
                data={state}
                initValue="지역"
@@ -68,7 +98,8 @@ function FindKindergarden({
                      state: option.key,
                   })
                }
-               style={{ width: 120, marginRight: 20 }}
+               style={styles.modal}
+               cancelText="취소"
                renderItem={() => <></>}
             />
             <ModalSelector
@@ -80,56 +111,75 @@ function FindKindergarden({
                      area: parseInt(option.key),
                   }))
                }
-               style={{ width: 120, marginRight: 20 }}
+               style={styles.modal}
                renderItem={() => <></>}
             />
-            <Button title="검색" type="clear" onPress={onSearchKinder} />
+            <Button title="검색" type="clear" 
+               titleStyle={{ fontFamily: 'Font', color: colors.primary }}
+               onPress={onSearchKinder} />
          </View>
-         <ScrollView style={styles.kinderListContainer}>
-            {kinderList?.map((item, idx) => (
-               <ListItem
-                  key={`kinder_${idx}`}
-                  onPress={() => onPressKinder(item)}
-                  style={[
-                     styleFunc(item.centerName === selectedKinder?.centerName)
-                        .listItem,
-                  ]}>
-                  <ListItem.Content>
-                     <ListItem.Title>{item.centerName}</ListItem.Title>
-                     <ListItem.Subtitle>
-                        {item.tel}
-                        {"\t"}
-                        {item.address}
-                     </ListItem.Subtitle>
-                  </ListItem.Content>
-               </ListItem>
-            ))}
-         </ScrollView>
+         <FlatList
+            data={kinderList}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={ItemSeparatorView}
+            renderItem={ItemView}
+          />
       </View>
    );
 }
-
-const styleFunc = (selected: boolean) =>
-   StyleSheet.create({
-      listItem: {
-         borderColor: selected ? "#2196f3" : "transparent",
-         borderWidth: selected ? 2 : 0,
-         borderRadius: 20,
-         overflow: "hidden",
-      },
-   });
 
 const styles = StyleSheet.create({
    container: {
       flex: 1,
       backgroundColor: "#fff",
+      paddingHorizontal: 20
    },
-   selectContaienr: {
+   selectContainer: {
       flexDirection: "row",
       paddingLeft: 30,
+      marginBottom: 32
+   },
+   listItem: {
+      paddingBottom: 0
+   },
+   list: {
+      flexDirection: 'row',
+      alignItems:'center',
+   },
+   selectedList: {
+      backgroundColor: colors.secondary
+   },
+   defaultList: {
+      backgroundColor: '#fff'
+   },
+   inputContainer: {
+      borderBottomColor: colors.primary
    },
    kinderListContainer: {
-      padding: 20,
+      paddingHorizontal: 20,
+      marginVertical: 20
+   },
+   modal: {
+      width: 100,
+      marginRight: 20,
+      borderRadius: 32
+   },
+   itemStyle: {
+      padding: 5,
+      height:60,
+      textAlignVertical:'center',
+      justifyContent: 'center',
+      fontSize:15,
+   },
+   itemStyle1: {
+      position:'relative',
+      left:5,
+   },
+   itemStyle2: {
+      position:'absolute',
+      right:5,
+      fontSize: 11,
+      textAlign: 'right'
    },
 });
 

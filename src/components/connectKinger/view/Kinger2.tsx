@@ -12,14 +12,7 @@ import {
   Alert 
 } from 'react-native';
 import Constants from 'expo-constants';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from "../../elements/theme";
-import { getCenter } from '../../../lib/api/connectKinger'
-
-type Item = {
-  name:string;
-  contact:number;
-}
 
 type Props = {
   kingerClasses: any;
@@ -65,6 +58,9 @@ export default function Kinger2({ kingerClasses, kingerClass, setKingerClass }:P
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
+        {kingerClasses.length === 0 && (
+          <Text style={{ textAlign: 'center', fontSize: 20 }}>아직 등록된 반이 없습니다.</Text>
+        )}
         <FlatList
           data={kingerClasses}
           keyExtractor={(item, index) => index.toString()}
