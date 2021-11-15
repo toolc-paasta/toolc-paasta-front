@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
+import { BottomTabNavigation } from "../../../screens/ShuttleScreen";
 import Button from '../../elements/Button'
 import { registerClass } from '../../../lib/api/connectKinger'
 
@@ -13,9 +14,10 @@ type Props = {
     kingerName: string;
     kingerClass: string;
     auth: any;
+    navigation: BottomTabNavigation;
   };
 
-export default function Kinger3({kingerName, kingerClass, auth}:Props) {
+export default function Kinger3({ kingerName, kingerClass, auth, navigation }:Props) {
 
   return (
     
@@ -53,7 +55,10 @@ export default function Kinger3({kingerName, kingerClass, auth}:Props) {
         title='요청하기                  '
         color='primary'
         wide
-        onPress={() => registerClass({centerName: kingerName, className: kingerClass})}
+        onPress={() => {
+          registerClass({centerName: kingerName, className: kingerClass})
+          navigation.navigate('Home')
+        }}
         paddingHorizontal={24}
       />
     </View>

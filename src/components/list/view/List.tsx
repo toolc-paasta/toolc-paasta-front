@@ -6,6 +6,8 @@ import { list_notice } from '../../elements/data';
 import Header from '../../elements/Header'
 import ListDetail from './ListDetail'
 import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
+import { colors } from '../../elements/theme'
+import { FAB } from "react-native-elements";
 
 type Props = {
   headerTitle:string;
@@ -13,6 +15,12 @@ type Props = {
   auth:any;
   list:any;
 };
+
+const processText = (limit: number, text: string) => (
+  text.length > limit ?
+    text.slice(0, limit) + '...' :
+    text
+)
 
 export default function List({navigation, headerTitle,auth,list}:Props) {
 
@@ -47,16 +55,29 @@ export default function List({navigation, headerTitle,auth,list}:Props) {
     <View style={styles.container}>
       <Header header_title={headerTitle} navigation={navigation} IsInsert={auth.authority == 'PARENT' ? null : true} setIsSubmit={null} setModalVisible={false}/>
       <ScrollView style={styles.listContainer}>
-        {list?.reverse().map((item:any, i:number) => (
-          <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
+        {list && [...list].reverse().map((item:any, i:number) => (
+          <TouchableOpacity style={[styles.list, i % 2 ? styles.bgList : styles.list]} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
             <View>
-              <Text style={styles.mainText}>[ {item.author == item.center.director.name ? '전체 공지' : '반 공지'} ]  {item.title}</Text>
-              <Text style={styles.subText} numberOfLines={1}>{item.content}</Text>
+              <Text style={styles.mainText}>[ {item.author == item.center.director.name ? '전체 공지' : '반 공지'} ]  {processText(13, item.title)}</Text>
+              <Text style={styles.subText}>{processText(20, item.content)}</Text>
             </View>
             <Text style={styles.numText}>{makeTime(item.updatedAt)}</Text>
           </TouchableOpacity>  
         ))}
       </ScrollView>
+      <View style={styles.fabButtonWrap}>
+        {auth.authority !== 'PARENT' && <FAB
+          visible={true}
+          raised
+          icon={{
+              name: "plus",
+              type: "font-awesome",
+              color: "white"
+          }}
+          buttonStyle={styles.fabButton}
+          onPress={() => navigation.navigate('UploadNotice')}
+        />}
+      </View>
       <Modal
         animationType="slide"
         transparent={true}
@@ -88,11 +109,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height:70,
     flexDirection: 'row',
-    borderBottomWidth:1,
-    borderBottomColor:'#bdbdbd'
+    paddingHorizontal: 8
+  },
+  bgList: {
+    backgroundColor: colors.bgSecondary
   },
   mainText:{
-    fontWeight:'bold',
     fontSize:15,
     paddingBottom:10,
     textAlign:'left',
@@ -100,10 +122,11 @@ const styles = StyleSheet.create({
   subText:{
     width:250,
     fontSize:13,
+    color: '#666666',
   },
   numText:{
     position:'absolute',
-    right:5,
+    right:8,
     fontSize:12,
     textAlign:'right',
     paddingTop:1,
@@ -115,11 +138,20 @@ const styles = StyleSheet.create({
     paddingBottom:5,
     fontFamily:'Font'
   },
+  fabButtonWrap:{
+    position:'absolute',
+    bottom:25,
+    right:25,
+  },
+  fabButton: {
+    width: 60,
+    height: 60,
+    backgroundColor: colors.primary,
+    
+  }, 
   modalView: {
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width,
-    paddingLeft:15,
-    paddingRight:15,
     backgroundColor:'#ffffff'
   },
 });

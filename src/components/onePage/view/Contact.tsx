@@ -13,6 +13,7 @@ import Header from '../../elements/Header'
 import { users } from '../../elements/data';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { BottomTabNavigation } from "../../../screens/ContactScreen";
+import { colors } from '../../elements/theme';
 
 type Props = {
   navigation:BottomTabNavigation;
@@ -57,11 +58,11 @@ export default function Contact({navigation,setFilteredDataSource,filteredDataSo
 
   const ItemView = ({ item }:any) => {
     return (
-      <TouchableOpacity style={styles.list} onPress={() => getItem(item)}>
+      <View style={styles.list}>
         <View style={[styles.itemStyle,styles.iconBox]}>
           <Icon
-            name={'person-circle-outline'}
-            size={35}
+            name={'person-outline'}
+            size={30}
             color="black"
             style={styles.icon}
           />
@@ -72,7 +73,7 @@ export default function Contact({navigation,setFilteredDataSource,filteredDataSo
         <Text style={[styles.itemStyle,styles.itemStyle2]}>
           {item?.connectionNumber}
         </Text>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -83,26 +84,21 @@ export default function Contact({navigation,setFilteredDataSource,filteredDataSo
         style={{
           height: 0.5,
           width: '100%',
-          backgroundColor: '#C8C8C8',
+          backgroundColor: colors.secondary,
         }}
       />
     );
-  };
-
-  const getItem = (item:Item) => {
-    
-    alert('name : ' + item.name + ' / phone : ' + item.contact);
   };
 
   return (
     <View style={styles.container}>
       <Header header_title={'전화번호부'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
       <SafeAreaView style={{ flex: 1 }}>
-        <View>
+        <View style={{ paddingHorizontal: 16 }}>
           <View style={styles.searchBox}>
             <Icon
               name={'search-outline'}
-              size={35}
+              size={30}
               color="black"
               style={styles.icon}
             />
@@ -131,9 +127,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
     backgroundColor: '#fff',
-    padding: 15,
   },
   searchBox:{
     flexDirection: 'row',
@@ -141,7 +136,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     height:50,
     borderWidth: 1,
-    borderColor:'#c8c8c8',
+    borderColor: colors.secondary,
     marginTop:15,
     marginBottom:15,
     padding:10,
@@ -171,6 +166,7 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     paddingLeft:10,
+    fontFamily: 'Font'
   },
 });
 

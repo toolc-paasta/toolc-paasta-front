@@ -3,8 +3,10 @@ import { Text, StyleSheet, View, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import Header from "../../elements/Header";
 import { navigationRef } from "../../../../RootNavigation";
-import { Button, Input, ListItem } from "react-native-elements";
+import { Input, ListItem } from "react-native-elements";
+import Button from '../../elements/Button'
 import { messageType } from "../types";
+import { colors } from '../../elements/theme'
 
 type Props = {
    messages: messageType[];
@@ -28,13 +30,13 @@ export default function Talk({
    return (
       <View style={styles.container}>
          <Header
-            header_title={title ? `${title} 학부모 님` : "담임선생님"}
+            header_title={title ? `${title} 학부모님` : "담임선생님"}
             navigation={navigationRef.current}
             setIsSubmit={null}
             IsInsert={null}
             setModalVisible={false}
          />
-         <View style={{ flex: 1 }}>
+         <View style={{ flex: 1, paddingHorizontal: 4 }}>
             <View style={styles.chatBox}>
                <ScrollView ref={scrollViewRef}>
                   {messages?.map((item, idx) => {
@@ -69,7 +71,7 @@ export default function Talk({
                                     bottom: 10,
                                  },
                               ]}>
-                              <Text style={{ fontSize: 10, color: "gray" }}>
+                              <Text style={{ fontSize: 10, color: "gray", fontFamily: 'Font' }}>
                                  {item.time}
                               </Text>
                            </View>
@@ -82,13 +84,15 @@ export default function Talk({
                <Input
                   value={message}
                   onChangeText={onChange}
-                  containerStyle={{ width: "85%" }}
+                  containerStyle={{ width: "80%" }}
+                  inputContainerStyle={styles.inputContainer}
+                  inputStyle={styles.input}
                />
                <Button
-                  title="send"
-                  type="clear"
+                  title="전송"
+                  color="primary"
                   onPress={() => sendMessage(message)}
-                  containerStyle={{ width: "13%" }}
+                  paddingHorizontal={16}
                />
             </View>
          </View>
@@ -104,9 +108,10 @@ const stylesFunc = ({ isMe }: { isMe: boolean }) =>
       },
       content: {
          padding: 10,
-         borderWidth: 1,
-         borderRadius: 20,
-         borderColor: "rgba(0,0,0,0.5)",
+         paddingHorizontal: 14,
+         borderRadius: 32,
+         backgroundColor: isMe ? colors.primary : colors.secondary,
+         fontFamily: 'Font'
       },
    });
 
@@ -114,9 +119,18 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       justifyContent: "center",
-      paddingTop: Constants.statusBarHeight,
+      // paddingTop: Constants.statusBarHeight,
       backgroundColor: "#fff",
-      padding: 15,
+   },
+   inputContainer: {
+      borderWidth: 1,
+      borderColor: colors.primary,
+      borderRadius: 12,
+      height: 50,
+      paddingHorizontal: 8,
+   },
+   input: {
+      fontFamily: 'Font'
    },
    chatBox: {
       flex: 9,

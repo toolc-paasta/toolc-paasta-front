@@ -4,6 +4,7 @@ import {
    View,
    StyleSheet,
    TextInput,
+   Text,
    ScrollView,
 } from "react-native";
 import Constants from "expo-constants";
@@ -11,6 +12,7 @@ import Header from "../../elements/Header";
 import { StackScreenNavigation } from "../../../screens/UploadNoticeScreen";
 import { Image } from "react-native-elements";
 import { ImageLibraryReturn } from "../container/UploadNoticeContainer";
+import { colors } from '../../elements/theme'
 
 type Props = {
    navigation: StackScreenNavigation;
@@ -35,13 +37,13 @@ export default function UploadNotice({
    return (
       <View style={styles.container}>
          <Header
-            header_title={"글쓰기"}
+            header_title={"공지 작성"}
             navigation={navigation}
             setIsSubmit={changeIsSubmit}
             IsInsert={null}
             setModalVisible={false}
          />
-         <ScrollView>
+         <View style={{ height: '100%' }}>
             <View style={[styles.box, styles.box1]}>
                <TextInput
                   style={styles.input1}
@@ -59,23 +61,22 @@ export default function UploadNotice({
                />
             </View>
             <View style={[styles.imageContainer, { height: IMAGE_HEIGHT }]}>
+               <Text style={{ marginTop: 8, paddingVertical: 8, fontSize: 16 }}>이미지 추가</Text>
                <Image
                   source={{ uri: photo?.uri }}
                   defaultSource={require("../../../../assets/default.jpg")}
                   containerStyle={{
                      width: IMAGE_WIDTH,
                      height: IMAGE_HEIGHT,
-                     borderRadius: 40,
-                     borderWidth: 2,
-                     borderColor: "#bdbdbd",
-                     backgroundColor: "#bdbdbd",
+                     borderRadius: 32,
+                     backgroundColor: colors.bgSecondary,
                   }}
                   resizeMode="cover"
                   progressiveRenderingEnabled
                   onPress={pickPhoto}
                />
             </View>
-         </ScrollView>
+         </View>
       </View>
    );
 }
@@ -83,30 +84,29 @@ export default function UploadNotice({
 const styles = StyleSheet.create({
    container: {
       flex: 1,
-
-      paddingTop: Constants.statusBarHeight,
+      // paddingTop: Constants.statusBarHeight,
       backgroundColor: "#fff",
-      padding: 15,
    },
    box: {
-      paddingTop: 10,
-      paddingBottom: 10,
+      padding: 10,
       width: Dimensions.get("window").width,
    },
    box1: {
       borderBottomWidth: 1,
-      borderBottomColor: "#bdbdbd",
+      borderBottomColor: colors.secondary,
    },
    box2: {
       borderBottomWidth: 1,
-      borderBottomColor: "#bdbdbd",
+      borderBottomColor: colors.secondary,
    },
    input1: {
       padding: 5,
+      fontFamily: 'Font'
    },
    input2: {
       textAlignVertical: "top",
       padding: 5,
+      fontFamily: 'Font'
    },
    imageContainer: {
       width: "100%",

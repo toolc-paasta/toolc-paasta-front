@@ -41,9 +41,9 @@ function ParentList({ parents, goToTalkRoom, message }: Props) {
                   renderItem={({ item }) => (
                      <ListItem onPress={() => goToTalkRoom(item)}>
                         <ListItem.Content>
-                           <ListItem.Title>{item.name} 학부모님</ListItem.Title>
-                           <ListItem.Subtitle>
-                              최근 메세지 :{" "}
+                           <ListItem.Title style={{ fontFamily: 'Font' }}>{item.name} 학부모님</ListItem.Title>
+                           <ListItem.Subtitle style={{ fontFamily: 'Font' }}>
+                              최근 메시지 :{" "}
                               {
                                  message?.filter(
                                     (m) => m.sender === item.loginId
@@ -65,9 +65,8 @@ const styles = StyleSheet.create({
    container: {
       flex: 1,
       justifyContent: "center",
-      paddingTop: Constants.statusBarHeight,
+      // paddingTop: Constants.statusBarHeight,
       backgroundColor: "#fff",
-      padding: 15,
    },
 });
 

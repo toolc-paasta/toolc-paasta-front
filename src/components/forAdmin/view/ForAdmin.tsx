@@ -26,19 +26,19 @@ export default function ForAdmin({navigation,auth,list,getListData,nameList}:Pro
 
   return (
     <View style={[styles.container,modalVisible==true?{backgroundColor:'#bdbdbd'}:{backgroundColor:'#fff'}]}>
-        <Header header_title={'반/학생 추가'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
+        <Header header_title={auth.authority === 'DIRECTOR' ? '반 추가' : '어린이 추가'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
         <ScrollView style={styles.listContainer}>
         {DATA?.map((item:any, i:number) => (
-          <TouchableOpacity style={styles.list} key={i} onPress={() => []}>
+          <View style={styles.list} key={i}>
             <View>
-              {auth.authority == 'DIRECTOR' ? (
+              {auth.authority === 'DIRECTOR' ? (
                 <Text style={styles.subText} numberOfLines={1}>{item.className} 반</Text>
               ) : (
                 <Text style={styles.subText} numberOfLines={1}>{item.childName} 어린이</Text>                
               )}
               
             </View>
-          </TouchableOpacity>  
+          </View>  
           
         ))}
       </ScrollView>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     paddingLeft:10,
     flexDirection: 'row',
     borderBottomWidth:1,
-    borderBottomColor:'#bdbdbd'
+    borderBottomColor: colors.secondary
   },
   mainText:{
     fontWeight:'bold',

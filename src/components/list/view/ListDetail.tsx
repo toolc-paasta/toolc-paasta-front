@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 import { comment } from '../../elements/data';
 import Header from '../../elements/Header'
 import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
+import { colors } from '../../elements/theme'
 
 type List = {
   dateTime: string; 
@@ -23,37 +24,39 @@ export default function ListDetail({data,setModalVisible,header_title,navigation
   return (
     <ScrollView style={styles.container}>
       <Header header_title={header_title} setModalVisible={setModalVisible} setIsSubmit={null} navigation={navigation} IsInsert={null}/>
-      <View style={[styles.box, styles.box1]}>
-        <Text style={styles.input1}>{data.title}</Text>
-        <Text style={styles.input1_2}>{data.dateTime.split('-')[1]}월 {data.dateTime.split('-')[2]}일</Text>
-      </View>
-      <View style={[styles.box, styles.box2]}>
-        <Text style={styles.input2} >{data.content}</Text>
-      </View>
-      {data?.img != '' &&(
-        <View style={[styles.box, styles.box2]}>
-          <Image
-            style={{height:200,width:'100%'}}
-            source={{uri:data.img}}
-          />
+      <View style={styles.listContainer}>
+        <View style={[styles.box, styles.box1]}>
+          <Text style={styles.input1}>{data.title}</Text>
+          <Text style={styles.input1_2}>{data.dateTime.split('-')[1]}월 {data.dateTime.split('-')[2]}일</Text>
         </View>
-      )}
-      
-      
+        <View style={[styles.box, styles.box2]}>
+          <Text style={styles.input2} >{data.content}</Text>
+        </View>
+        {data?.img != '' &&(
+          <View style={[styles.box, styles.box2]}>
+            <Image
+              style={{height:200,width:'100%'}}
+              source={{uri:data.img}}
+            />
+          </View>
+        )}
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight,
+  },
+  listContainer: {
+    paddingHorizontal: 16
   },
   box: {
     paddingTop:10,
     paddingBottom:10,
     width: Dimensions.get('window').width-30,
     borderBottomWidth:1,
-    borderBottomColor:'#bdbdbd',
+    borderBottomColor: colors.secondary,
   },
   box1:{
     flexDirection: 'row',
@@ -65,6 +68,7 @@ const styles = StyleSheet.create({
     borderBottomWidth:0,
   },
   input1:{
+    width: 250,
     padding:5,
     fontSize:20
   },
