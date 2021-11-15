@@ -71,7 +71,6 @@ function ParentListContainer({
          // Screen was focused
          // Do something
          getList();
-         console.log("focused");
       });
       return unsubscribe;
    }, [pubnub]);

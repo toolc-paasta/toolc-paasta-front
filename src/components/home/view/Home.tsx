@@ -29,7 +29,7 @@ const articleTopStyleConst = {
 type Props = {
    navigation: BottomTabNavigation;
    auth: any;
-   list:any;
+   list: any;
 };
 
 function Home({ navigation, auth, list }: Props) {
@@ -64,15 +64,6 @@ function Home({ navigation, auth, list }: Props) {
                   <View style={styles.header}>
                      <Text style={styles.headerText}>{auth?.centerName}</Text>
                      <View style={styles.headerIcon}>
-                        {auth.authority === constants.authority_director && (
-                           <Icon
-                              name={"notifications-outline"}
-                              size={35}
-                              color="white"
-                              style={styles.icon}
-                              onPress={() => navigation.navigate("Notice")}
-                           />
-                        )}
                         <Icon
                            name={"log-out-outline"}
                            size={35}
@@ -103,7 +94,7 @@ function Home({ navigation, auth, list }: Props) {
                   />
                </View>
                <View style={styles.menuWithList}>
-                  <MenuWithList list={list} navigation={navigation}/>
+                  <MenuWithList list={list} navigation={navigation} />
                </View>
             </ScrollView>
          ) : (
