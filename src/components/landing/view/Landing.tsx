@@ -11,10 +11,10 @@ type Props = {
 };
 
 const desc = [
-   '똑똑한 유치원/어린이집 관리 앱, ㅁㅁㅁ',
-   '내 아이 유치원/어린이집 정보를 한눈에!',
-   '내 아이 등하원 정보를 편리하게 받아보세요.'
-]
+   "똑똑한 유치원/어린이집 관리 앱, 키드인",
+   "내 아이 유치원/어린이집 정보를 한눈에!",
+   "내 아이 등하원 정보를 편리하게 받아보세요.",
+];
 
 function Landing({ goTo }: Props) {
    const [lottie, setLottie] = useState(new Array(3).fill(""));
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
    desc: {
       fontSize: 20,
       paddingTop: 64,
-      color: '#ffd257',
-      textAlign: 'center'
+      color: "#ffd257",
+      textAlign: "center",
    },
    lottieContainer: {
       width: "80%",
