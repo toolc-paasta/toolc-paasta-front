@@ -13,7 +13,6 @@ export const sendFCMMessage = async (
          body,
          targetLoginId,
       });
-      console.log(res);
    } catch (err) {
       console.log(err.response.data);
    }
@@ -25,19 +24,16 @@ export const sendShuttleFCMMessage = async () => {
          `${Address}/api/member/director/send/shuttle`,
          {}
       );
-      console.log(res.data.response);
    } catch (err) {
       console.log(err.response.data);
    }
 };
 export const sendShuttleFCMMessageTeacher = async () => {
    try {
-      console.log("asdasd");
       const res = await axios.post(
          `${Address}/api/member/teacher/send/shuttle`,
          {}
       );
-      console.log(res.data.response);
    } catch (err) {
       console.log(err.response.data);
    }

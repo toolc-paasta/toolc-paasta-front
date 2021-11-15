@@ -1,12 +1,11 @@
 import React from "react";
 import { Text, StyleSheet, View, ScrollView } from "react-native";
-import Constants from "expo-constants";
 import Header from "../../elements/Header";
 import { navigationRef } from "../../../../RootNavigation";
 import { Input, ListItem } from "react-native-elements";
-import Button from '../../elements/Button'
+import Button from "../../elements/Button";
 import { messageType } from "../types";
-import { colors } from '../../elements/theme'
+import { colors } from "../../elements/theme";
 
 type Props = {
    messages: messageType[];
@@ -71,7 +70,12 @@ export default function Talk({
                                     bottom: 10,
                                  },
                               ]}>
-                              <Text style={{ fontSize: 10, color: "gray", fontFamily: 'Font' }}>
+                              <Text
+                                 style={{
+                                    fontSize: 10,
+                                    color: "gray",
+                                    fontFamily: "Font",
+                                 }}>
                                  {item.time}
                               </Text>
                            </View>
@@ -111,7 +115,7 @@ const stylesFunc = ({ isMe }: { isMe: boolean }) =>
          paddingHorizontal: 14,
          borderRadius: 32,
          backgroundColor: isMe ? colors.primary : colors.secondary,
-         fontFamily: 'Font'
+         fontFamily: "Font",
       },
    });
 
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 8,
    },
    input: {
-      fontFamily: 'Font'
+      fontFamily: "Font",
    },
    chatBox: {
       flex: 9,
