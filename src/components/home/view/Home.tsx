@@ -123,7 +123,11 @@ function Home({ navigation, auth, list }: Props) {
                      등록된 유치원이 없습니다.{" "}
                   </Text>
                   <Text style={styles.blankText}>
-                     먼저 등록을 해야 서비스를{" "}
+                     {auth.authority !== constants.authority_director
+                        ? auth.authority === constants.authority_parent
+                           ? "담임 선생님이 등록하신 후 "
+                           : " 먼저 등록을 해야 서비스를 "
+                        : "관리자의 승낙이 있어야 서비스를 "}
                   </Text>
                   <Text style={styles.blankText}>이용할 수 있습니다. </Text>
                   {auth.authority == "TEACHER" && (
