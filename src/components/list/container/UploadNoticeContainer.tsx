@@ -62,7 +62,8 @@ function noticeBoardContainer({ navigation }: Props) {
          dispatch(
             setSnackbar({
                visible: true,
-               snackbar: SERVER_ERROR,
+               snackbar:
+                  "3천자 이내로 글자수를 줄여주시거나, 잠시 후 다시 시도해주세요.",
             })
          );
       }

@@ -12,7 +12,7 @@ import Header from "../../elements/Header";
 import { StackScreenNavigation } from "../../../screens/UploadNoticeScreen";
 import { Image } from "react-native-elements";
 import { ImageLibraryReturn } from "../container/UploadNoticeContainer";
-import { colors } from '../../elements/theme'
+import { colors } from "../../elements/theme";
 
 type Props = {
    navigation: StackScreenNavigation;
@@ -43,40 +43,48 @@ export default function UploadNotice({
             IsInsert={null}
             setModalVisible={false}
          />
-         <View style={{ height: '100%' }}>
-            <View style={[styles.box, styles.box1]}>
-               <TextInput
-                  style={styles.input1}
-                  onChangeText={inputTitle}
-                  placeholder="제목"
-               />
+         <ScrollView
+            style={{
+               height: "100%",
+            }}>
+            <View style={{ height: "100%", paddingBottom: 56 }}>
+               <View style={[styles.box, styles.box1]}>
+                  <TextInput
+                     style={styles.input1}
+                     onChangeText={inputTitle}
+                     placeholder="제목"
+                  />
+               </View>
+               <View style={[styles.box, styles.box2]}>
+                  <TextInput
+                     style={styles.input2}
+                     onChangeText={inputContent}
+                     placeholder="내용을 입력하세요"
+                     multiline
+                     numberOfLines={20}
+                  />
+               </View>
+               <View style={[styles.imageContainer, { height: IMAGE_HEIGHT }]}>
+                  <Text
+                     style={{ marginTop: 8, paddingVertical: 8, fontSize: 16 }}>
+                     이미지 추가
+                  </Text>
+                  <Image
+                     source={{ uri: photo?.uri }}
+                     defaultSource={require("../../../../assets/default.jpg")}
+                     containerStyle={{
+                        width: IMAGE_WIDTH,
+                        height: IMAGE_HEIGHT,
+                        borderRadius: 32,
+                        backgroundColor: colors.bgSecondary,
+                     }}
+                     resizeMode="cover"
+                     progressiveRenderingEnabled
+                     onPress={pickPhoto}
+                  />
+               </View>
             </View>
-            <View style={[styles.box, styles.box2]}>
-               <TextInput
-                  style={styles.input2}
-                  onChangeText={inputContent}
-                  placeholder="내용을 입력하세요"
-                  multiline
-                  numberOfLines={20}
-               />
-            </View>
-            <View style={[styles.imageContainer, { height: IMAGE_HEIGHT }]}>
-               <Text style={{ marginTop: 8, paddingVertical: 8, fontSize: 16 }}>이미지 추가</Text>
-               <Image
-                  source={{ uri: photo?.uri }}
-                  defaultSource={require("../../../../assets/default.jpg")}
-                  containerStyle={{
-                     width: IMAGE_WIDTH,
-                     height: IMAGE_HEIGHT,
-                     borderRadius: 32,
-                     backgroundColor: colors.bgSecondary,
-                  }}
-                  resizeMode="cover"
-                  progressiveRenderingEnabled
-                  onPress={pickPhoto}
-               />
-            </View>
-         </View>
+         </ScrollView>
       </View>
    );
 }
@@ -101,12 +109,12 @@ const styles = StyleSheet.create({
    },
    input1: {
       padding: 5,
-      fontFamily: 'Font'
+      fontFamily: "Font",
    },
    input2: {
       textAlignVertical: "top",
       padding: 5,
-      fontFamily: 'Font'
+      fontFamily: "Font",
    },
    imageContainer: {
       width: "100%",
