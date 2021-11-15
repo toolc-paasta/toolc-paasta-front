@@ -45,19 +45,25 @@ export default function MenuWithList({navigation,list}:Props) {
     <View style={styles.container}>
       <Text style={styles.articleMainText}>최근 공지</Text>
       <ScrollView style={styles.listContainer}>
-        {list && [...list].reverse().slice(0,5).map((item:any, i:number) => (
-          <View key={i}>
-            {i<5 && (
-              <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
-                <View>
-                  <Text style={styles.mainText}>[ {item.author === item.center.director.name ? '전체 공지' : '반 공지'} ] {processText(15, item.title)}</Text>
-                  <Text style={styles.subText}>{processText(20, item.content)}</Text>
-                </View>
-                <Text style={styles.numText}>{makeTime(item.updatedAt)}</Text>
-              </TouchableOpacity>  
-            )}
-          </View>
-        ))}
+        {list == '' ? (
+          <Text style={{textAlign:'center',marginTop:100}}>등록된 공지가 없습니다</Text>
+        ) : (
+          <>
+            {list && [...list].reverse().slice(0,5).map((item:any, i:number) => (
+              <View key={i}>
+                {i<5 && (
+                  <TouchableOpacity style={styles.list} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
+                    <View>
+                      <Text style={styles.mainText}>[ {item.author === item.center.director.name ? '전체 공지' : '반 공지'} ] {processText(15, item.title)}</Text>
+                      <Text style={styles.subText}>{processText(20, item.content)}</Text>
+                    </View>
+                    <Text style={styles.numText}>{makeTime(item.updatedAt)}</Text>
+                  </TouchableOpacity>  
+                )}
+              </View>
+            ))}
+          </>
+        )}
       </ScrollView>
       <Modal
         animationType="slide"

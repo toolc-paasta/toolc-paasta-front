@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BottomTabNavigation } from "../../../screens/ShuttleScreen";
+import { BottomTabNavigation } from "../../../screens/ForAdminScreen";
 import ForAdmin from "../view/ForAdmin";
 import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ function ForAdminContainer({ navigation }: Props) {
       if(auth.authority =='DIRECTOR'){
          const data = await getClass();
          const newData = data.filter((x:any)=>x.directorLoginId==auth.loginId).map((x:any)=>x.classVOList)[0]
+         console.log(newData)
          setList(newData)
          newData.map((item:any, i:number) => {
             setNameList((nameList:any)=>[...nameList,item.className])

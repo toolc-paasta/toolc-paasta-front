@@ -55,15 +55,21 @@ export default function List({navigation, headerTitle,auth,list}:Props) {
     <View style={styles.container}>
       <Header header_title={headerTitle} navigation={navigation} IsInsert={auth.authority == 'PARENT' ? null : true} setIsSubmit={null} setModalVisible={false}/>
       <ScrollView style={styles.listContainer}>
-        {list && [...list].reverse().map((item:any, i:number) => (
-          <TouchableOpacity style={[styles.list, i % 2 ? styles.bgList : styles.list]} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
-            <View>
-              <Text style={styles.mainText}>[ {item.author == item.center.director.name ? '전체 공지' : '반 공지'} ]  {processText(13, item.title)}</Text>
-              <Text style={styles.subText}>{processText(20, item.content)}</Text>
-            </View>
-            <Text style={styles.numText}>{makeTime(item.updatedAt)}</Text>
-          </TouchableOpacity>  
-        ))}
+        {list == '' ? (
+          <Text style={{textAlign:'center',marginTop:100}}>등록된 공지가 없습니다</Text>
+        ) : (
+          <>
+            {list && [...list].reverse().map((item:any, i:number) => (
+              <TouchableOpacity style={[styles.list, i % 2 ? styles.bgList : styles.list]} key={i} onPress={() => [setModalVisible(true),setData(item)]}>
+                <View>
+                  <Text style={styles.mainText}>[ {item.author == item.center.director.name ? '전체 공지' : '반 공지'} ]  {processText(13, item.title)}</Text>
+                  <Text style={styles.subText}>{processText(20, item.content)}</Text>
+                </View>
+                <Text style={styles.numText}>{makeTime(item.updatedAt)}</Text>
+              </TouchableOpacity>  
+            ))}
+          </>
+        )}
       </ScrollView>
       <View style={styles.fabButtonWrap}>
         {auth.authority !== 'PARENT' && <FAB

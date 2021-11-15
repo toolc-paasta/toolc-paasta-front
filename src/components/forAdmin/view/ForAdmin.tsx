@@ -28,19 +28,25 @@ export default function ForAdmin({navigation,auth,list,getListData,nameList}:Pro
     <View style={[styles.container,modalVisible==true?{backgroundColor:'#bdbdbd'}:{backgroundColor:'#fff'}]}>
         <Header header_title={auth.authority === 'DIRECTOR' ? '반 추가' : '어린이 추가'} navigation={navigation} setIsSubmit={null} IsInsert={null} setModalVisible={false}/>
         <ScrollView style={styles.listContainer}>
-        {DATA?.map((item:any, i:number) => (
-          <View style={styles.list} key={i}>
-            <View>
-              {auth.authority === 'DIRECTOR' ? (
-                <Text style={styles.subText} numberOfLines={1}>{item.className} 반</Text>
-              ) : (
-                <Text style={styles.subText} numberOfLines={1}>{item.childName} 어린이</Text>                
-              )}
-              
-            </View>
-          </View>  
-          
-        ))}
+        {DATA == '' ? (
+          <Text style={{textAlign:'center',marginTop:200}}>등록된 데이터가 없습니다</Text>
+        ) : (
+          <>
+            {DATA?.map((item:any, i:number) => (
+              <View style={styles.list} key={i}>
+                <View>
+                  {auth.authority === 'DIRECTOR' ? (
+                    <Text style={styles.subText} numberOfLines={1}>{item.className} 반</Text>
+                  ) : (
+                    <Text style={styles.subText} numberOfLines={1}>{item.childName} 어린이</Text>                
+                  )}
+                  
+                </View>
+              </View>  
+            ))}
+          </>
+        )}
+        
       </ScrollView>
       <View style={styles.fabButtonWrap}>
         <FAB
