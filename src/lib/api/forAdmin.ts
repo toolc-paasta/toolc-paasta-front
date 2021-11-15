@@ -33,9 +33,39 @@ export const getParent = async () => {
    }
 };
 
+export const getAllParent = async () => {
+   try {
+      const res = await axios.get(`${Address}/api/member/director/read/parents`);      
+      return res.data.response;
+   } catch (err) {
+      console.log(err);
+      throw err;
+   }
+};
+
 export const getNotice = async () => {
    try {
       const res = await axios.get(`${Address}/api/member/parents/notice`);      
+      return res.data.response;
+   } catch (err) {
+      console.log(err);
+      throw err;
+   }
+};
+
+export const getNotice_T = async () => {
+   try {
+      const res = await axios.get(`${Address}/api/member/teacher/notice`);      
+      return res.data.response;
+   } catch (err) {
+      console.log(err);
+      throw err;
+   }
+};
+
+export const getNotice_D = async () => {
+   try {
+      const res = await axios.get(`${Address}/api/member/director/notice`);      
       return res.data.response;
    } catch (err) {
       console.log(err);

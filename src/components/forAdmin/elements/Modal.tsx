@@ -28,6 +28,7 @@ export default function Modal({setModalVisible,getListData,nameList} :Props) {
         dispatch(setSnackbar({ visible: true, snackbar: '가입되지 않은 사용자입니다.' }))
       else if(nameList.find((x:any) => x==number) == undefined){
         postParent({id:res.childId})
+        alert('등록되었습니다') 
       }
       else
         dispatch(setSnackbar({ visible: true, snackbar: '이미 추가된 어린이입니다.' }))

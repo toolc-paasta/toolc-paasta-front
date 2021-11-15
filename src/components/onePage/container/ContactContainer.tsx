@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BottomTabNavigation } from "../../../screens/ManagementScreen";
+import { BottomTabNavigation } from "../../../screens/ContactScreen";
 import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
 import Contact from "../view/Contact";
 import { getParent } from "../../../lib/api/forAdmin"
+import { getAllParent } from "../../../lib/api/forAdmin"
 
 
 type Props = {
@@ -17,7 +18,11 @@ function ContactContainer({ navigation }: Props) {
    const [masterDataSource, setMasterDataSource] = useState<any>([]);
 
    const getListData = async () => {
-      const data = await getParent();
+      let data;
+      if(auth.authority == "DIRECTOR")
+         data = await getAllParent();
+      else
+         data = await getParent();
       setMasterDataSource(data)
       setFilteredDataSource(data)
    }

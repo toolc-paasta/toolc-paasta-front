@@ -4,6 +4,7 @@ import { RootState } from "../../../modules";
 import { useDispatch, useSelector } from "react-redux";
 import Manage from "../view/Manage";
 import { getParent } from "../../../lib/api/forAdmin"
+import { getAllParent } from "../../../lib/api/forAdmin"
 
 
 type Props = {
@@ -18,7 +19,11 @@ function ManageContainer({ navigation }: Props) {
    const [masterDataSource, setMasterDataSource] = useState<any>([]);
 
    const getListData = async () => {
-      const data = await getParent();
+      let data;
+      if(auth.authority == "DIRECTOR")
+         data = await getAllParent();
+      else
+         data = await getParent();
       setMasterDataSource(data)
       setFilteredDataSource(data)
    }
