@@ -13,7 +13,6 @@ export const postNoticeTeacher = async (
          content,
          img,
       });
-      console.log(res.data.response);
    } catch (err) {
       console.log(err.response.data);
       throw err;
@@ -31,7 +30,6 @@ export const postNoticeDirector = async (
          content,
          img,
       });
-      console.log(res.data.response);
    } catch (err) {
       console.log(err.response.data);
       throw err;

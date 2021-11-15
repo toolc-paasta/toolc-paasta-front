@@ -42,7 +42,7 @@ function ParentListContainer({
             dispatch(loading());
             const data = await getParentsList();
             setParents(data);
-
+            addMessage([]);
             const channels = data.map((item: authStateType) => item.loginId);
             pubnub.fetchMessages(
                {
@@ -67,7 +67,13 @@ function ParentListContainer({
             console.log(e.response.data);
          }
       };
-      getList();
+      const unsubscribe = navigation.addListener("focus", () => {
+         // Screen was focused
+         // Do something
+         getList();
+         console.log("focused");
+      });
+      return unsubscribe;
    }, [pubnub]);
 
    const goToTalkRoom = (item: authStateType) => {

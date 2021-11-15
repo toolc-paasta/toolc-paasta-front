@@ -59,7 +59,7 @@ export type RootStackParamList = {
    Auth: undefined;
    Home: undefined;
    Search: undefined;
-   NoticeBoard: undefined;
+   NoticeBoard: { refresh: string };
    ParentBoard: undefined;
    ListDetail: undefined;
    Management: undefined;
@@ -148,6 +148,7 @@ export default function App() {
                               options={{
                                  headerShown: false,
                               }}
+                              initialParams={{ refresh: "123" }}
                            />
                            <Stack.Screen
                               name="ParentBoard"

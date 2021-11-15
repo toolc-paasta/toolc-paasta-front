@@ -1,14 +1,14 @@
-import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
-import { RootBottomTabParamList } from "../../App";
-import NoticeBoardContainer from "../components/list/container/NoticeBoardContainer"
+import { RootStackParamList } from "../../App";
+import NoticeBoardContainer from "../components/list/container/NoticeBoardContainer";
 
-type Props = BottomTabScreenProps<RootBottomTabParamList, "NoticeBoard">;
+type Props = StackScreenProps<RootStackParamList, "NoticeBoard">;
 
 export type BottomTabNavigation = Props["navigation"];
 
-function noticeBoardScreen({ navigation }: Props) {
-   return <NoticeBoardContainer navigation={navigation} />;
+function noticeBoardScreen({ navigation, route }: Props) {
+   return <NoticeBoardContainer navigation={navigation} route={route} />;
 }
 
 export default noticeBoardScreen;

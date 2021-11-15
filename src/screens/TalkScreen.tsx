@@ -15,7 +15,7 @@ type Props = StackScreenProps<RootStackParamList, "Talk">;
 export type BottomTabNavigation = Props["navigation"];
 
 export type TalkStackScreenParamList = {
-   ParentList: undefined;
+   ParentList: { refresh: string };
    TalkRoom: {
       channel: string;
       title?: string;
@@ -49,6 +49,9 @@ function TalkScreen({ navigation }: Props) {
             name="ParentList"
             component={ParentListContainer}
             options={{ headerShown: false }}
+            initialParams={{
+               refresh: "defualt",
+            }}
          />
       </Stack.Navigator>
    );

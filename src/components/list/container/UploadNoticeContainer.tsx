@@ -57,7 +57,9 @@ function noticeBoardContainer({ navigation }: Props) {
          } else if (auth.authority === constants.authority_teacher) {
             await postNoticeTeacher(title, content, photo?.base64);
          }
-         navigation.goBack();
+         navigation.navigate("NoticeBoard", {
+            refresh: Math.ceil(Math.random() * 1000000).toString(),
+         });
       } catch (err) {
          dispatch(
             setSnackbar({
