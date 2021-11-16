@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
       flex: 9,
    },
    inputBox: {
-      flex: 1,
+      height: 50,
       flexDirection: "row",
    },
 });
