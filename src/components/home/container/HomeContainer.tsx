@@ -15,11 +15,13 @@ function HomeContainer({ navigation }: Props) {
    const [list, setList] = useState<any>();
 
    const getData = async () => {
-      let data;
-      if (auth.authority == "DIRECTOR") data = await getNotice_D();
-      else if (auth.authority == "TEACHER") data = await getNotice_T();
-      else data = await getNotice();
-      setList(data);
+      if (auth.hasCenter) {
+         let data;
+         if (auth.authority == "DIRECTOR") data = await getNotice_D();
+         else if (auth.authority == "TEACHER") data = await getNotice_T();
+         else data = await getNotice();
+         setList(data);
+      }
    };
    useEffect(() => {
       getData();
