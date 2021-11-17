@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
       width: 60,
       height: 60,
       backgroundColor: colors.primary,
-      borderRadius: 30,
+      borderRadius: 28,
    },
    modalView: {
       height: Dimensions.get("window").height,

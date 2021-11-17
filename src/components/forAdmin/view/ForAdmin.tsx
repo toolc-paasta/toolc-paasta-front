@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
    fabButton: {
       width: 60,
       height: 60,
-      borderRadius: 30,
+      borderRadius: 28,
       backgroundColor: colors.primary,
    },
    modalView: {
