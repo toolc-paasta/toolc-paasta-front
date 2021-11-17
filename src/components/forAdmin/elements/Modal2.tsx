@@ -61,19 +61,20 @@ export default function Modal({
             </View>
          </View>
          <View style={styles.btns}>
-            <Button
-               title="취소"
-               color="secondary"
-               onPress={() => [setModalVisible(false)]}
-               paddingHorizontal={45}
-            />
-            <Button
-               title="추가"
-               color="primary"
-               margin
-               onPress={() => insertMethod()}
-               paddingHorizontal={45}
-            />
+            <View style={{ width: "47%" }}>
+               <Button
+                  title="취소"
+                  color="secondary"
+                  onPress={() => [setModalVisible(false)]}
+               />
+            </View>
+            <View style={{ width: "47%" }}>
+               <Button
+                  title="추가"
+                  color="primary"
+                  onPress={() => insertMethod()}
+               />
+            </View>
          </View>
       </View>
    );
@@ -98,7 +99,8 @@ const styles = StyleSheet.create({
       position: "absolute",
       bottom: 16,
       flexDirection: "row",
-      justifyContent: "center",
+      width: "100%",
+      justifyContent: "space-between",
    },
    btn: {
       flex: 1,
