@@ -36,6 +36,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { PubNubProvider } from "pubnub-react";
 import PubNub from "pubnub";
 import { REACT_APP_PUBLISH_KEY, REACT_APP_SUBSCRIBE_KEY } from "@env";
+import { List } from "./src/components/list/view/ListDetail";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -61,7 +62,10 @@ export type RootStackParamList = {
    Search: undefined;
    NoticeBoard: { refresh: string };
    ParentBoard: undefined;
-   ListDetail: undefined;
+   ListDetail: {
+      data: List;
+      header_title: string;
+   };
    Management: undefined;
    Contact: undefined;
    UploadNotice: undefined;

@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
    Text,
    View,
    StyleSheet,
    TouchableOpacity,
    ScrollView,
-   Modal,
-   Dimensions,
 } from "react-native";
-import Constants from "expo-constants";
-import { list_parent } from "../../elements/data";
-import { list_notice } from "../../elements/data";
 import Header from "../../elements/Header";
-import ListDetail from "./ListDetail";
 import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
 import { colors } from "../../elements/theme";
 import { FAB } from "react-native-elements";
@@ -29,10 +23,6 @@ const processText = (limit: number, text: string) =>
 
 export default function List({ navigation, headerTitle, auth, list }: Props) {
    const [date, setDate] = useState<any>(new Date());
-   const [data, setData] = useState<any>();
-   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-   const DATA = headerTitle === "공지 모아보기" ? list_notice : list_parent;
 
    const makeTime = (t: Date) => {
       const Time2string = String(t).split("-");
@@ -59,7 +49,6 @@ export default function List({ navigation, headerTitle, auth, list }: Props) {
       }
       return temp + unit[count] + " 전";
    };
-
    return (
       <View style={styles.container}>
          <Header
@@ -84,10 +73,12 @@ export default function List({ navigation, headerTitle, auth, list }: Props) {
                               i % 2 ? styles.bgList : styles.list,
                            ]}
                            key={i}
-                           onPress={() => [
-                              setModalVisible(true),
-                              setData(item),
-                           ]}>
+                           onPress={() => {
+                              navigation.navigate("ListDetail", {
+                                 data: item,
+                                 header_title: headerTitle,
+                              });
+                           }}>
                            <View>
                               <Text style={styles.mainText}>
                                  [{" "}
@@ -123,24 +114,6 @@ export default function List({ navigation, headerTitle, auth, list }: Props) {
                />
             )}
          </View>
-         <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-               setModalVisible(!modalVisible);
-            }}>
-            <View style={styles.modalView}>
-               <View>
-                  <ListDetail
-                     data={data}
-                     setModalVisible={setModalVisible}
-                     navigation={navigation}
-                     header_title={headerTitle}
-                  />
-               </View>
-            </View>
-         </Modal>
       </View>
    );
 }
@@ -198,10 +171,5 @@ const styles = StyleSheet.create({
       height: 60,
       backgroundColor: colors.primary,
       borderRadius: 28,
-   },
-   modalView: {
-      height: Dimensions.get("window").height,
-      width: Dimensions.get("window").width,
-      backgroundColor: "#ffffff",
    },
 });

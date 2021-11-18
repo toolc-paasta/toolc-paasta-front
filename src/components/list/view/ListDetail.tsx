@@ -7,13 +7,11 @@ import {
    Dimensions,
    Image,
 } from "react-native";
-import Constants from "expo-constants";
-import { comment } from "../../elements/data";
 import Header from "../../elements/Header";
-import { BottomTabNavigation } from "../../../screens/NoticeBoardScreen";
 import { colors } from "../../elements/theme";
+import { ListDetailStackScreenNav } from "../../../screens/ListDetailScreen";
 
-type List = {
+export type List = {
    dateTime: string;
    title: string;
    content: string;
@@ -21,56 +19,55 @@ type List = {
 
 type Props = {
    data: List;
-   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
    header_title: string;
-   navigation: BottomTabNavigation;
+   navigation: ListDetailStackScreenNav;
 };
 
-export default function ListDetail({
-   data,
-   setModalVisible,
-   header_title,
-   navigation,
-}: Props) {
+export default function ListDetail({ data, header_title, navigation }: Props) {
    return (
-      <ScrollView style={styles.container}>
+      <View style={{ flex: 1 }}>
          <Header
             header_title={header_title}
-            setModalVisible={setModalVisible}
+            setModalVisible={null}
             setIsSubmit={null}
             navigation={navigation}
             IsInsert={null}
          />
-         <View style={styles.listContainer}>
-            <View style={[styles.box, styles.box1]}>
-               <Text style={styles.input1}>{data.title}</Text>
-               <Text style={styles.input1_2}>
-                  {data.dateTime.split("-")[1]}월 {data.dateTime.split("-")[2]}
-                  일
-               </Text>
-            </View>
-            <View style={[styles.box, styles.box2]}>
-               <Text style={styles.input2}>{data.content}</Text>
-            </View>
-            {data?.img != "" && (
-               <View style={[styles.box, styles.box2]}>
-                  <Image
-                     style={{
-                        height:
-                           ((Dimensions.get("window").width * 0.8) / 9) * 16,
-                        width: Dimensions.get("window").width * 0.8,
-                     }}
-                     source={{ uri: data.img }}
-                  />
+         <ScrollView style={styles.container}>
+            <View style={styles.listContainer}>
+               <View style={[styles.box, styles.box1]}>
+                  <Text style={styles.input1}>{data.title}</Text>
+                  <Text style={styles.input1_2}>
+                     {data.dateTime.split("-")[1]}월{" "}
+                     {data.dateTime.split("-")[2]}일
+                  </Text>
                </View>
-            )}
-         </View>
-      </ScrollView>
+               <View style={[styles.box, styles.box2]}>
+                  <Text style={styles.input2}>{data.content}</Text>
+               </View>
+               {data?.img != "" && (
+                  <View style={[styles.box, styles.box2]}>
+                     <Image
+                        style={{
+                           height:
+                              ((Dimensions.get("window").width * 0.8) / 9) * 16,
+                           width: Dimensions.get("window").width * 0.8,
+                        }}
+                        source={{ uri: data.img }}
+                     />
+                  </View>
+               )}
+            </View>
+         </ScrollView>
+      </View>
    );
 }
 
 const styles = StyleSheet.create({
-   container: {},
+   container: {
+      height: "100%",
+      backgroundColor: "#fff",
+   },
    listContainer: {
       paddingHorizontal: 16,
    },
