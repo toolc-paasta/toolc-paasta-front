@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
       flex: 9,
    },
    inputBox: {
-      height: 50,
+      height: 55,
       flexDirection: "row",
+      justifyContent: "space-between",
    },
 });
